@@ -6,7 +6,6 @@
 
 ## General Info
 This browser based web application to ...
-
 * Hi, I'm Collin
 
 ## Technologies
