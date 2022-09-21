@@ -9,6 +9,7 @@
 This browser based web application to ...
 
 * Hello! My name is Lisa. I'm excited for COMP 1800 because I get to create a project.
+* Hello! I'm Collin. I'm excited for COMP 1800 because it will be very fun.
 
 ## Technologies
 
