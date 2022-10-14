@@ -10,7 +10,7 @@ This browser based web application to ...
 
 * hi im arman and I am excited to do this project because it might make something cool idk
 * Hello! My name is Lisa. I'm excited for COMP 1800 because I get to create a project.
-* Hello! I'm Collin. I'm excited for COMP 1800 because it will be very fun.
+* Hello! I'm Collin. I'm excited for COMP 1800 because it will be very fun and productive.
 
 ## Technologies
 
@@ -26,7 +26,7 @@ Technologies used for this project:
 Content of the project folder:
 
 ```
- Top level of project folder: 
+ Top level of project folder:
 ├── .gitignore               # Git ignore file
 ├── index.html               # landing HTML file, this is what users see when you come to url
 └── README.md
@@ -34,13 +34,13 @@ Content of the project folder:
 It has the following subfolders and files:
 ├── .git                     # Folder for git repo
 ├── images                   # Folder for images
-    /blah.jpg                # 
+    /blah.jpg                #
 ├── scripts                  # Folder for scripts
-    /blah.js                 # 
+    /blah.js                 #
 ├── styles                   # Folder for styles
-    /blah.css                # 
+    /blah.css                #
 
-Firebase hosting files: 
+Firebase hosting files:
 ├── .firebaserc...
 
 
