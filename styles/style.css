@@ -1,1 +1,29 @@
+html {
+  height: 100%;
+}
 
+body {
+  height: 100%;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.hero img {
+  position: absolute;
+  z-index: -10;
+  width: 100%
+}
+
+.hero h1 {
+  color: white;
+}
+
+.hero p {
+  color: white;
+}
