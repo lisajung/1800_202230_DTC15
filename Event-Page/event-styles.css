@@ -5,6 +5,14 @@
   justify-content: space-around;
 }
 
+.carosuel-layout {
+  background-color: #ECECEC;
+}
+
+.carousel-img {
+  margin: 0 auto;
+}
+
 .white-padding {
   width: 100%;
   padding: 150px;
