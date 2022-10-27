@@ -1,7 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 html {
   font-size: 14px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.footer span:hover {
+  cursor: pointer;
+}
+
+.footer span {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .hide {
   display: none;
 }
+
+/* Material Design Icon Sizing */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons-outlined.md-18 { font-size: 18px; }
+.material-icons-outlined.md-24 { font-size: 24px; }
+.material-icons-outlined.md-36 { font-size: 36px; }
+.material-icons-outlined.md-48 { font-size: 48px; }

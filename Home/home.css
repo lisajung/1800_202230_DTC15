@@ -27,12 +27,3 @@ body {
 .hero p {
   color: white;
 }
-
-.footer span:hover {
-  cursor: pointer;
-}
-
-.footer span {
-  padding-left: 10px;
-  padding-right: 10px;
-}
