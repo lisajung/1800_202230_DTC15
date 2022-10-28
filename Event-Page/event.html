@@ -42,10 +42,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success bg-white" type="submit">Search</button>
-                </form>
+                <div class="filter-collapse">
+                  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Filter-collapse
+                  </button>
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                      filter1 filter2 filter3
+                      <br>
+                      filter4
+                      <br>
+                      filter5
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -58,7 +68,7 @@
         </div>
         <!-- Favourite, Bookmark, etc. Widgets -->
         <div class="widget-bar col-12 col-md-3 col-lg-2">
-          <span class="material-icons md-36">favorite_border</span><span class="material-icons-outlined md-36">bookmarks</span><span class="material-icons-outlined md-36">book</span>
+          <i class="bi bi-heart"><span class="likes-text"><small>1.6k Likes</small></span></i><i class="bi bi-bookmark"></i><i class="bi bi-journal-bookmark"></i>
         </div>
       </div>
 

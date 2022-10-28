@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
 html {
   font-size: 14px;
@@ -6,6 +7,28 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+/* OVERRIDE BOOTSTRAP DEFAULT CSS */
+.navbar > div {
+  align-items: stretch !important;
+}
+
+/* OVERRIDE BOOTSTRAP DEFAULT CSS */
+.navbar-collapse {
+  align-items: start !important;
+}
+
+.filter-collapse {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-collapse {
+    width: 100%;
+  }
 }
 
 .footer span:hover {
