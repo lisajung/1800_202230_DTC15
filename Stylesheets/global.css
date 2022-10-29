@@ -10,7 +10,7 @@ body {
 }
 
 /* OVERRIDE BOOTSTRAP DEFAULT CSS */
-.navbar > div {
+nav.navbar > div {
   align-items: stretch !important;
 }
 
@@ -25,32 +25,48 @@ body {
   width: 25%;
 }
 
-@media screen and (max-width: 768px) {
-  .filter-collapse {
-    width: 100%;
-  }
+/* OVERRIDE BOOTSTRAP DEFAULT CSS */
+.footer > .container {
+  justify-content: space-around !important;
 }
 
-.footer span:hover {
-  cursor: pointer;
+.footer a {
+  color: black;
+  text-decoration: none;
 }
 
-.footer span {
-  padding-left: 10px;
-  padding-right: 10px;
+.footer i {
+  font-size: 26px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .hide {
   display: none;
 }
 
-/* Material Design Icon Sizing */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.white-padding {
+  width: 100%;
+  padding-bottom: 150px;
+}
 
-.material-icons-outlined.md-18 { font-size: 18px; }
-.material-icons-outlined.md-24 { font-size: 24px; }
-.material-icons-outlined.md-36 { font-size: 36px; }
-.material-icons-outlined.md-48 { font-size: 48px; }
+@media screen and (max-width: 768px) {
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-brand img {
+    object-fit: contain;
+  }
+
+  .filter-collapse {
+    width: 100%;
+  }
+
+  .footer i {
+    font-size: 20px;
+    padding: 0;
+  }
+}

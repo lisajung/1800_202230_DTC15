@@ -26,11 +26,6 @@
   margin: 0 auto;
 }
 
-.white-padding {
-  width: 100%;
-  padding: 150px;
-}
-
 @media screen and (max-width: 768px) {
   .widget-bar {
     justify-content: flex-start;

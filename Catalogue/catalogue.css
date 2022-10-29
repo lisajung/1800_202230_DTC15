@@ -23,13 +23,12 @@
   font-size: 22px;
 }
 
-.likes-text {
-  position: relative;
-  bottom: 5px;
-  left: 2px;
+.bi-heart {
+  font-size: 18px;
 }
 
-.white-padding {
-  width: 100%;
-  padding: 150px;
+.likes-text {
+  position: relative;
+  bottom: 1px;
+  left: 3px;
 }
