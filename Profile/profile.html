@@ -18,9 +18,9 @@
         crossorigin="anonymous"></script>
 
     <!-- Other libraries go here -->
+
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Link to styles of your own -->
     <link href="./profile.css" rel="stylesheet">
@@ -30,9 +30,11 @@
 
 <body>
 
+
     <!------------->
     <!-- Nav Bar -->
     <!------------->
+
 
     <!-- Outside -->g
     <nav class="navbar navbar-dark bg-dark fixed-top p-1">
@@ -96,9 +98,12 @@
         </div>
     </nav>
 
+
     <!----------------->
     <!-- User Card -->
     <!----------------->
+
+
     <div class="card mb-3 mt-5 m-3 border-0" id="john">
         <div class="row no-gutters">
             <div class="col-md-4 text-center mt-2 pb-1" style="max-width: 200px">
@@ -109,13 +114,60 @@
                 <div class="card-body px-0">
                     <h5 class="card-title">Firstname Lastname</h5>
                     <h6 class="mb-4">@firstnamelastname</h6>
-                    <p class="card-text my-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat culpa
-                        eaque assumenda recusandae sunt excepturi nisi, natus non ullam ipsum sapiente saepe veniam ex
-                        dolores obcaecati enim magnam quae perferendis?</p>
+                    <p class="card-text my-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
+                        culpa eaque assumenda recusandae sunt excepturi nisi, natus non ullam ipsum sapiente saepe
+                        veniam ex dolores obcaecati enim magnam quae perferendis?</p>
                     <button type="button" class="btn btn-outline-dark my-2">Edit Profile</button>
                     <p class="card-text m-0"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <!------------------>
+    <!-- Saved Events -->
+    <!------------------>
+
+    <div id="carouselExampleDark" class="carousel carousel-dark slide m-3 p-0" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
+                    class="d-block w-100" alt="..." style="max-height: 500px; object-fit:contain">
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>[First Event]</h4>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
+                    class="d-block w-100" alt="..." style="max-height: 500px; object-fit:contain">
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>[Second Event]</h4>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
+                    class="d-block w-100" alt="..." style="max-height: 500px; object-fit:contain">
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>[Third Event]</h4>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </body>
