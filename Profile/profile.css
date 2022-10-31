@@ -4,3 +4,9 @@
     border-radius: 50%;
     border: 1px solid black;
 }
+
+.setting_icon {
+    float: right;
+    font-size: xx-large;
+    margin-right: 20px;
+}
