@@ -38,14 +38,13 @@
 
 .commentcard {
   padding-top: 20px;
-  margin-bottom: 100px;
-  box-sizing: border-box;
+  display: inline-block;
 
 }
 
 .userimg {
   float: left;
-  width: 5%;
+  width: 10%;
   box-sizing: border-box;
 
 }
@@ -72,4 +71,6 @@
   .widget-bar i:nth-child(3) {
     margin-left: 20px;
   }
+
+
 }
