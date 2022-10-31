@@ -26,6 +26,39 @@
   margin: 0 auto;
 }
 
+.submit_button {
+  padding-top: 10px;
+}
+
+#commentround {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.commentcard {
+  padding-top: 20px;
+  margin-bottom: 100px;
+  box-sizing: border-box;
+
+}
+
+.userimg {
+  float: left;
+  width: 5%;
+  box-sizing: border-box;
+
+}
+
+.usercomment {
+  float: right;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+
+
+
 @media screen and (max-width: 768px) {
   .widget-bar {
     justify-content: flex-start;
