@@ -1,8 +1,9 @@
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
 firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
-    let banner = document.querySelector('.jumbotron');
-    banner.style.display = 'block';
+    //let signIn = document.querySelector('.hide');
+    //signIn.style.display = 'block';
+    console.log("not logged in")
   }
 })
 
