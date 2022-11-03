@@ -18,12 +18,26 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <!-- <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" /> -->
+
+    <!-- JavaScripts -->
+    <script src="../scripts/firebaseAPI_TEAMDTC15.js" defer></script>
+    <script src="../scripts/home.js" defer></script>
+
     <!-- Other libraries go here -->
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Link to styles of your own -->
-    <link href="/styles/home.css" rel="stylesheet">
+    <link href="../styles/home.css" rel="stylesheet">
 </head>
 
 
@@ -37,7 +51,7 @@
     <!-- Outside -->
     <nav class="navbar navbar-dark bg-dark fixed-top p-1">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img style="max-width: 35px" src="/Resources/dtclogo.png"></a>
+            <a class="navbar-brand" href="#"><img style="max-width: 35px" src="../Resources/dtclogo.png"></a>
             <div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -101,7 +115,7 @@
     <!----------------------->
     <main role="main">
 
-        <section class="jumbotron text-center">
+        <section class="jumbotron text-center hide">
             <div class="container p-4">
                 <h1 class="jumbotron-heading">Good Morning <span id="name-goes-here"></span></h1>
                 <p class="lead text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo ex

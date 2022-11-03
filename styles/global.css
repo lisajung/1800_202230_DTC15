@@ -9,39 +9,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* OVERRIDE BOOTSTRAP DEFAULT CSS */
-nav.navbar > div {
-  align-items: stretch !important;
-}
-
-/* OVERRIDE BOOTSTRAP DEFAULT CSS */
-.navbar-collapse {
-  align-items: start !important;
-}
-
-.filter-collapse {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-}
-
-/* OVERRIDE BOOTSTRAP DEFAULT CSS */
-.footer > .container {
-  justify-content: space-around !important;
-}
-
-.footer a {
-  color: black;
-  text-decoration: none;
-}
-
-.footer i {
-  font-size: 26px;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .hide {
   display: none;
 }
@@ -49,24 +16,4 @@ nav.navbar > div {
 .white-padding {
   width: 100%;
   padding-bottom: 150px;
-}
-
-@media screen and (max-width: 768px) {
-  .navbar-brand {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .navbar-brand img {
-    object-fit: contain;
-  }
-
-  .filter-collapse {
-    width: 100%;
-  }
-
-  .footer i {
-    font-size: 20px;
-    padding: 0;
-  }
 }

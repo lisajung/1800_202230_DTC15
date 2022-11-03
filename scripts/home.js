@@ -1,8 +1,16 @@
+/* DISPLAY BANNER IF USER IS NOT SIGNED IN */
+firebase.auth().onAuthStateChanged((user) => {
+  if (!user) {
+    let banner = document.querySelector('.jumbotron');
+    banner.style.display = 'block';
+  }
+})
+
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
         if (user) {
-            // Do something for the currently logged-in user here: 
+            // Do something for the currently logged-in user here:
             console.log(user.uid);
             console.log(user.displayName);
             user_Name = user.displayName;
