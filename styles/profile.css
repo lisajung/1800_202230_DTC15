@@ -21,22 +21,19 @@
 .modal-button {
   margin-top: 50px;
   align-self: flex-start;
-  background-color: #212529;
+  text-decoration: none;
+  color: unset;
+}
+
+.modal-button i {
+  font-size: 25px;
 }
 
 .modal-button:hover {
-  background-color: #212529;
+  cursor: pointer;
 }
 
-.modal-button:active {
-  background-color: #212529;
-}
-
-.modal-button:focus {
-  background-color: #212529;
-}
-
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 350px) {
   .profile-settings-row {
     flex-direction: column;
     justify-content: space-around;
