@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Link to styles of your own -->
-    <link href="/styles/profile.css" rel="stylesheet">
+    <link href="../styles/profile.css" rel="stylesheet">
 </head>
 
 
@@ -39,7 +39,7 @@
     <!-- Outside -->
     <nav class="navbar navbar-dark bg-dark fixed-top p-1">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img style="max-width: 35px" src="/Resources/dtclogo.png"></a>
+            <a class="navbar-brand" href="#"><img style="max-width: 35px" src="../Resources/dtclogo.png"></a>
             <div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -101,22 +101,24 @@
     <p></p>
 
 
-
+<div class="container">
     <!------------------->
     <!-- Settings Icon -->
     <!------------------->
 
-    <div class="setting_icon pt-1"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+    <!--<div class="setting_icon pt-1"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
             class="bi bi-gear-fill" viewBox="0 0 16 16">
             <path
                 d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-        </svg></div>
+        </svg></div>-->
+
 
     <!----------------->
     <!-- User Card -->
     <!----------------->
+<div class="profile-settings-row">
 
-    <div class="card mb-3 mt-5 m-3 border-0" id="john">
+    <div class="user-profile card mb-3 mt-5 m-3 border-0" id="john">
         <div class="row no-gutters">
             <div class="col-md-4 text-center mt-2 pb-1" style="max-width: 200px">
                 <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
@@ -136,6 +138,35 @@
         </div>
     </div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="modal-button btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Settings
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Setting
+            <br>
+            Setting
+            <br>
+            Setting
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
 
 
     <!------------------>
@@ -192,7 +223,7 @@
             <img class="img-fluid m-2 p-0" src="/Resources/map.jpg" alt="..." style="max-height: 600px">
         </div>
     </div>
-
+</div>
 
 
 </body>

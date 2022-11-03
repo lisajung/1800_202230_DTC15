@@ -1,3 +1,5 @@
+@import url("../styles/global.css");
+
 #round {
     width: 150px;
     height: 150px;
@@ -9,4 +11,43 @@
     float: right;
     font-size: xx-large;
     margin-right: 20px;
+}
+
+.profile-settings-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-button {
+  margin-top: 50px;
+  align-self: flex-start;
+  background-color: #212529;
+}
+
+.modal-button:hover {
+  background-color: #212529;
+}
+
+.modal-button:active {
+  background-color: #212529;
+}
+
+.modal-button:focus {
+  background-color: #212529;
+}
+
+@media screen and (max-width: 576px) {
+  .profile-settings-row {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .modal-button {
+     order: 1;
+     margin-left: 10px;
+  }
+
+  .user-profile {
+    order: 2;
+  }
 }

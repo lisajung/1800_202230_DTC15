@@ -1,9 +1,16 @@
-@import url("../Stylesheets/global.css");
+@import url("../styles/global.css");
+
+.row h1 {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
 
 .widget-bar {
   display: flex;
   justify-content: space-around;
   font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .carosuel-layout {
@@ -57,11 +64,14 @@
 
 
 
-
 @media screen and (max-width: 768px) {
+  .row h1 {
+    margin-bottom: 0;
+  }
+
   .widget-bar {
     justify-content: flex-start;
-    margin-bottom: 10px;
+    margin-top: 0;
   }
 
   .widget-bar i:nth-child(2) {
@@ -71,6 +81,5 @@
   .widget-bar i:nth-child(3) {
     margin-left: 20px;
   }
-
 
 }
