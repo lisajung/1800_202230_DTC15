@@ -8,8 +8,8 @@
 
 /* Callback that uses returned document to fill out profile page */
 let fillProfile = function (doc) {
-  let profileName = document.querySelector('.profile .card-title');
-  let profileUsername = document.querySelector('.profile h6');
+  let profileUsername = document.querySelector('.profile .card-title');
+  let profileName = document.querySelector('.profile h6');
   profileUsername.textContent = doc.data().name;
   profileName.textContent = doc.data().email;
 };
