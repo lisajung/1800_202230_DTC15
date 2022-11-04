@@ -10,8 +10,8 @@
 let fillProfile = function (doc) {
   let profileName = document.querySelector('.profile .card-title');
   let profileUsername = document.querySelector('.profile h6');
-  profileUsername.innerHTML = doc.data().name;
-  profileName.innerHTML = doc.data().email;
+  profileUsername.textContent = doc.data().name;
+  profileName.textContent = doc.data().email;
 };
 
 /* Initialize the profile page */
