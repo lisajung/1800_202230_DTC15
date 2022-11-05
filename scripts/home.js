@@ -3,10 +3,10 @@ firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
     let signIn = document.querySelector('.hide');
     signIn.style.display = 'block';
-    //console.log("not logged in")
   }
 })
 
+/*
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
@@ -27,3 +27,4 @@ function insertName() {
     });
 }
 insertName(); //run the function
+*/

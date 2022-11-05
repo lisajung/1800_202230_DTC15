@@ -119,11 +119,11 @@
 
     <div class="user-profile card mb-3 mt-5 border-0" id="john">
         <div class="row no-gutters">
-            <div class="col-md-4 text-center mt-2 pb-1" style="max-width: 200px">
+            <div class="col-md-4 mt-2 pb-1" style="max-width: 200px">
                 <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
-                    class="card-img p-1" id="round" alt="...">
+                    class="card-img profile-pic p-1" id="round" alt="...">
             </div>
-            <div class="col-md-8 p-0 mx-3" style="max-width:500px">
+            <div class="col-md-8 p-0" style="max-width:500px">
                 <div class="card-body profile ps-0">
                     <div class="row">
                         <span class="placeholder col-6"></span>
@@ -142,13 +142,15 @@
                       </p>
                       <div class="collapse" id="collapseExample">
                         <div class="card card-body">
+                            Profile Image URL:
+                            <input class="form-control" type="text" id="imageurl">
+                            <br>
                             Edit Name:
                             <input class="form-control" type="text" id="username" name="username">
                             <br>
                             Edit Profile Text:
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             <br>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="profile-button btn btn-primary">Save changes</button>
                         </div>
                       </div>

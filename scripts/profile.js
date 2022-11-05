@@ -6,25 +6,29 @@
   }
 }) */
 
+/* Use users document reference to set users document fields */
 let changeProfile = function(docref) {
+  let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
 
   docref.set({
     name: userName.value,
-    description: text.value
+    description: text.value,
+    imageurl: imageURL.value
   }, {merge: true}).then(() => {
     userName.value = ""; 
     text.value = ""; 
+    imageURL.value = "";
     location.reload();
   });
 }
 
+/* Find users document reference for signed in user and pass to changeProfile function */
 let handleProfileChange = function(e) {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
-        // find users document for signed in user and set fields
         docRef = db.collection("users").doc(`${user.uid}`);
         changeProfile(docRef);
     } else {
@@ -33,6 +37,7 @@ let handleProfileChange = function(e) {
   });
 }
 
+// Set up "edit profile" button handler here
 let profileButton = document.querySelector('.profile-button');
 profileButton.addEventListener('click', handleProfileChange);
 
@@ -46,6 +51,22 @@ let fillProfile = function(doc) {
   profileUsername.textContent = doc.data().name;
   profileName.textContent = doc.data().email;
   profileDescription.textContent = doc.data().description;
+  
+  //fill out "edit profile" section here
+  let imageURL = document.querySelector('#imageurl');
+  let userName = document.querySelector('#username');
+  let text = document.querySelector('#exampleFormControlTextarea1');
+  imageURL.value = doc.data().imageurl;
+  userName.value = doc.data().name;
+  text.value = doc.data().description;
+
+  // fill out profile pic here
+  let profileImage = document.querySelector('.profile-pic');
+  let imageLink = doc.data().imageurl;
+  console.log(imageLink);
+  if (imageLink != null) {
+    profileImage.src = imageLink;
+  }
 };
 
 /* Initialize the profile page */
