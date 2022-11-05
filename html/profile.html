@@ -112,36 +112,46 @@
 
 
 <div class="container">
-    <!------------------->
-    <!-- Settings Icon -->
-    <!------------------->
-
-    <!--<div class="setting_icon pt-1"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
-            class="bi bi-gear-fill" viewBox="0 0 16 16">
-            <path
-                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-        </svg></div>-->
-
-
     <!----------------->
     <!-- User Card -->
     <!----------------->
 <div class="profile-settings-row">
 
-    <div class="user-profile card mb-3 mt-5 m-3 border-0" id="john">
+    <div class="user-profile card mb-3 mt-5 border-0" id="john">
         <div class="row no-gutters">
             <div class="col-md-4 text-center mt-2 pb-1" style="max-width: 200px">
                 <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
                     class="card-img p-1" id="round" alt="...">
             </div>
             <div class="col-md-8 p-0 mx-3" style="max-width:500px">
-                <div class="card-body profile px-0">
+                <div class="card-body profile ps-0">
+                    <div class="row">
+                        <span class="placeholder col-6"></span>
+                    </div>
+                    <div class="row">
+                        <span class="placeholder col-6"></span>
+                    </div>
                     <h5 class="card-title"></h5>
                     <h6 class="mb-4"></h6>
-                    <p class="card-text my-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-                        culpa eaque assumenda recusandae sunt excepturi nisi, natus non ullam ipsum sapiente saepe
-                        veniam ex dolores obcaecati enim magnam quae perferendis?</p>
-                    <button type="button" class="btn btn-outline-dark my-2">Edit Profile</button>
+                    <p class="card-text my-1"></p>
+                    <!-- <button type="button" class="btn btn-outline-dark my-2">Edit Profile</button> -->
+                    <p>
+                        <button class="btn btn-outline-dark my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          Edit Profile
+                        </button>
+                      </p>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Edit Name:
+                            <input class="form-control" type="text" id="username" name="username">
+                            <br>
+                            Edit Profile Text:
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <br>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="profile-button btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
                     <p class="card-text m-0"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>

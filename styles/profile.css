@@ -33,6 +33,17 @@
   cursor: pointer;
 }
 
+.user-profile {
+  width: 100%;
+  padding-left: 20px;
+}
+
+.placeholder {
+  height: 16px;
+  background-color: grey;
+  margin-top: 8px;
+}
+
 @media screen and (max-width: 350px) {
   .profile-settings-row {
     flex-direction: column;
