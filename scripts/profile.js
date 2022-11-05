@@ -8,14 +8,14 @@
 
 let changeProfile = function(docref) {
   let userName = document.querySelector('#username');
-  console.log(userName.value); 
   let text = document.querySelector('#exampleFormControlTextarea1');
-  console.log(text.value); 
 
   docref.set({
     name: userName.value,
     description: text.value
   }, {merge: true}).then(() => {
+    userName.value = ""; 
+    text.value = ""; 
     location.reload();
   });
 }
