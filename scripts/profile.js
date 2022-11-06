@@ -15,7 +15,7 @@ let changeProfile = function(docref) {
   docref.set({
     name: userName.value,
     description: text.value,
-    imageurl: imageURL.value
+    profilePictureUrl: imageURL.value
   }, {merge: true}).then(() => {
     userName.value = ""; 
     text.value = ""; 
@@ -56,15 +56,15 @@ let fillProfile = function(doc) {
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
-  imageURL.value = doc.data().imageurl;
+  imageURL.value = doc.data().profilePictureUrl;
   userName.value = doc.data().name;
   text.value = doc.data().description;
 
   // fill out profile pic here
   let profileImage = document.querySelector('.profile-pic');
-  let imageLink = doc.data().imageurl;
+  let imageLink = doc.data().profilePictureUrl;
   console.log(imageLink);
-  if (imageLink != null) {
+  if (imageLink !== "") {
     profileImage.src = imageLink;
   }
 };
