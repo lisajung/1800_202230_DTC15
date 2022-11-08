@@ -28,3 +28,31 @@ function insertName() {
 }
 insertName(); //run the function
 */
+
+//------------------------------------------------------
+// Get data from a CSV file with ".fetch()"
+// Since this file is local, you must use "live serve"
+//------------------------------------------------------
+async function getCSVdata() {
+  console.log("hello")
+  const response = await fetch('/event_data.csv'); //send get request
+  const data = await response.text();      //get file response
+  const list = data.split('\n').slice(1);  //get line
+  list.forEach(row => {
+    const columns = row.split(',');
+    const title = columns[0];
+    const link = columns[1];
+    const location = columns[2];
+    const cost = columns[3];
+    const date = columns[4];
+    const image = columns[5];
+    db.collection("events").add({   //write to firestore
+      event: title,
+      link: link,
+      location: location,
+      cost: cost,
+      date: date,
+      imageurl: image,
+    })
+  })
+}
