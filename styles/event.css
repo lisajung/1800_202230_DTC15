@@ -46,19 +46,18 @@
 .commentcard {
   padding-top: 20px;
   display: inline-block;
+  width: 100%;
 
 }
 
 .userimg {
   float: left;
-  width: 10%;
   box-sizing: border-box;
 
 }
 
 .usercomment {
   float: right;
-  width: 90%;
   box-sizing: border-box;
 }
 
