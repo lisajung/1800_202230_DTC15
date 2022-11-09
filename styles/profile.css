@@ -44,10 +44,7 @@
   margin-top: 8px;
 }
 
-.logoutbtn {
-  margin-top: 510px;
-  height: 40px;
-}
+
 
 @media screen and (max-width: 350px) {
   .profile-settings-row {

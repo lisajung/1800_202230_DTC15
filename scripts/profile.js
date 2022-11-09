@@ -1,10 +1,9 @@
 /* SEND USER TO HOME PAGE IF NOT SIGNED IN */
-// temporarily commented out
-/* firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
     window.location.assign("index.html");
   }
-}) */
+})
 
 /* Use users document reference to set users document fields */
 let changeProfile = function (docref) {
@@ -84,11 +83,3 @@ function profileInit() {
 }
 profileInit();
 
-/* Sign user out */
-function logout() {
-  firebase.auth().signOut().then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-}
