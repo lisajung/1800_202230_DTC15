@@ -6,28 +6,31 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 })
 
-/*
+
 function insertName() {
-    firebase.auth().onAuthStateChanged(user => {
-        // Check if a user is signed in:
-        if (user) {
-            // Do something for the currently logged-in user here:
-            console.log(user.uid);
-            console.log(user.displayName);
-            user_Name = user.displayName;
+  firebase.auth().onAuthStateChanged(user => {
+    // Check if a user is signed in:
+    if (user) {
+      // Do something for the currently logged-in user here:
+      //console.log(user.uid);
+      //console.log(user.displayName);
+      //user_Name = user.displayName;
+      docRef = db.collection("users").doc(`${user.uid}`);
+      docRef.get().then((doc) => {
+        user_Name = doc.data().name;
+        $("#name-goes-here").text(user_Name);
+      });
+      //method #1:  insert with html only
+      //document.getElementById("name-goes-here").innerText = user_Name;    //using javascript
+      //method #2:  insert using jquery //using jquery
 
-            //method #1:  insert with html only
-            //document.getElementById("name-goes-here").innerText = user_Name;    //using javascript
-            //method #2:  insert using jquery
-            $("#name-goes-here").text(user_Name); //using jquery
-
-        } else {
-            // No user is signed in.
-        }
-    });
+    } else {
+      // No user is signed in.
+    }
+  });
 }
 insertName(); //run the function
-*/
+
 
 //------------------------------------------------------
 // Get data from a CSV file with ".fetch()"
