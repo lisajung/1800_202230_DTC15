@@ -12,9 +12,9 @@ soup = BeautifulSoup(page.content, 'html.parser')
 lists = soup.find_all('article')
 
 with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
-    thewriter = writer(file)
+    writer = writer(file)
     header = ['Title', 'Link', 'Location', 'Cost', 'Date', 'Image']
-    thewriter.writerow(header)
+    writer.writerow(header)
     for list in lists:
         h2 = list.find('h2', class_ = "entry-title")
         a = h2.find('a', attrs={'href': re.compile("^https://")})
@@ -33,6 +33,11 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
         for p in list.find_all('p', class_="event_date"):
             date = list.find('p', class_ = "event_date").text
 
-
+        title = str(title).replace(',',"")
+        link = str(link).replace(',',"")
+        location = str(location).replace(',',"")
+        cost = str(cost).replace(',',"")
+        date = str(date).replace(',',"")
+        src = str(src).replace(',',"")
         info = [title, link, location, cost, date, src]
-        thewriter.writerow(info)
+        writer.writerow(info)
