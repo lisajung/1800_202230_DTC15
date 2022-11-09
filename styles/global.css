@@ -13,12 +13,6 @@ body {
   display: none;
 }
 
-.white-padding {
-  width: 100%;
-  padding-bottom: 150px;
-}
-
 .logoutbtn {
-  margin-top: 510px;
   height: 40px;
 }

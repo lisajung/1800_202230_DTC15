@@ -1,7 +1,7 @@
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
 firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
-    let signIn = document.querySelector('.hide');
+    let signIn = document.querySelector('.buttons-container');
     signIn.style.display = 'block';
   }
 })
