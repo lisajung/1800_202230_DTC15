@@ -7,7 +7,7 @@
 }) */
 
 /* Use users document reference to set users document fields */
-let changeProfile = function(docref) {
+let changeProfile = function (docref) {
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
@@ -16,23 +16,23 @@ let changeProfile = function(docref) {
     name: userName.value,
     description: text.value,
     profilePictureUrl: imageURL.value
-  }, {merge: true}).then(() => {
-    userName.value = ""; 
-    text.value = ""; 
+  }, { merge: true }).then(() => {
+    userName.value = "";
+    text.value = "";
     imageURL.value = "";
     location.reload();
   });
 }
 
 /* Find users document reference for signed in user and pass to changeProfile function */
-let handleProfileChange = function(e) {
+let handleProfileChange = function (e) {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
-        docRef = db.collection("users").doc(`${user.uid}`);
-        changeProfile(docRef);
+      docRef = db.collection("users").doc(`${user.uid}`);
+      changeProfile(docRef);
     } else {
-        // No user is signed in.
+      // No user is signed in.
     }
   });
 }
@@ -42,7 +42,7 @@ let profileButton = document.querySelector('.profile-button');
 profileButton.addEventListener('click', handleProfileChange);
 
 /* Callback that uses returned document to fill out profile page */
-let fillProfile = function(doc) {
+let fillProfile = function (doc) {
   let placeHolders = document.querySelectorAll('.placeholder');
   placeHolders.forEach(e => (e.style.display = 'none'))
   let profileUsername = document.querySelector('.profile .card-title');
@@ -51,7 +51,7 @@ let fillProfile = function(doc) {
   profileUsername.textContent = doc.data().name;
   profileName.textContent = doc.data().email;
   profileDescription.textContent = doc.data().description;
-  
+
   //fill out "edit profile" section here
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
@@ -72,14 +72,23 @@ let fillProfile = function(doc) {
 /* Initialize the profile page */
 function profileInit() {
   firebase.auth().onAuthStateChanged(user => {
-      // Check if a user is signed in:
-      if (user) {
-          // find users document for signed in user and pass to callback
-          docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.get().then(fillProfile);
-      } else {
-          // No user is signed in.
-      }
+    // Check if a user is signed in:
+    if (user) {
+      // find users document for signed in user and pass to callback
+      docRef = db.collection("users").doc(`${user.uid}`);
+      docRef.get().then(fillProfile);
+    } else {
+      // No user is signed in.
+    }
   });
 }
 profileInit();
+
+/* Sign user out */
+function logout() {
+  firebase.auth().signOut().then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+}
