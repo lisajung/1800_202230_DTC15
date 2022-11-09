@@ -1,16 +1,16 @@
 @import url("../styles/global.css");
 
 #round {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 1px solid black;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid black;
 }
 
 .setting_icon {
-    float: right;
-    font-size: xx-large;
-    margin-right: 20px;
+  float: right;
+  font-size: xx-large;
+  margin-right: 20px;
 }
 
 .profile-settings-row {
@@ -44,6 +44,11 @@
   margin-top: 8px;
 }
 
+.logoutbtn {
+  margin-top: 550px;
+  height: 40px;
+}
+
 @media screen and (max-width: 350px) {
   .profile-settings-row {
     flex-direction: column;
@@ -51,8 +56,8 @@
   }
 
   .modal-button {
-     order: 1;
-     margin-left: 10px;
+    order: 1;
+    margin-left: 10px;
   }
 
   .user-profile {
