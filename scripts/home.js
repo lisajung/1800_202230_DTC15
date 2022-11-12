@@ -43,19 +43,25 @@ async function getCSVdata() {
   const list = data.split('\n').slice(1);  //get line
   list.forEach(row => {
     const columns = row.split(',');
-    const title = columns[0];
-    const link = columns[1];
-    const location = columns[2];
-    const cost = columns[3];
-    const date = columns[4];
-    const image = columns[5];
+    const eventtitle = columns[0];
+    const eventlink = columns[1];
+    const eventlocation = columns[2];
+    const eventcost = columns[3];
+    const eventdate = columns[4];
+    const eventnumericaldate = columns[5]
+    const eventimage = columns[6];
+    const eventdescription = columns[7]
+    const eventlikecount = columns[8]
     db.collection("events").add({   //write to firestore
-      event: title,
-      link: link,
-      location: location,
-      cost: cost,
-      date: date,
-      imageurl: image,
+      event: eventtitle,
+      link: eventlink,
+      location: eventlocation,
+      cost: eventcost,
+      date: eventdate,
+      numericaldate: eventnumericaldate,
+      imageurl: eventimage,
+      description: eventdescription,
+      likecounter: eventlikecount
     })
   })
 }
