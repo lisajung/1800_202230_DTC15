@@ -15,4 +15,15 @@ body {
 
 .logoutbtn {
   height: 40px;
+  position: fixed;
+  bottom: 0px;
+  right: 20px;
+
+}
+
+.navprofilepic {
+  position: absolute;
+  right: 70px;
+  border-radius: 10%;
+
 }
