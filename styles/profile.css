@@ -1,12 +1,5 @@
 @import url("../styles/global.css");
 
-#round {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 1px solid black;
-}
-
 .setting_icon {
   float: right;
   font-size: xx-large;

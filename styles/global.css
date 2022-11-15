@@ -27,3 +27,10 @@ body {
   border-radius: 10%;
 
 }
+
+.round {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
