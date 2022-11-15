@@ -25,6 +25,36 @@ function addLogoutHandler() {
 }
 addLogoutHandler();
 
+function insertNavProfilePic() {
+    firebase.auth().onAuthStateChanged(user => {
+        let profileImage = document.getElementById("navpic")
+        // Check if a user is signed in:
+        if (user) {
+            // Do something for the currently logged-in user here:
+            //console.log(user.uid);
+            //console.log(user.displayName);
+            //user_Name = user.displayName;
+            docRef = db.collection("users").doc(`${user.uid}`);
+            docRef.get().then((doc) => {
+                profileImage.style.visibility = 'visible'
+                // fill out profile pic here
+                let imageLink = doc.data().profilePictureUrl;
+                if (imageLink !== "") {
+                    profileImage.src = imageLink;
+                } else {
+                    profileImage.src = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
+                }
+            });
+            //method #1:  insert with html only
+            //document.getElementById("name-goes-here").innerText = user_Name;    //using javascript
+            //method #2:  insert using jquery //using jquery
+        } else {
+            profileImage.style.visibility = 'hidden'
+        }
+    });
+}
+insertNavProfilePic(); //run the function
+
 
 // function populateCardsDynamically() {
 //     let eventCardTemplate = document.getElementById("eventCardTemplate");
