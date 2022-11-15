@@ -12,11 +12,11 @@ function handleLogout(e) {
 /* DISPLAY logout button IF USER IS SIGNED IN */
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log("signed in");
+        //console.log("signed in");
         let signOut = document.querySelector('.logoutbtn');
         signOut.style.display = 'block';
     }
-    console.log("not signed in");
+    //console.log("not signed in");
 })
 
 function addLogoutHandler() {
