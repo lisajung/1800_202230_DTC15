@@ -70,7 +70,7 @@ async function getCSVdata() {
 function populateCardsDynamically() {
   let eventCardTemplate = document.getElementById("eventCardTemplate");
   let eventCardGroup = document.getElementById("eventCardGroup");
-  db.collection("events").get()
+  db.collection("events").orderBy("numericaldate", "asc").get()
     .then(allEvents => {
       allEvents.forEach(doc => {
         var eventName = doc.data().event; //gets the name field
