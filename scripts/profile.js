@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged((user) => {
 })
 
 /* Use users document reference to set users document fields */
-let changeProfile = function (docref) {
+let changeProfile = function(docref) {
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
@@ -21,10 +21,10 @@ let changeProfile = function (docref) {
     imageURL.value = "";
     location.reload();
   });
-}
+};
 
 /* Find users document reference for signed in user and pass to changeProfile function */
-let handleProfileChange = function (e) {
+let handleProfileChange = function(e) {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
@@ -34,14 +34,17 @@ let handleProfileChange = function (e) {
       // No user is signed in.
     }
   });
-}
+};
 
 // Set up "edit profile" button handler here
-let profileButton = document.querySelector('.profile-button');
-profileButton.addEventListener('click', handleProfileChange);
+let addProfileButtonHandler = function() {
+  let profileButton = document.querySelector('.profile-button');
+  profileButton.addEventListener('click', handleProfileChange);
+};
+addProfileButtonHandler();
 
 /* Callback that uses returned document to fill out profile page */
-let fillProfile = function (doc) {
+let fillProfile = function(doc) {
   let placeHolders = document.querySelectorAll('.placeholder');
   placeHolders.forEach(e => (e.style.display = 'none'))
   let profileUsername = document.querySelector('.profile .card-title');
@@ -69,7 +72,7 @@ let fillProfile = function (doc) {
 };
 
 /* Initialize the profile page */
-function profileInit() {
+let profileInit = function() {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
@@ -80,6 +83,6 @@ function profileInit() {
       // No user is signed in.
     }
   });
-}
+};
 profileInit();
 

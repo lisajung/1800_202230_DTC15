@@ -47,3 +47,8 @@ footer p {
   margin: none;
   padding: none;
 }
+
+.event-link, .event-link:hover, .event-link:focus, .event-link:active {
+  text-decoration: none;
+  color: inherit;
+}
