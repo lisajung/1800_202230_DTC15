@@ -1,5 +1,22 @@
 @import url("../styles/global.css");
 
-.aboutushero {
-    margin-top: 50px;
+.about-us-heading {
+    color: white;
+}
+
+.about-us-paragraphs {
+    margin-right: 70px;
+    margin-left: 70px;
+    margin-top: 20px;
+
+
+}
+
+.hero-image {
+    background: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp') no-repeat center top;
+    background-size: cover;
+}
+
+@media (min-width: 768px) {
+    background: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp') no-repeat center top;
 }
