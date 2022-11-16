@@ -12,9 +12,12 @@
 
 .social-media-icons {
     align-items: center;
-    margin-left: 45%;
-    margin-right: 45%;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+
 }
+
 
 .hero-image {
     background: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp') no-repeat center top;
@@ -23,4 +26,11 @@
 
 @media (min-width: 768px) {
     background: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp') no-repeat center top;
+
+    .social-media-icons {
+        align-items: center;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+    }
 }
