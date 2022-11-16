@@ -8,8 +8,12 @@
     margin-right: 70px;
     margin-left: 70px;
     margin-top: 20px;
+}
 
-
+.social-media-icons {
+    align-items: center;
+    margin-left: 45%;
+    margin-right: 45%;
 }
 
 .hero-image {
