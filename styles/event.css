@@ -66,8 +66,8 @@
 }
 
 .usercomment {
-  float: right;
   box-sizing: border-box;
+  clear: both;
 }
 
 
