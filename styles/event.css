@@ -6,11 +6,17 @@
 }
 
 .widget-bar {
+  align-self: start;
   display: flex;
-  justify-content: space-around;
-  font-size: 25px;
+  justify-content: flex-end;
+  font-size: 34px;
   margin-top: 10px;
   margin-bottom: 15px;
+}
+
+.widget-bar .bi-bookmark,.widget-bar .bi-bookmark-check {
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .carousel-layout {
@@ -23,8 +29,8 @@
 
 .likes-text {
   position: absolute;
-  top: 32px;
-  left: -3px;
+  top: 40px;
+  left: -1px;
   font-size: 12px;
   white-space: nowrap;
 }
@@ -63,7 +69,7 @@
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .row h1 {
     margin-bottom: 0;
   }
