@@ -17,17 +17,44 @@ let handleSaveEvent = function(e) {
 
         }   
     });    
-}
+};
 
-let handleLikeEvent = function() {
+/* Handles the comment submit by storing a review in the reviews collection */
+let addComment = function(userDocRef) {
+    let commentTextBox = document.querySelector('.comment-text');
+    let userDocId = userDocRef.id;
+    docRef = db.collection("reviews").doc();
 
-}
+    docRef.set({
+        text: commentTextBox.value,
+        userId: userDocId
+    }).then(() => {
+        commentTextBox.value = "";
+        location.reload();
+    });
+};
 
-/* Add interactive functionality to icons */
+/* Called when a user clicks submit button next to comment */
+let handleAddComment = function(e) {
+    firebase.auth().onAuthStateChanged(user => {
+        // Check if a user is signed in:
+        if (user) {
+            docRef = db.collection("users").doc(`${user.uid}`);
+            addComment(docRef);
+        } else {
+            // No user is signed in.
+        }
+    });
+};
+
+/* Add interactive functionality to icons, buttons */
 let addWidgetListeners = function() {
     let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
     bookmarkIcon.addEventListener('click', handleSaveEvent);
-}
+
+    let submitButton = document.querySelector('.submit-button');
+    submitButton.addEventListener('click', handleAddComment);
+};
 
 /* style widgets according to current user document */
 let displayWidgetState = function(doc) {
@@ -40,7 +67,7 @@ let displayWidgetState = function(doc) {
         let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
         bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
     }
-}
+};
 
 /* Fill event page with appropriate firestore data */
 let fillEventPage = function(doc) {
@@ -79,6 +106,7 @@ let eventInit = function() {
             docRef.get().then(displayWidgetState);
             addWidgetListeners();
         } else {
+            //TODO: disable components that non-users can't use
 
         }   
     });

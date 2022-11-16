@@ -54,6 +54,9 @@
   display: inline-block;
   width: 100%;
 
+  border: 1px solid grey;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 .userimg {
