@@ -34,3 +34,14 @@ body {
   border-radius: 50%;
   border: 1px solid black;
 }
+
+footer {
+  background-color: #EBECF0;
+  margin-top: 10px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}

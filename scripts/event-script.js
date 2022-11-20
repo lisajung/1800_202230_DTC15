@@ -13,6 +13,7 @@ let handleSaveEvent = function (e) {
             });
 
             e.target.setAttribute('class', 'bi bi-bookmark-check');
+            //e.target.
         } else {
 
         }
@@ -86,7 +87,7 @@ let fillEventPage = function (doc) {
     let eventLink = document.querySelector('.event-link a');
 
     imgCarousel.src = doc.data().posterurl;
-    eventDescription.textContent = doc.data().description;
+    eventDescription.innerHTML = doc.data().description;
     eventName.textContent = doc.data().event;
     eventLikes.textContent = `${doc.data().likecounter} likes`;
     eventLocation.textContent = doc.data().location;

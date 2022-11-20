@@ -45,78 +45,7 @@
     <!------------->
 
     <!-- Outside -->
-    <nav class="navbar navbar-dark bg-dark fixed-top p-1">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/html/index.html"><img style="max-width: 35px"
-                    src="../Resources/dtclogo.png"></a>
-            <div class="navprofilepic">
-                <a href="/html/profile.html"><img style="max-width: 35px; max-height: 35px;" class="round" id="navpic"
-                        src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"></a>
-            </div>
-            <div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-
-            <!-- Inside -->
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                aria-labelledby="offcanvasDarkNavbarLabel">
-                <div class="offcanvas-header bg-dark">
-                    <h5 class="offcanvas-title text-light" id="offcanvasDarkNavbarLabel">Ditch The Cubicle</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body bg-dark">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active text-warning" aria-current="page" href="./index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="./map.html">Map</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="./profile.html">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="./aboutus.html">About us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="./help.html">Help</a>
-                        </li>
-                        <form class="d-flex mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-warning" type="submit">Search</button>
-                        </form>
-                        <button type="button" class="logoutbtn btn-warning btn-lg hide">Logout</button>
-                    </ul>
-                    <!-- <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="#">Surprise Me</a>
-                            <a class="nav-link text-warning" href="#">Surprise Me</a>
-                            <a class="nav-link text-warning" href="#">Surprise Me</a>
-                        </li>
-                    </ul> -->
-                    <!-- Dropdown Code -->
-                    <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> -->
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div id="navbarPlaceholder"></div>
 
     <!----------------------->
     <!-- Catalogue Gallery -->
@@ -392,22 +321,14 @@
 
     </main>
 
-    <footer class="text-muted">
-        <div class="container">
-            <p class="float-right">
-                <a href="#">Back to top</a>
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus libero dolore nam et odit
-                exercitationem. Eius velit aperiam possimus dolore ducimus modi aliquid nihil nesciunt maiores sit,
-                debitis dolores excepturi.</p>
-        </div>
-    </footer>
+    <div id="footerPlaceholder"></div>
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
 
     <!-- Link to scripts of your own -->
     <script src="../scripts/firebaseAPI_TEAMDTC15.js"></script>
+    <script src="../scripts/skeleton.js"></script>
     <script src="../scripts/index.js"></script>
     <script src="../scripts/main.js"></script>
 
