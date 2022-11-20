@@ -1,9 +1,31 @@
-/* Handle a save event by storing the event into current users document */
-let handleSaveEvent = function (e) {
+function handleRemoveSaveEvent(e){
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
+    console.log("clicked remove");
+    /* If user is signed in then save the event page into firestore */
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            docRef = db.collection("users").doc(`${user.uid}`);
+            docRef.update({
+                savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
+            });
 
+            e.target.setAttribute('class', 'bi bi-bookmark');
+            e.target.removeEventListener('click', handleRemoveSaveEvent);
+            e.target.addEventListener('click', handleSaveEvent);
+        } else {
+
+        }
+    });
+}
+
+/* Handle a save event by storing the event into current users document and changing bookmark icon */
+function handleSaveEvent(e) {
+    let queryStr = window.location.search;
+    let queryParams = new URLSearchParams(queryStr);
+    let docId = queryParams.get("id");
+    console.log("clicked save");
     /* If user is signed in then save the event page into firestore */
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -13,15 +35,16 @@ let handleSaveEvent = function (e) {
             });
 
             e.target.setAttribute('class', 'bi bi-bookmark-check');
-            //e.target.
+            e.target.removeEventListener('click', handleSaveEvent);
+            e.target.addEventListener('click', handleRemoveSaveEvent);
         } else {
 
         }
     });
-};
+}
 
 /* Handles the comment submit by storing a review in the reviews collection */
-let addComment = function (userDocRef) {
+function addComment(userDocRef) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
@@ -38,10 +61,10 @@ let addComment = function (userDocRef) {
         commentTextBox.value = "";
         location.reload();
     });
-};
+}
 
 /* Called when a user clicks submit button next to comment */
-let handleAddComment = function (e) {
+function handleAddComment(e) {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
         if (user) {
@@ -51,19 +74,26 @@ let handleAddComment = function (e) {
             // No user is signed in.
         }
     });
-};
+}
 
 /* Add interactive functionality to icons, buttons */
-let addWidgetListeners = function () {
+function addWidgetListeners() {
     let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
-    bookmarkIcon.addEventListener('click', handleSaveEvent);
+    if (bookmarkIcon !== null) {
+        bookmarkIcon.addEventListener('click', handleSaveEvent);
+    }
+
+    let checkedBookmarkIcon = document.querySelector('.widget-bar .bi-bookmark-check');
+    if (checkedBookmarkIcon !== null) {
+        checkedBookmarkIcon.addEventListener('click', handleRemoveSaveEvent);
+    }
 
     let submitButton = document.querySelector('.submit-button');
     submitButton.addEventListener('click', handleAddComment);
-};
+}
 
 /* style widgets according to current user document */
-let displayWidgetState = function (doc) {
+function displayWidgetState(doc) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
@@ -73,10 +103,11 @@ let displayWidgetState = function (doc) {
         let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
         bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
     }
-};
+    addWidgetListeners();
+}
 
 /* Fill event page with appropriate firestore data */
-let fillEventPage = function (doc) {
+function fillEventPage(doc) {
     let imgCarousel = document.querySelector('.carousel-img');
     let eventDescription = document.querySelector('.event-description');
     let eventName = document.querySelector('.title');
@@ -94,10 +125,10 @@ let fillEventPage = function (doc) {
     eventDate.textContent = doc.data().date;
     eventCost.textContent = doc.data().cost;
     eventLink.href = doc.data().link;
-};
+}
 
 /* Fill comment section of page with appropriate firestore data */
-let fillCommentSection = function (docQuery) {
+function fillCommentSection(docQuery) {
     let commentTemplate = document.querySelector(".comment-template");
     let commentContainer = document.querySelector(".comment-container");
     docQuery.forEach((doc) => {
@@ -112,10 +143,10 @@ let fillCommentSection = function (docQuery) {
             commentContainer.appendChild(commentNode);
         });
     });
-};
+}
 
 /* Initialize the event page */
-let eventInit = function () {
+function eventInit() {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
@@ -131,11 +162,11 @@ let eventInit = function () {
         if (user) {
             docRef = db.collection("users").doc(`${user.uid}`);
             docRef.get().then(displayWidgetState);
-            addWidgetListeners();
         } else {
             //TODO: disable components that non-users can't use
-
+            document.querySelector("#comment-input").style.display = 'none';
+            document.querySelector(".bi-bookmark").style.display = 'none';
         }
     });
-};
+}
 eventInit();

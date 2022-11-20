@@ -44,6 +44,7 @@ function displayLogoutButton() {
 function insertNavProfilePic() {
     firebase.auth().onAuthStateChanged(user => {
         let profileImage = document.getElementById("navpic");
+        let profileImageContainer = document.querySelector(".navprofilepic");
         // Check if a user is signed in:
         if (user) {
             // Do something for the currently logged-in user here:
@@ -60,6 +61,7 @@ function insertNavProfilePic() {
             });
         } else {
             profileImage.style.visibility = 'hidden';
+            profileImageContainer.style.display = 'none';
         }
     });
 }
