@@ -1,5 +1,5 @@
 /* Handle a save event by storing the event into current users document */
-let handleSaveEvent = function(e) {
+let handleSaveEvent = function (e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
@@ -15,12 +15,12 @@ let handleSaveEvent = function(e) {
             e.target.setAttribute('class', 'bi bi-bookmark-check');
         } else {
 
-        }   
-    });    
+        }
+    });
 };
 
 /* Handles the comment submit by storing a review in the reviews collection */
-let addComment = function(userDocRef) {
+let addComment = function (userDocRef) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
@@ -40,7 +40,7 @@ let addComment = function(userDocRef) {
 };
 
 /* Called when a user clicks submit button next to comment */
-let handleAddComment = function(e) {
+let handleAddComment = function (e) {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
         if (user) {
@@ -53,7 +53,7 @@ let handleAddComment = function(e) {
 };
 
 /* Add interactive functionality to icons, buttons */
-let addWidgetListeners = function() {
+let addWidgetListeners = function () {
     let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
     bookmarkIcon.addEventListener('click', handleSaveEvent);
 
@@ -62,7 +62,7 @@ let addWidgetListeners = function() {
 };
 
 /* style widgets according to current user document */
-let displayWidgetState = function(doc) {
+let displayWidgetState = function (doc) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
@@ -75,7 +75,7 @@ let displayWidgetState = function(doc) {
 };
 
 /* Fill event page with appropriate firestore data */
-let fillEventPage = function(doc) {
+let fillEventPage = function (doc) {
     let imgCarousel = document.querySelector('.carousel-img');
     let eventDescription = document.querySelector('.event-description');
     let eventName = document.querySelector('.title');
@@ -84,8 +84,8 @@ let fillEventPage = function(doc) {
     let eventDate = document.querySelector('.event-date');
     let eventCost = document.querySelector('.event-cost');
     let eventLink = document.querySelector('.event-link a');
-    
-    imgCarousel.src = doc.data().imageurl;
+
+    imgCarousel.src = doc.data().posterurl;
     eventDescription.textContent = doc.data().description;
     eventName.textContent = doc.data().event;
     eventLikes.textContent = `${doc.data().likecounter} likes`;
@@ -96,7 +96,7 @@ let fillEventPage = function(doc) {
 };
 
 /* Fill comment section of page with appropriate firestore data */
-let fillCommentSection = function(docQuery) {
+let fillCommentSection = function (docQuery) {
     let commentTemplate = document.querySelector(".comment-template");
     let commentContainer = document.querySelector(".comment-container");
     docQuery.forEach((doc) => {
@@ -114,7 +114,7 @@ let fillCommentSection = function(docQuery) {
 };
 
 /* Initialize the event page */
-let eventInit = function() {
+let eventInit = function () {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
@@ -134,7 +134,7 @@ let eventInit = function() {
         } else {
             //TODO: disable components that non-users can't use
 
-        }   
+        }
     });
 };
 eventInit();
