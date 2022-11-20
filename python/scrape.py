@@ -16,7 +16,7 @@ lists = soup.find_all('article')
 # Open CSV to write
 with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
     writer = writer(file)
-    header = ['Title', 'Link', 'Location', 'Cost', 'Date', 'NumericalDate', 'Image', 'Poster', 'Description', 'Rating']
+    header = ['Title', 'Link', 'Location', 'Cost', 'StartDate', 'EndDate', 'NumericalDate', 'Image', 'Poster', 'Description', 'Rating']
     writer.writerow(header)
     
     # Iterate over each article
@@ -37,16 +37,9 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             cost = list.find('p', class_ = "ampprice").text
         for p in list.find_all('p', class_="event_date"):
             date = list.find('p', class_ = "event_date").text.rstrip()
-            StartDate = list.find('span', itemprop = "startDate").text.rstrip()
 
 
         if date != 'Not Specified':
-            months = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
-            listdate = StartDate.split(" ")
-            numericaldate = 0
-            numericaldate += int(listdate[2]) * 10000 + months.get(listdate[0]) * 100 + int(listdate[1].replace(",", ""))
-
-
             # Scrape each specific article
             url = link
             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -59,6 +52,13 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             paragraph_list = paragraphs.split('<p>')
             description = paragraph_list[1]
             poster = str(soup.find_all('img', attrs={'src': re.compile("https://")})[2])
+            StartDate = soup.find('span', class_="frontend_st_date frontend_datepicker").text
+            EndDate = soup.find('span', class_="frontend_end_date frontend_datepicker").text
+
+            months = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12}
+            listdate = EndDate.split(" ")
+            numericaldate = 0
+            numericaldate += int(listdate[2]) * 10000 + months.get(listdate[0]) * 100 + int(listdate[1].replace(",", ""))
             
 
         # Event Title
@@ -69,8 +69,10 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
         location = str(location).replace(',',"")
         # Event Cost
         cost = str(cost).replace(',',"")
-        # Event Date
-        date = str(date).replace(',',"")
+        # Event Start Date
+        StartDate = str(StartDate).replace(',',"")
+        # Event End Date
+        EndDate = str(EndDate).replace(',',"")
         # Event Image
         image = str(image).replace(',',"")
         # Poster Image
@@ -91,6 +93,7 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
 
 
         if date != 'Not Specified':
-            info = [title, link, location, cost, date, numericaldate, image, poster, text, rating]
+            info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, rating]
+            print(info)
             # print(info)
             writer.writerow(info)
