@@ -83,10 +83,19 @@ function populateCardsDynamically() {
       allEvents.forEach(doc => {
         var eventName = doc.data().event; //gets the name field
         var eventImg = doc.data().posterurl;
+        var eventStart = doc.data().startdate;
+        var eventEnd = doc.data().enddate;
+        var eventCost = doc.data().cost;
+        var eventPreview = doc.data().preview;
+        var eventLocation = doc.data().location;
         // var hikeID = doc.data().code; //gets the unique ID field
         // var hikeLength = doc.data().length; //gets the length field
         let testEventCard = eventCardTemplate.content.cloneNode(true);
         testEventCard.querySelector('.card-title').innerHTML = eventName;     //equiv getElementByClassName
+        testEventCard.querySelector('#location').innerHTML = "Location: " + eventLocation;
+        testEventCard.querySelector('#date').innerHTML = "Date: " + eventStart + " to " + eventEnd;
+        testEventCard.querySelector('.card-text').innerHTML = eventPreview;
+        testEventCard.querySelector('.text-muted').innerHTML = eventCost;
         // testEventCard.querySelector('.card-length').innerHTML = hikeLength;  //equiv getElementByClassName
         // testEventCard.querySelector('a').onclick = () => setHikeData(hikeID);//equiv getElementByTagName
         testEventCard.querySelector('img').src = eventImg;   //equiv getElementByTagName
