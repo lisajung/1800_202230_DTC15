@@ -1,11 +1,13 @@
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
-firebase.auth().onAuthStateChanged((user) => {
-  if (!user) {
-    let signIn = document.querySelector('.buttons-container');
-    signIn.style.display = 'block';
-  }
-})
-
+function displayLoginBanner() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      let signIn = document.querySelector('.buttons-container');
+      signIn.style.display = 'block';
+    }
+  })
+}
+displayLoginBanner();
 
 function insertName() {
   firebase.auth().onAuthStateChanged(user => {

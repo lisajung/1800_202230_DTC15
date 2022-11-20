@@ -55,7 +55,7 @@
             <div class="user-profile card mb-3 mt-5 border-0" id="john">
                 <div class="row no-gutters">
                     <div class="col-md-4 mt-2 pb-1" style="max-width: 200px">
-                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
+                        <img src=""
                             class="card-img profile-pic p-1 round" alt="...">
                     </div>
                     <div class="col-md-8 p-0" style="max-width:500px">
@@ -136,38 +136,33 @@
         <!------------------>
         <!-- Saved Events -->
         <!------------------>
+        <template id="carousel-template">
+            <div class="carousel-item" data-bs-interval="5000">
+                <a href="#"><img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
+                    class="d-block w-100" alt="..." style="max-height: 600px; object-fit:contain"></a>
+                <div class="carousel-caption d-none d-md-block">
+                    <h4></h4>
+                </div>
+            </div>
+        </template>
+
+        <template id="carousel-button-template">
+            <button class="carousel-button" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
+            aria-current="true" aria-label="Slide 1"></button>
+        </template>
 
         <div id="carouselExampleDark" class="carousel carousel-dark slide mx-3 p-0" data-bs-ride="carousel">
             <div class="carousel-indicators">
+                <!--
                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
                     aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
                     aria-label="Slide 3"></button>
+                -->
             </div>
             <div class="carousel-inner text-center">
-                <div class="carousel-item active text-center" data-bs-interval="5000">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
-                        class="d-block w-100" alt="..." style="max-height: 600px; object-fit:contain">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h4>[First Event]</h4>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
-                        class="d-block w-100" alt="..." style="max-height: 600px; object-fit:contain">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h4>[Second Event]</h4>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/dwayne-johnson-attends-the-jumanji-the-next-level-uk-film-news-photo-1575726701.jpg"
-                        class="d-block w-100" alt="..." style="max-height: 600px; object-fit:contain">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h4>[Third Event]</h4>
-                    </div>
-                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
                 data-bs-slide="prev">

@@ -1,12 +1,15 @@
 /* SEND USER TO HOME PAGE IF NOT SIGNED IN */
-firebase.auth().onAuthStateChanged((user) => {
-  if (!user) {
-    window.location.assign("index.html");
-  }
-})
+function checkUserLoggedIn() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.assign("index.html");
+    }
+  })
+}
+checkUserLoggedIn();
 
 /* Use users document reference to set users document fields */
-let changeProfile = function(docref) {
+function changeProfile(docref) {
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
@@ -24,7 +27,7 @@ let changeProfile = function(docref) {
 };
 
 /* Find users document reference for signed in user and pass to changeProfile function */
-let handleProfileChange = function(e) {
+function handleProfileChange(e) {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
@@ -37,14 +40,52 @@ let handleProfileChange = function(e) {
 };
 
 // Set up "edit profile" button handler here
-let addProfileButtonHandler = function() {
+function addProfileButtonHandler() {
   let profileButton = document.querySelector('.profile-button');
   profileButton.addEventListener('click', handleProfileChange);
 };
 addProfileButtonHandler();
 
+function activateCarousel() {
+  let activeItemNode = document.querySelector(".carousel-item");
+  let activeButtonNode = document.querySelector(".carousel-button");
+
+  if (activeItemNode !== null) {
+    activeItemNode.setAttribute('class', 'carousel-item active');
+    activeButtonNode.setAttribute('class', 'carousel-button active');
+  }
+}
+
+async function fillSavedEvents(doc) {
+  let carouselItemTemplate = document.querySelector("#carousel-template");
+  let carouselContainer = document.querySelector(".carousel-inner");
+
+  let carouselButtonTemplate = document.querySelector("#carousel-button-template");
+  let carouselButtonContainer = document.querySelector(".carousel-indicators");
+
+  let savedEvents = doc.data().savedEvents;
+  for (i = 0; i < savedEvents.length; i++) { 
+      docRef = db.collection("events").doc(`${savedEvents[i]}`);
+      await docRef.get().then((eventDoc) => {
+          let carouselItemNode = carouselItemTemplate.content.cloneNode(true);
+
+          carouselItemNode.querySelector('.carousel-item img').src = eventDoc.data().posterurl;
+          carouselItemNode.querySelector('.carousel-item a').href = `/html/event.html?id=${eventDoc.id}`
+          carouselItemNode.querySelector('.carousel-caption h4').textContent = eventDoc.data().event;
+          carouselContainer.appendChild(carouselItemNode);
+
+          let carouselButtonNode = carouselButtonTemplate.content.cloneNode(true);
+
+          carouselButtonNode.querySelector('button').setAttribute('data-bs-slide-to', `${i}`);
+          carouselButtonContainer.appendChild(carouselButtonNode);
+      });
+  }
+
+  activateCarousel();
+}
+
 /* Callback that uses returned document to fill out profile page */
-let fillProfile = function(doc) {
+function fillProfile(doc) {
   let placeHolders = document.querySelectorAll('.placeholder');
   placeHolders.forEach(e => (e.style.display = 'none'))
   let profileUsername = document.querySelector('.profile .card-title');
@@ -62,17 +103,20 @@ let fillProfile = function(doc) {
   userName.value = doc.data().name;
   text.value = doc.data().description;
 
+  fillSavedEvents(doc);
+
   // fill out profile pic here
   let profileImage = document.querySelector('.profile-pic');
   let imageLink = doc.data().profilePictureUrl;
-  console.log(imageLink);
   if (imageLink !== "") {
     profileImage.src = imageLink;
+  } else {
+    profileImage.src = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
   }
 };
 
 /* Initialize the profile page */
-let profileInit = function() {
+function profileInit() {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
