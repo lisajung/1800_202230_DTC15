@@ -54,6 +54,7 @@ async function getCSVdata() {
     const eventimage = columns[7];
     const eventposter = columns[8];
     const eventdescription = columns[9];
+    const eventpreview = columns[10];
 
     db.collection("events").add({   //write to firestore
       event: eventtitle,
@@ -66,6 +67,7 @@ async function getCSVdata() {
       imageurl: eventimage,
       posterurl: eventposter,
       description: eventdescription,
+      preview: eventpreview,
     })
   })
 }
