@@ -16,7 +16,7 @@ lists = soup.find_all('article')
 # Open CSV to write
 with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
     writer = writer(file)
-    header = ['Title', 'Link', 'Location', 'Cost', 'StartDate', 'EndDate', 'NumericalDate', 'Image', 'Poster', 'Description', 'Rating']
+    header = ['Title', 'Link', 'Location', 'Cost', 'StartDate', 'EndDate', 'NumericalDate', 'Image', 'Poster', 'Description']
     writer.writerow(header)
     
     # Iterate over each article
@@ -88,12 +88,9 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
         text = text.replace(',', '')
         if 'span' in text or len(text) <= 1:
             text = 'No Description Available'
-        # Rating
-        rating = 0
-
 
         if date != 'Not Specified':
-            info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, rating]
+            info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text]
             print(info)
             # print(info)
             writer.writerow(info)

@@ -54,11 +54,7 @@ async function getCSVdata() {
     const eventimage = columns[7];
     const eventposter = columns[8];
     const eventdescription = columns[9];
-    const eventrating = Number(columns[10]);
 
-    console.log(eventnumericaldate)
-    console.log(eventrating)
-    console.log("---break---")
     db.collection("events").add({   //write to firestore
       event: eventtitle,
       link: eventlink,
@@ -70,7 +66,6 @@ async function getCSVdata() {
       imageurl: eventimage,
       posterurl: eventposter,
       description: eventdescription,
-      rating: eventrating,
     })
   })
 }
