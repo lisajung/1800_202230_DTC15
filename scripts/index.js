@@ -42,26 +42,35 @@ async function getCSVdata() {
   const data = await response.text();      //get file response
   const list = data.split('\n').slice(1);  //get line
   list.forEach(row => {
+    // [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, rating]
     const columns = row.split(',');
     const eventtitle = columns[0];
     const eventlink = columns[1];
     const eventlocation = columns[2];
     const eventcost = columns[3];
-    const eventdate = columns[4];
-    const eventnumericaldate = columns[5]
-    const eventimage = columns[6];
-    const eventdescription = columns[7]
-    const eventlikecount = columns[8]
+    const startdate = columns[4];
+    const enddate = columns[5];
+    const eventnumericaldate = Number(columns[6]);
+    const eventimage = columns[7];
+    const eventposter = columns[8];
+    const eventdescription = columns[9];
+    const eventrating = Number(columns[10]);
+
+    console.log(eventnumericaldate)
+    console.log(eventrating)
+    console.log("---break---")
     db.collection("events").add({   //write to firestore
       event: eventtitle,
       link: eventlink,
       location: eventlocation,
       cost: eventcost,
-      date: eventdate,
+      startdate: startdate,
+      enddate: enddate,
       numericaldate: eventnumericaldate,
       imageurl: eventimage,
+      posterurl: eventposter,
       description: eventdescription,
-      likecounter: eventlikecount
+      rating: eventrating,
     })
   })
 }
@@ -74,7 +83,7 @@ function populateCardsDynamically() {
     .then(allEvents => {
       allEvents.forEach(doc => {
         var eventName = doc.data().event; //gets the name field
-        var eventImg = doc.data().imageurl;
+        var eventImg = doc.data().posterurl;
         // var hikeID = doc.data().code; //gets the unique ID field
         // var hikeLength = doc.data().length; //gets the length field
         let testEventCard = eventCardTemplate.content.cloneNode(true);
@@ -82,9 +91,8 @@ function populateCardsDynamically() {
         // testEventCard.querySelector('.card-length').innerHTML = hikeLength;  //equiv getElementByClassName
         // testEventCard.querySelector('a').onclick = () => setHikeData(hikeID);//equiv getElementByTagName
         testEventCard.querySelector('img').src = eventImg;   //equiv getElementByTagName
-
         // create individual links for each event
-        testEventCard.querySelector(".event-link").href =`/html/event.html?id=${doc.id}`;
+        testEventCard.querySelector(".event-link").href = `/html/event.html?id=${doc.id}`;
 
         eventCardGroup.appendChild(testEventCard);
       })
