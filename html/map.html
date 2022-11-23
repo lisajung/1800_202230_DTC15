@@ -23,6 +23,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
     <!-- <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" /> -->
 
     <!-- Other libraries go here -->
@@ -39,7 +41,28 @@
     <!-- Nav Bar -->
     <!------------->
     <div id="navbarPlaceholder"></div>
-    
+
+    <!-- Main Body -->
+    <main>
+        <!-- MAPBOX -->
+        <h2>Map View Holder</h2>
+        <div id='map' style='width: 100%; height: 400px;'></div>
+        <!-- MAPBOX -->
+        <div>
+            <div class="card">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Need Suggestion?</h5>
+                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione eos, molestias
+                    dolore deleniti repellendus quam eligendi consequatur asperiores in nostrum ex error. Voluptatibus,
+                    odio reiciendis, aliquam accusantium distinctio perferendis dolorum voluptatum odit delectus iste
+                    quisquam impedit inventore eos unde perspiciatis nam earum ad rem, nesciunt quam? Laudantium
+                    voluptates repellat unde.</p>
+                <!-- <a href="./restaurant-list.html" class="btn btn-info">See other restaurants</a> -->
+            </div>
+        </div>
+    </main>
+
     <div id="footerPlaceholder"></div>
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
@@ -47,6 +70,7 @@
 
     <!-- Link to scripts of your own -->
     <script src="../scripts/firebaseAPI_TEAMDTC15.js"></script>
+    <script src="../scripts/map.js"></script>
     <script src="../scripts/skeleton.js"></script>
 
 </body>
