@@ -1,3 +1,4 @@
+/* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
 function handleRemoveSaveEvent(e){
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);

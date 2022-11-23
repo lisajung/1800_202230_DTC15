@@ -9,8 +9,6 @@ if (currentTime < 12) {
   document.getElementById("greeting-text").innerHTML = "Good Evening"
 }
 
-
-
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
 function displayLoginBanner() {
   firebase.auth().onAuthStateChanged((user) => {
@@ -46,6 +44,76 @@ function insertName() {
 }
 insertName(); //run the function
 
+/* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
+function handleRemoveSaveEvent(e){
+  let docId = e.target.getAttribute('dataset');
+  console.log("clicked remove");
+  /* If user is signed in then save the event page into firestore */
+  firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+          docRef = db.collection("users").doc(`${user.uid}`);
+          docRef.update({
+              savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
+          });
+
+          let bookmarkIcon = e.target.children[0];
+          bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
+          e.target.removeEventListener('click', handleRemoveSaveEvent);
+          e.target.addEventListener('click', handleSaveEvent);
+      } else {
+
+      }
+  });
+}
+
+/* Handle a save event by storing the event into current users document and changing bookmark icon */
+function handleSaveEvent(e) {
+  let docId = e.target.getAttribute('dataset');
+  console.log("clicked save");
+  /* If user is signed in then save the event page into firestore */
+  firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+          docRef = db.collection("users").doc(`${user.uid}`);
+          docRef.update({
+              savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
+          });
+
+          let bookmarkIcon = e.target.children[0];
+          bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+          e.target.removeEventListener('click', handleSaveEvent);
+          e.target.addEventListener('click', handleRemoveSaveEvent);
+      } else {
+
+      }
+  });
+}
+
+/* Add interactive functionality to save buttons */
+function addWidgetListeners(buttonNode) {
+  let bookmarkIcon = buttonNode.querySelector('.bi-bookmark');
+  if (bookmarkIcon !== null) {
+    buttonNode.addEventListener('click', handleSaveEvent);
+  }
+
+  let checkedBookmarkIcon = buttonNode.querySelector('.bi-bookmark-check');
+  if (checkedBookmarkIcon !== null) {
+      buttonNode.addEventListener('click', handleRemoveSaveEvent);
+  }
+}
+
+/* style all save buttons according to current user document */
+function displayWidgetState(doc) {
+  let saveButtons = document.querySelectorAll(".save-button");
+  saveButtons.forEach((button) => {
+      let eventId = button.getAttribute('dataset');
+      let savedEventIds = doc.data().savedEvents;
+      if (savedEventIds.includes(eventId)) {
+          let bookmarkIcon = button.querySelector('.bi-bookmark');
+          bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+      }
+      addWidgetListeners(button);
+  });
+}
 
 //------------------------------------------------------
 // Get data from a CSV file with ".fetch()"
@@ -119,9 +187,26 @@ function populateCardsDynamically() {
         // create individual links for each event
         testEventCard.querySelector(".event-link").href = `/html/event.html?id=${doc.id}`;
 
+        testEventCard.querySelector(".save-button").setAttribute('dataset', `${doc.id}`);
+
         eventCardGroup.appendChild(testEventCard);
       })
 
     })
 }
 populateCardsDynamically();
+
+function indexInit() {
+    /* If user is signed in then customize the page */
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+          docRef = db.collection("users").doc(`${user.uid}`);
+          docRef.get().then(displayWidgetState);
+      } else {
+          //TODO: disable components that non-users can't use
+          //document.querySelector("#comment-input").style.display = 'none';
+          //document.querySelector(".bookmark-btn").style.display = 'none';
+        }
+    });
+}
+indexInit();
