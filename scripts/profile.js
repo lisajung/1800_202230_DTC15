@@ -87,8 +87,6 @@ async function fillSavedEvents(doc) {
 
 /* Callback that uses returned document to fill out profile page */
 function fillProfile(doc) {
-  let placeHolders = document.querySelectorAll('.placeholder');
-  placeHolders.forEach(e => (e.style.display = 'none'))
   let profileUsername = document.querySelector('.profile .card-title');
   let profileName = document.querySelector('.profile h6');
   let profileDescription = document.querySelector('.profile .card-text');

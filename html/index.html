@@ -80,8 +80,9 @@
 
         <template id="eventCardTemplate">
             <div class="col-md-4">
-                <a class="event-link" href="#">
                     <div class="card mb-4 box-shadow">
+                        <a class="event-link" href="#">
+                        <div>
                         <img class="card-img-top">
                         <div class="card-body">
                             <h4 class="card-title">placeholder</h4>
@@ -93,12 +94,16 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">placeholder</small>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary save-button">Save</button>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        </a>
+                        <button class="btn btn-sm btn-primary bookmark-btn save-button" type="button">
+                            <i class="bi bi-bookmark"></i>
+                            Bookmark
+                          </button>
                     </div>
-                </a>
             </div>
 
 

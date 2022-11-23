@@ -10,18 +10,18 @@
   margin-bottom: 0;
   background-color: #fff;
 }
-/*
-.event-card-div {
-  position: relative;
+
+.card {
+  padding-bottom: 40px;
 }
 
 .save-button {
   position: absolute !important;
   z-index: 10;
-  bottom: 0;
+  bottom: 10px;
   right: 10px;
 }
-*/
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: calc(var(--jumbotron-padding-y) * 2);
