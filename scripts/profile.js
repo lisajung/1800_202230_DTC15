@@ -46,6 +46,7 @@ function addProfileButtonHandler() {
 };
 addProfileButtonHandler();
 
+// Set the appropriate classes for carousel items
 function activateCarousel() {
   let activeItemNode = document.querySelector(".carousel-item");
   let activeButtonNode = document.querySelector(".carousel-button");

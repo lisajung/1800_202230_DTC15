@@ -8,7 +8,7 @@
 .widget-bar {
   align-self: start;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-size: 34px;
   margin-top: 10px;
   margin-bottom: 15px;
@@ -18,13 +18,14 @@
 .widget-bar .bi-bookmark-check {
   margin-left: 20px;
   cursor: pointer;
+  font-size: 30px;
 }
 
 .carousel-layout {
   background-color: #ECECEC;
 }
 
-.widget-bar .bi-heart {
+.widget-bar .bi-star {
   position: relative;
 }
 
@@ -95,12 +96,12 @@
     justify-content: flex-start;
     margin-top: 0;
   }
-
-  .widget-bar i:nth-child(2) {
+/*
+  .widget-bar .bi-star {
     margin-left: 20px;
   }
-
-  .widget-bar i:nth-child(3) {
+*/
+  .widget-bar .bookmark-btn {
     margin-left: 20px;
   }
 
