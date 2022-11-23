@@ -156,6 +156,9 @@ async function displayEventRating(docQuery) {
         }
     });
 
+    if (reviewerCount == 0) {
+        reviewerCount = 1;
+    }
     let averageRating = Math.ceil(ratingNum / reviewerCount);
     displayRatingEvent(averageRating);
 }

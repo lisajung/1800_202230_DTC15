@@ -8,7 +8,7 @@
 .widget-bar {
   align-self: start;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-size: 34px;
   margin-top: 10px;
   margin-bottom: 15px;
@@ -16,9 +16,15 @@
 
 .widget-bar .bi-bookmark,
 .widget-bar .bi-bookmark-check {
-  margin-left: 20px;
-  cursor: pointer;
-  font-size: 30px;
+  font-size: 24px;
+}
+
+.widget-bar .star-container {
+  font-size: 24px;
+}
+
+.star-container,.rating-container {
+  color: #FFAA1D;
 }
 
 .carousel-layout {
@@ -95,14 +101,20 @@
   .widget-bar {
     justify-content: flex-start;
     margin-top: 0;
-  }
-/*
-  .widget-bar .bi-star {
-    margin-left: 20px;
-  }
-*/
-  .widget-bar .bookmark-btn {
-    margin-left: 20px;
+    font-size: 24px;
   }
 
+  .widget-bar .star-container {
+    align-self: center;
+  }
+
+  .widget-bar .bookmark-btn {
+    margin-left: 20px;
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .widget-bar .bookmark-btn i {
+    font-size: 18px;
+  }
 }
