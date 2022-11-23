@@ -70,6 +70,8 @@ async function getCSVdata() {
     const eventposter = columns[8];
     const eventdescription = columns[9];
     const eventpreview = columns[10];
+    const eventLongitude = Number(columns[11]);
+    const eventLatitude = Number(columns[12]);
 
     db.collection("events").add({   //write to firestore
       event: eventtitle,
@@ -83,6 +85,8 @@ async function getCSVdata() {
       posterurl: eventposter,
       description: eventdescription,
       preview: eventpreview,
+      longitude: eventLongitude,
+      latitude: eventLatitude
     })
   })
 }
