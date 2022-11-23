@@ -2,7 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from csv import writer
+from geopy.geocoders import Nominatim
 
+
+# Geolocator
+geolocator = Nominatim(user_agent="my_request")
 
 # Website information
 url = "https://www.todocanada.ca/things-vancouver-weekend/"
@@ -16,7 +20,7 @@ lists = soup.find_all('article')
 # Open CSV to write
 with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
     writer = writer(file)
-    header = ['Title', 'Link', 'Location', 'Cost', 'StartDate', 'EndDate', 'NumericalDate', 'Image', 'Poster', 'Description', "Preview"]
+    header = ['Title', 'Link', 'Location', 'Cost', 'StartDate', 'EndDate', 'NumericalDate', 'Image', 'Poster', 'Description', "Preview", "Longitude", "Latitude"]
     writer.writerow(header)
     
     # Iterate over each article
@@ -59,43 +63,70 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             listdate = EndDate.split(" ")
             numericaldate = 0
             numericaldate += int(listdate[2]) * 10000 + months.get(listdate[0]) * 100 + int(listdate[1].replace(",", ""))
-            
 
-        # Event Title
-        title = str(title).replace(',',"")
-        # Event Link
-        link = str(link).replace(',',"")
-        # Event Location
-        location = str(location).replace(',',"")
-        # Event Cost
-        cost = str(cost).replace(',',"")
-        # Event Start Date
-        StartDate = str(StartDate).replace(',',"")
-        # Event End Date
-        EndDate = str(EndDate).replace(',',"")
-        # Event Image
-        image = str(image).replace(',',"")
-        # Poster Image
-        poster = poster.replace('<img src="', '')
-        poster = poster.replace('"/>', '')
-        # Description
-        text = description.split('</p>')[0]
-        text = text.replace('<span class=""TextRun SCXW197544240 BCX0"" data-contrast=""none"" lang=""EN-US"" xml:lang=""EN-US"">', '')
-        text = text.replace('<span class=""NormalTextRun CommentStart SCXW197544240 BCX0"">', '')
-        text = text.replace('</span>', '')
-        text = text.replace('<span class=""NormalTextRun SCXW197544240 BCX0"">', '')
-        text = text.replace('<br/>', '')
-        text = text.replace(',', '')
-        if 'span' in text or len(text) <= 1:
-            text = 'No Description Available'
-        # Preview
-        if len(text) > 80:
-            preview = text[:80] + "..."
-        else:
-            preview = text
+            # Coordinates
+            geographicallocation = geolocator.geocode(location)
+            if geographicallocation == None:
+                templocation = location
+                letter = True
+                while letter:
+                    try: 
+                        if templocation[0].isalpha() or templocation[0] == ' ' or templocation[0] == ',' or templocation[0] == '&' or templocation[0] == "'" or templocation[0] == "+" or templocation[0] == ".":
+                            templocation = templocation[1:]
+                        else:
+                            letter = False
+                            location = templocation
+                    except IndexError:
+                        letter = False
+            geographicallocation = geolocator.geocode(location)
+            print(location)
+            if geographicallocation == None:
+                print("no specific address")
+                longitude = "null"
+                latitude = "null"
+                print(str(longitude) + ", " + str(latitude))
+            else:
+                longitude = geographicallocation.longitude
+                latitude = geographicallocation.latitude
+                print(str(longitude) + ", " + str(latitude))
+            print("---------------")
+                
 
-        if date != 'Not Specified':
-            info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, preview]
-            print(info)
-            # print(info)
-            writer.writerow(info)
+            # Event Title
+            title = str(title).replace(',',"")
+            # Event Link
+            link = str(link).replace(',',"")
+            # Event Location
+            location = str(location).replace(',',"")
+            # Event Cost
+            cost = str(cost).replace(',',"")
+            # Event Start Date
+            StartDate = str(StartDate).replace(',',"")
+            # Event End Date
+            EndDate = str(EndDate).replace(',',"")
+            # Event Image
+            image = str(image).replace(',',"")
+            # Poster Image
+            poster = poster.replace('<img src="', '')
+            poster = poster.replace('"/>', '')
+            # Description
+            text = description.split('</p>')[0]
+            text = text.replace('<span class=""TextRun SCXW197544240 BCX0"" data-contrast=""none"" lang=""EN-US"" xml:lang=""EN-US"">', '')
+            text = text.replace('<span class=""NormalTextRun CommentStart SCXW197544240 BCX0"">', '')
+            text = text.replace('</span>', '')
+            text = text.replace('<span class=""NormalTextRun SCXW197544240 BCX0"">', '')
+            text = text.replace('<br/>', '')
+            text = text.replace(',', '')
+            if 'span' in text or len(text) <= 1:
+                text = 'No Description Available'
+            # Preview
+            if len(text) > 80:
+                preview = text[:80] + "..."
+            else:
+                preview = text
+
+            if date != 'Not Specified':
+                info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, preview, longitude, latitude]
+                # print(info)
+                # print(info)
+                writer.writerow(info)
