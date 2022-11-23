@@ -14,7 +14,8 @@
   margin-bottom: 15px;
 }
 
-.widget-bar .bi-bookmark,.widget-bar .bi-bookmark-check {
+.widget-bar .bi-bookmark,
+.widget-bar .bi-bookmark-check {
   margin-left: 20px;
   cursor: pointer;
 }
@@ -62,7 +63,6 @@
 .userimg {
   float: left;
   box-sizing: border-box;
-
 }
 
 .usercomment {
@@ -70,6 +70,20 @@
   clear: both;
 }
 
+.header-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  margin-top: 3%;
+}
+
+#title-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+#comment-input {
+  margin-top: 3%;
+}
 
 
 @media screen and (max-width: 767px) {
