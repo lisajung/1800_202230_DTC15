@@ -1,3 +1,16 @@
+/* CHANGE GREETING DEPENDING ON THE TIME OF DAY */
+var todaysDate = new Date()
+var currentTime = todaysDate.getHours()
+if (currentTime < 12) {
+  document.getElementById("greeting-text").innerHTML = "Good Morning";
+} else if (currentTime <= 16 && currentTime >= 13) {
+  document.getElementById("greeting-text").innerHTML = "Good Afternoon";
+} else {
+  document.getElementById("greeting-text").innerHTML = "Good Evening"
+}
+
+
+
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
 function displayLoginBanner() {
   firebase.auth().onAuthStateChanged((user) => {
