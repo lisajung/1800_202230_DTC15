@@ -24,7 +24,7 @@ function changeProfile(docref) {
     imageURL.value = "";
     location.reload();
   });
-};
+}
 
 /* Find users document reference for signed in user and pass to changeProfile function */
 function handleProfileChange(e) {
@@ -37,7 +37,7 @@ function handleProfileChange(e) {
       // No user is signed in.
     }
   });
-};
+}
 
 // Set up "edit profile" button handler here
 function addProfileButtonHandler() {
@@ -85,6 +85,67 @@ async function fillSavedEvents(doc) {
   activateCarousel();
 }
 
+function addSettingListeners() {
+  let radioForm = document.querySelector('.radio-form');
+
+  radioForm.addEventListener('change', (e) => {
+      firebase.auth().onAuthStateChanged(user => {
+        // Check if a user is signed in:
+        if (user) {
+          // find users document for signed in user and pass to callback
+          docRef = db.collection("users").doc(`${user.uid}`);
+          if (e.target.id == "default") {
+            docRef.update({
+              background: e.target.getAttribute('dataset')
+            })
+          }
+          if (e.target.id == "cool") {
+            docRef.update({
+              background: e.target.getAttribute('dataset')
+            })
+          }
+          if (e.target.id == "moreCool") {
+            docRef.update({
+              background: e.target.getAttribute('dataset')
+            })
+          }
+
+          setBackground(e.target.getAttribute('dataset'));
+        } else {
+          // No user is signed in.
+        }
+      });
+    }
+  );
+}
+
+/* Set background using the given background URL */
+function setBackground(currentBackground) {
+  bodyNode = document.querySelector('body');
+  if (currentBackground == "") {
+    bodyNode.setAttribute('style', "");
+  }
+  bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
+}
+
+/* Get correct personalized settings for settings page of profile page */
+function fillSettings(doc) {
+  let currentBackground = doc.data().background;
+  setBackground(currentBackground);
+
+  //also set radio form
+  let radioForm = document.querySelector('.radio-form');
+  let radioNodes = radioForm.children;
+  for (i = 0 ; i < radioNodes.length; i++) {
+    if (radioNodes[i].getAttribute('dataset') == currentBackground) {
+      radioNodes[i].checked = true;
+    }
+  }
+  
+
+  addSettingListeners();
+}
+
 /* Callback that uses returned document to fill out profile page */
 function fillProfile(doc) {
   let profileUsername = document.querySelector('.profile .card-title');
@@ -112,7 +173,7 @@ function fillProfile(doc) {
   } else {
     profileImage.src = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
   }
-};
+}
 
 /* Initialize the profile page */
 function profileInit() {
@@ -122,10 +183,12 @@ function profileInit() {
       // find users document for signed in user and pass to callback
       docRef = db.collection("users").doc(`${user.uid}`);
       docRef.get().then(fillProfile);
+
+      docRef.get().then(fillSettings);
     } else {
       // No user is signed in.
     }
   });
-};
+}
 profileInit();
 
