@@ -94,23 +94,11 @@ function addSettingListeners() {
         if (user) {
           // find users document for signed in user and pass to callback
           docRef = db.collection("users").doc(`${user.uid}`);
-          if (e.target.id == "default") {
-            docRef.update({
-              background: e.target.getAttribute('dataset')
-            })
-          }
-          if (e.target.id == "cool") {
-            docRef.update({
-              background: e.target.getAttribute('dataset')
-            })
-          }
-          if (e.target.id == "moreCool") {
-            docRef.update({
-              background: e.target.getAttribute('dataset')
-            })
-          }
+          docRef.update({
+            background: e.target.getAttribute('data-url')
+          })
 
-          setBackground(e.target.getAttribute('dataset'));
+          setBackground(e.target.getAttribute('data-url'));
         } else {
           // No user is signed in.
         }
@@ -124,6 +112,7 @@ function setBackground(currentBackground) {
   bodyNode = document.querySelector('body');
   if (currentBackground == "") {
     bodyNode.setAttribute('style', "");
+    return;
   }
   bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
 }
@@ -137,7 +126,7 @@ function fillSettings(doc) {
   let radioForm = document.querySelector('.radio-form');
   let radioNodes = radioForm.children;
   for (i = 0 ; i < radioNodes.length; i++) {
-    if (radioNodes[i].getAttribute('dataset') == currentBackground) {
+    if (radioNodes[i].getAttribute('data-url') == currentBackground) {
       radioNodes[i].checked = true;
     }
   }

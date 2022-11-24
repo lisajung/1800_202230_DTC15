@@ -46,7 +46,7 @@ insertName(); //run the function
 
 /* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
 function handleRemoveSaveEvent(e){
-  let docId = e.target.getAttribute('dataset');
+  let docId = e.target.getAttribute('data-id');
   console.log("clicked remove");
   /* If user is signed in then save the event page into firestore */
   firebase.auth().onAuthStateChanged((user) => {
@@ -68,7 +68,7 @@ function handleRemoveSaveEvent(e){
 
 /* Handle a save event by storing the event into current users document and changing bookmark icon */
 function handleSaveEvent(e) {
-  let docId = e.target.getAttribute('dataset');
+  let docId = e.target.getAttribute('data-id');
   console.log("clicked save");
   /* If user is signed in then save the event page into firestore */
   firebase.auth().onAuthStateChanged((user) => {
@@ -105,7 +105,7 @@ function addWidgetListeners(buttonNode) {
 function displayWidgetState(doc) {
   let saveButtons = document.querySelectorAll(".save-button");
   saveButtons.forEach((button) => {
-      let eventId = button.getAttribute('dataset');
+      let eventId = button.getAttribute('data-id');
       let savedEventIds = doc.data().savedEvents;
       if (savedEventIds.includes(eventId)) {
           let bookmarkIcon = button.querySelector('.bi-bookmark');
@@ -187,7 +187,7 @@ function populateCardsDynamically() {
         // create individual links for each event
         testEventCard.querySelector(".event-link").href = `/html/event.html?id=${doc.id}`;
 
-        testEventCard.querySelector(".save-button").setAttribute('dataset', `${doc.id}`);
+        testEventCard.querySelector(".save-button").setAttribute('data-id', `${doc.id}`);
 
         eventCardGroup.appendChild(testEventCard);
       })
