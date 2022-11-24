@@ -124,10 +124,10 @@ function fillSettings(doc) {
 
   //also set radio form
   let radioForm = document.querySelector('.radio-form');
-  let radioNodes = radioForm.children;
-  for (i = 0 ; i < radioNodes.length; i++) {
-    if (radioNodes[i].getAttribute('data-url') == currentBackground) {
-      radioNodes[i].checked = true;
+  let radioNodes = radioForm.querySelectorAll('input[type="radio"]');
+  for (const node of radioNodes) {
+    if (node.getAttribute('data-url') == currentBackground) {
+      node.checked = true;
     }
   }
   
