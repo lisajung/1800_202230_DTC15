@@ -184,6 +184,10 @@ async function populateCardsDynamically(userDoc) {
 
     })
 
+  if (userDoc == null) {
+    return;
+  }
+
   displayWidgetState(userDoc);
 }
 
