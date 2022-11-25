@@ -32,14 +32,23 @@
   padding-left: 20px;
 }
 
+/* #carouselExampleCaptions {
+  background-color: #ffffff;
+  opacity: 0;
+} */
 
-#carouselExampleCaptions {
-  background-color: #E8E9EB;
+.carousel-control-next,
+.carousel-control-prev
+
+/*, .carousel-indicators */
+  {
+  filter: invert(100%);
 }
 
-.carousel-item img{
+.carousel-item img {
   margin: 0 auto;
   max-width: 100%;
+  height: 400px;
 }
 
 @media screen and (max-width: 350px) {

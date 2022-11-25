@@ -59,21 +59,20 @@ async function fillSavedEvents(doc) {
     document.querySelector(".remove-btn").style.display = "none";
     return;
   }
-  for (i = 0; i < savedEvents.length; i++) { 
-      docRef = db.collection("events").doc(`${savedEvents[i]}`);
-      await docRef.get().then((eventDoc) => {
-          let carouselItemNode = carouselItemTemplate.content.cloneNode(true);
+  for (i = 0; i < savedEvents.length; i++) {
+    docRef = db.collection("events").doc(`${savedEvents[i]}`);
+    await docRef.get().then((eventDoc) => {
+      let carouselItemNode = carouselItemTemplate.content.cloneNode(true);
 
-          carouselItemNode.querySelector('.carousel-item img').src = eventDoc.data().posterurl;
-          carouselItemNode.querySelector('.carousel-item a').href = `/html/event.html?id=${eventDoc.id}`
-          carouselItemNode.querySelector('.carousel-caption h4').textContent = eventDoc.data().event;
-          carouselContainer.appendChild(carouselItemNode);
+      carouselItemNode.querySelector('.carousel-item img').src = eventDoc.data().posterurl;
+      carouselItemNode.querySelector('.carousel-item a').href = `/html/event.html?id=${eventDoc.id}`
+      carouselContainer.appendChild(carouselItemNode);
 
-          let carouselButtonNode = carouselButtonTemplate.content.cloneNode(true);
+      let carouselButtonNode = carouselButtonTemplate.content.cloneNode(true);
 
-          carouselButtonNode.querySelector('button').setAttribute('data-bs-slide-to', `${i}`);
-          carouselButtonContainer.appendChild(carouselButtonNode);
-      });
+      carouselButtonNode.querySelector('button').setAttribute('data-bs-slide-to', `${i}`);
+      carouselButtonContainer.appendChild(carouselButtonNode);
+    });
   }
 
   activateCarousel();
@@ -88,7 +87,7 @@ function removeBookmarkSetup() {
     let queryString = url.searchParams;
     let eventId = queryString.get("id");
     currentUser.update({
-        savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
+      savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     }).then(() => location.reload());
   });
 }
@@ -97,10 +96,10 @@ function addSettingListeners() {
   let radioForm = document.querySelector('.radio-form');
 
   radioForm.addEventListener('change', (e) => {
-      currentUser.update({
-        background: e.target.getAttribute('data-url')
-      }).then(fillBackground);
-    }
+    currentUser.update({
+      background: e.target.getAttribute('data-url')
+    }).then(fillBackground);
+  }
   );
 }
 
@@ -116,7 +115,7 @@ function fillSettings(doc) {
       node.checked = true;
     }
   }
-  
+
   addSettingListeners();
 }
 
