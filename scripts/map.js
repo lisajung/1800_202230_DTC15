@@ -1,5 +1,5 @@
 // MAPBOX DISPLAY
-function showHikesOnMap() {
+function showEventsOnMap() {
 
 
     // MAPBOX DISPLAY
@@ -96,4 +96,4 @@ function showHikesOnMap() {
     });
 }
 
-showHikesOnMap()
+showEventsOnMap()
