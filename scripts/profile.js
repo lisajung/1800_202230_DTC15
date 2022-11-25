@@ -194,8 +194,8 @@ function showEventsOnMap(docRef) {
     let allEvents = docRef.data().savedEvents;
     //console.log(currentUser);
     //console.log(allEvents);
-    allEvents.forEach(async (eventID) => {
-      await db.collection("events").doc(`${eventID}`).get().then((r) => fillEvent(r, features));
+    allEvents.forEach(eventID => {
+      db.collection("events").doc(`${eventID}`).get().then((r) => fillEvent(r, features));
     })
 
     console.log(features);
