@@ -184,21 +184,6 @@ function showEventsOnMap(docRef) {
         'coordinates': coordinates
       }
     });
-  }
-
-  // Add zoom and rotation controls to the map.
-  map.addControl(new mapboxgl.NavigationControl());
-
-  map.on('load', () => {
-    const features = [];
-    let allEvents = docRef.data().savedEvents;
-    //console.log(currentUser);
-    //console.log(allEvents);
-    allEvents.forEach(eventID => {
-      db.collection("events").doc(`${eventID}`).get().then((r) => fillEvent(r, features));
-    })
-
-    console.log(features);
 
     map.addSource('places', {
       // This GeoJSON contains features that include an "icon"
@@ -250,6 +235,21 @@ function showEventsOnMap(docRef) {
     map.on('mouseleave', 'places', () => {
       map.getCanvas().style.cursor = '';
     });
+  }
+
+  // Add zoom and rotation controls to the map.
+  map.addControl(new mapboxgl.NavigationControl());
+
+  map.on('load', () => {
+    const features = [];
+    let allEvents = docRef.data().savedEvents;
+    //console.log(currentUser);
+    //console.log(allEvents);
+    allEvents.forEach(eventID => {
+      db.collection("events").doc(`${eventID}`).get().then((r) => fillEvent(r, features));
+    })
+
+    //console.log(features);
   })
 }
 
