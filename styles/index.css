@@ -50,7 +50,14 @@
   padding: none;
 }
 
-.event-link, .event-link:hover, .event-link:focus, .event-link:active {
+.event-link,
+.event-link:hover,
+.event-link:focus,
+.event-link:active {
   text-decoration: none;
   color: inherit;
+}
+
+.clear {
+  background-color: transparent;
 }
