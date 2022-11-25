@@ -1,25 +1,19 @@
+let currentUser;
+
 /* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
 function handleRemoveSaveEvent(e){
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
-    console.log("clicked remove");
-    /* If user is signed in then save the event page into firestore */
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            docRef = db.collection("users").doc(`${user.uid}`);
-            docRef.update({
-                savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
-            });
 
-            let bookmarkIcon = e.target.children[0];
-            bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
-            e.target.removeEventListener('click', handleRemoveSaveEvent);
-            e.target.addEventListener('click', handleSaveEvent);
-        } else {
-
-        }
+    currentUser.update({
+        savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
     });
+
+    let bookmarkIcon = e.currentTarget.children[0];
+    bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
+    e.currentTarget.removeEventListener('click', handleRemoveSaveEvent);
+    e.currentTarget.addEventListener('click', handleSaveEvent);
 }
 
 /* Handle a save event by storing the event into current users document and changing bookmark icon */
@@ -27,34 +21,26 @@ function handleSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let docId = queryParams.get("id");
-    console.log("clicked save");
-    /* If user is signed in then save the event page into firestore */
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            docRef = db.collection("users").doc(`${user.uid}`);
-            docRef.update({
-                savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
-            });
 
-            let bookmarkIcon = e.target.children[0];
-            bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-            e.target.removeEventListener('click', handleSaveEvent);
-            e.target.addEventListener('click', handleRemoveSaveEvent);
-        } else {
-
-        }
+    currentUser.update({
+        savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
     });
+
+    let bookmarkIcon = e.currentTarget.children[0];
+    bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+    e.currentTarget.removeEventListener('click', handleSaveEvent);
+    e.currentTarget.addEventListener('click', handleRemoveSaveEvent);
 }
 
 /* Handles the comment submit by storing a review in the reviews collection */
-function addComment(userDocRef) {
+function handleAddComment(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
 
     let ratingsSelect = document.querySelector('.form-select');
     let commentTextBox = document.querySelector('.comment-text');
-    let userDocId = userDocRef.id;
+    let userDocId = currentUser.id;
     docRef = db.collection("reviews").doc();
 
     docRef.set({
@@ -65,19 +51,6 @@ function addComment(userDocRef) {
     }).then(() => {
         commentTextBox.value = "";
         location.reload();
-    });
-}
-
-/* Called when a user clicks submit button next to comment */
-function handleAddComment(e) {
-    firebase.auth().onAuthStateChanged(user => {
-        // Check if a user is signed in:
-        if (user) {
-            docRef = db.collection("users").doc(`${user.uid}`);
-            addComment(docRef);
-        } else {
-            // No user is signed in.
-        }
     });
 }
 
@@ -222,8 +195,8 @@ function eventInit() {
     /* If user is signed in then customize the page */
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            docRef = db.collection("users").doc(`${user.uid}`);
-            docRef.get().then(displayWidgetState);
+            currentUser = db.collection("users").doc(`${user.uid}`);
+            currentUser.get().then(displayWidgetState);
         } else {
             document.querySelector("#comment-input").style.display = 'none';
             document.querySelector(".bookmark-btn").style.display = 'none';

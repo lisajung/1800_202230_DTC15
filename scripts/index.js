@@ -1,3 +1,5 @@
+let currentUser;
+
 /* CHANGE GREETING DEPENDING ON THE TIME OF DAY */
 var todaysDate = new Date()
 var currentTime = todaysDate.getHours()
@@ -46,46 +48,32 @@ insertName(); //run the function
 
 /* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
 function handleRemoveSaveEvent(e){
-  let docId = e.target.getAttribute('data-id');
-  console.log("clicked remove");
-  /* If user is signed in then save the event page into firestore */
-  firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-          docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.update({
-              savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
-          });
+  let docId = e.currentTarget.getAttribute('data-id');
 
-          let bookmarkIcon = e.target.children[0];
-          bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
-          e.target.removeEventListener('click', handleRemoveSaveEvent);
-          e.target.addEventListener('click', handleSaveEvent);
-      } else {
-
-      }
+  currentUser.update({
+      savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
   });
+
+  console.log(e.currentTarget);
+  let bookmarkIcon = e.currentTarget.children[0];
+  bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
+  e.currentTarget.removeEventListener('click', handleRemoveSaveEvent);
+  e.currentTarget.addEventListener('click', handleSaveEvent);
 }
 
 /* Handle a save event by storing the event into current users document and changing bookmark icon */
 function handleSaveEvent(e) {
-  let docId = e.target.getAttribute('data-id');
-  console.log("clicked save");
-  /* If user is signed in then save the event page into firestore */
-  firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-          docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.update({
-              savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
-          });
+  let docId = e.currentTarget.getAttribute('data-id');
 
-          let bookmarkIcon = e.target.children[0];
-          bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-          e.target.removeEventListener('click', handleSaveEvent);
-          e.target.addEventListener('click', handleRemoveSaveEvent);
-      } else {
-
-      }
+  currentUser.update({
+    savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
   });
+
+  console.log(e.currentTarget);
+  let bookmarkIcon = e.currentTarget.children[0];
+  bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+  e.currentTarget.removeEventListener('click', handleSaveEvent);
+  e.currentTarget.addEventListener('click', handleRemoveSaveEvent);
 }
 
 /* Add interactive functionality to save buttons */
@@ -197,15 +185,15 @@ async function populateCardsDynamically(userDoc) {
 
   })
 
-  return userDoc;
+  displayWidgetState(userDoc);
 }
 
 function indexInit() {
     /* If user is signed in then customize the page */
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-          docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.get().then(populateCardsDynamically).then(displayWidgetState);
+          currentUser = db.collection("users").doc(`${user.uid}`);
+          currentUser.get().then(populateCardsDynamically);
       } else {
           populateCardsDynamically(null);
       }

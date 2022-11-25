@@ -1,3 +1,5 @@
+let currentUser;
+
 /* SEND USER TO HOME PAGE IF NOT SIGNED IN */
 function checkUserLoggedIn() {
   firebase.auth().onAuthStateChanged((user) => {
@@ -9,12 +11,12 @@ function checkUserLoggedIn() {
 checkUserLoggedIn();
 
 /* Use users document reference to set users document fields */
-function changeProfile(docref) {
+function handleProfileChange(e) {
   let imageURL = document.querySelector('#imageurl');
   let userName = document.querySelector('#username');
   let text = document.querySelector('#exampleFormControlTextarea1');
 
-  docref.set({
+  currentUser.set({
     name: userName.value,
     description: text.value,
     profilePictureUrl: imageURL.value
@@ -23,19 +25,6 @@ function changeProfile(docref) {
     text.value = "";
     imageURL.value = "";
     location.reload();
-  });
-}
-
-/* Find users document reference for signed in user and pass to changeProfile function */
-function handleProfileChange(e) {
-  firebase.auth().onAuthStateChanged(user => {
-    // Check if a user is signed in:
-    if (user) {
-      docRef = db.collection("users").doc(`${user.uid}`);
-      changeProfile(docRef);
-    } else {
-      // No user is signed in.
-    }
   });
 }
 
@@ -67,6 +56,7 @@ async function fillSavedEvents(doc) {
   let savedEvents = doc.data().savedEvents;
   if (savedEvents.length <= 0) {
     document.querySelector("#carouselExampleCaptions").style.display = "none";
+    document.querySelector(".remove-btn").style.display = "none";
     return;
   }
   for (i = 0; i < savedEvents.length; i++) { 
@@ -97,17 +87,9 @@ function removeBookmarkSetup() {
     let url = new URL(link);
     let queryString = url.searchParams;
     let eventId = queryString.get("id");
-    firebase.auth().onAuthStateChanged(user => {
-      // Check if a user is signed in:
-      if (user) {
-        docRef = db.collection("users").doc(`${user.uid}`);
-        docRef.update({
-            savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
-        }).then(() => location.reload());
-      } else {
-        // No user is signed in.
-      }
-    });
+    currentUser.update({
+        savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
+    }).then(() => location.reload());
   });
 }
 
@@ -115,18 +97,9 @@ function addSettingListeners() {
   let radioForm = document.querySelector('.radio-form');
 
   radioForm.addEventListener('change', (e) => {
-      firebase.auth().onAuthStateChanged(user => {
-        // Check if a user is signed in:
-        if (user) {
-          // find users document for signed in user and pass to callback
-          docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.update({
-            background: e.target.getAttribute('data-url')
-          }).then(fillBackground);
-        } else {
-          // No user is signed in.
-        }
-      });
+      currentUser.update({
+        background: e.target.getAttribute('data-url')
+      }).then(fillBackground);
     }
   );
 }
@@ -182,9 +155,9 @@ function profileInit() {
     // Check if a user is signed in:
     if (user) {
       // find users document for signed in user and pass to callback
-      docRef = db.collection("users").doc(`${user.uid}`);
-      docRef.get().then(fillProfile);
-      docRef.get().then(fillSettings);
+      currentUser = db.collection("users").doc(`${user.uid}`);
+      currentUser.get().then(fillProfile);
+      currentUser.get().then(fillSettings);
     } else {
       // No user is signed in.
     }
