@@ -139,7 +139,7 @@ async function displayEventRating(docQuery) {
 
 /* Fill event page with appropriate firestore data */
 function fillEventPage(doc) {
-    let imgCarousel = document.querySelector('.carousel-img');
+    let imgEvent = document.querySelector('.event-img');
     let eventDescription = document.querySelector('.event-description');
     let eventName = document.querySelector('.title');
     //let eventLikes = document.querySelector('.likes-text');
@@ -148,7 +148,7 @@ function fillEventPage(doc) {
     let eventCost = document.querySelector('.event-cost');
     let eventLink = document.querySelector('.event-link a');
 
-    imgCarousel.src = doc.data().posterurl;
+    imgEvent.src = doc.data().posterurl;
     eventDescription.innerHTML = doc.data().description;
     eventName.textContent = doc.data().event;
     //eventLikes.textContent = `${doc.data().likecounter} likes`;

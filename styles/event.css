@@ -27,10 +27,6 @@
   color: #FFAA1D;
 }
 
-.carousel-layout {
-  background-color: #ECECEC;
-}
-
 .widget-bar .bi-star {
   position: relative;
 }
@@ -43,7 +39,8 @@
   white-space: nowrap;
 }
 
-.carousel-img {
+.event-img {
+  display: block;
   margin: 0 auto;
 }
 
