@@ -47,11 +47,11 @@ function insertName() {
 insertName(); //run the function
 
 /* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
-function handleRemoveSaveEvent(e){
+function handleRemoveSaveEvent(e) {
   let docId = e.currentTarget.getAttribute('data-id');
 
   currentUser.update({
-      savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
+    savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
   });
 
   console.log(e.currentTarget);
@@ -85,7 +85,7 @@ function addWidgetListeners(buttonNode) {
 
   let checkedBookmarkIcon = buttonNode.querySelector('.bi-bookmark-check');
   if (checkedBookmarkIcon !== null) {
-      buttonNode.addEventListener('click', handleRemoveSaveEvent);
+    buttonNode.addEventListener('click', handleRemoveSaveEvent);
   }
 }
 
@@ -93,13 +93,13 @@ function addWidgetListeners(buttonNode) {
 function displayWidgetState(doc) {
   let saveButtons = document.querySelectorAll(".save-button");
   saveButtons.forEach((button) => {
-      let eventId = button.getAttribute('data-id');
-      let savedEventIds = doc.data().savedEvents;
-      if (savedEventIds.includes(eventId)) {
-          let bookmarkIcon = button.querySelector('.bi-bookmark');
-          bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-      }
-      addWidgetListeners(button);
+    let eventId = button.getAttribute('data-id');
+    let savedEventIds = doc.data().savedEvents;
+    if (savedEventIds.includes(eventId)) {
+      let bookmarkIcon = button.querySelector('.bi-bookmark');
+      bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+    }
+    addWidgetListeners(button);
   });
 }
 
@@ -141,8 +141,7 @@ async function getCSVdata() {
       posterurl: eventposter,
       description: eventdescription,
       preview: eventpreview,
-      longitude: eventLongitude,
-      latitude: eventLatitude
+      coordinates: [eventLongitude, eventLatitude]
     })
   })
 }
@@ -183,20 +182,20 @@ async function populateCardsDynamically(userDoc) {
         eventCardGroup.appendChild(testEventCard);
       })
 
-  })
+    })
 
   displayWidgetState(userDoc);
 }
 
 function indexInit() {
-    /* If user is signed in then customize the page */
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-          currentUser = db.collection("users").doc(`${user.uid}`);
-          currentUser.get().then(populateCardsDynamically);
-      } else {
-          populateCardsDynamically(null);
-      }
-    });
+  /* If user is signed in then customize the page */
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = db.collection("users").doc(`${user.uid}`);
+      currentUser.get().then(populateCardsDynamically);
+    } else {
+      populateCardsDynamically(null);
+    }
+  });
 }
 indexInit();
