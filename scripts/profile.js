@@ -163,6 +163,29 @@ function showEventsOnMap(docRef) {
   });
 
 
+  function fillEvent(doc, features) {
+    coordinates = doc.data().coordinates;
+    event_name = doc.data().event;
+    preview = doc.data().preview;
+    img = doc.data().posterurl;
+    //console.log([-123.11535188078236, 49.28274402264293])
+    // coordiantes = doc.data().coordiantes;
+    //console.log(coordinates);
+    url = doc.data().link;
+
+    features.push({
+      'type': 'Feature',
+      'properties': {
+        'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`,
+        'icon': 'mountain-15'
+      },
+      'geometry': {
+        'type': 'Point',
+        'coordinates': coordinates
+      }
+    });
+  }
+
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl());
 
@@ -170,30 +193,12 @@ function showEventsOnMap(docRef) {
     const features = [];
     let allEvents = docRef.data().savedEvents;
     //console.log(currentUser);
-    console.log(allEvents);
-    allEvents.forEach(eventID => {
-      let doc = db.collection("events").doc(`${eventID}`);
-      coordinates = doc.data().coordinates;
-      event_name = doc.data().event;
-      preview = doc.data().preview;
-      img = doc.data().posterurl;
-      console.log([-123.11535188078236, 49.28274402264293])
-      // coordiantes = doc.data().coordiantes;
-      console.log(coordinates);
-      url = doc.data().link;
-
-      features.push({
-        'type': 'Feature',
-        'properties': {
-          'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`,
-          'icon': 'mountain-15'
-        },
-        'geometry': {
-          'type': 'Point',
-          'coordinates': coordinates
-        }
-      });
+    //console.log(allEvents);
+    allEvents.forEach(async (eventID) => {
+      await db.collection("events").doc(`${eventID}`).get().then((r) => fillEvent(r, features));
     })
+
+    console.log(features);
 
     map.addSource('places', {
       // This GeoJSON contains features that include an "icon"
