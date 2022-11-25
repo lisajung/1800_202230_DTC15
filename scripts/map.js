@@ -17,11 +17,13 @@ function showHikesOnMap() {
 
     map.on('load', () => {
         const features = [];
-        db.collection("events").get().then(allHikes => {
-            allHikes.forEach(doc => {
-                longitude = doc.data().longitude;
-                latitude = doc.data().latitude;
-                coordinates = [latitude, longitude]
+        db.collection("events").get().then(allEvents => {
+            allEvents.forEach(doc => {
+                coordinates = doc.data().coordinates;
+                event_name = doc.data().event;
+                preview = doc.data().preview;
+                img = doc.data().posterurl;
+                console.log([-123.11535188078236, 49.28274402264293])
                 // coordiantes = doc.data().coordiantes;
                 console.log(coordinates);
                 url = doc.data().link;
@@ -29,7 +31,7 @@ function showHikesOnMap() {
                 features.push({
                     'type': 'Feature',
                     'properties': {
-                        'description': `<strong>Current Capacity</strong><p><a href="${url}" target="_blank" title="Opens in a new window">Event Name</a> Some description here</p>`,
+                        'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`,
                         'icon': 'mountain-15'
                     },
                     'geometry': {
