@@ -225,7 +225,6 @@ function eventInit() {
             docRef = db.collection("users").doc(`${user.uid}`);
             docRef.get().then(displayWidgetState);
         } else {
-            //TODO: disable components that non-users can't use
             document.querySelector("#comment-input").style.display = 'none';
             document.querySelector(".bookmark-btn").style.display = 'none';
         }

@@ -1,3 +1,28 @@
+/* Set background using the given background URL */
+function setBackground(doc) {
+    currentBackground = doc.data().background;
+    bodyNode = document.querySelector('body');
+    if (currentBackground == "") {
+      bodyNode.setAttribute('style', "");
+      return;
+    }
+    bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
+}
+
+function fillBackground() {
+    firebase.auth().onAuthStateChanged(user => {
+        // Check if a user is signed in:
+        if (user) {
+            // find users document for signed in user and pass to callback
+            docRef = db.collection("users").doc(`${user.uid}`);
+
+            docRef.get().then(setBackground);
+        } else {
+            // No user is signed in.
+        }
+    });
+}
+
 /* Callback function to setup navbar once skeleton is loaded */
 function setUpNavbar() {
     insertNavProfilePic();
@@ -9,6 +34,7 @@ function setUpNavbar() {
 function loadSkeleton(){
     $('#navbarPlaceholder').load('../text/navbar.html', setUpNavbar);
     $('#footerPlaceholder').load('../text/footer.html');
+    fillBackground();
 }
 loadSkeleton();
 

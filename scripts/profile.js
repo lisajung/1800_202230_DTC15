@@ -65,6 +65,10 @@ async function fillSavedEvents(doc) {
   let carouselButtonContainer = document.querySelector(".carousel-indicators");
 
   let savedEvents = doc.data().savedEvents;
+  if (savedEvents.length <= 0) {
+    document.querySelector("#carouselExampleCaptions").style.display = "none";
+    return;
+  }
   for (i = 0; i < savedEvents.length; i++) { 
       docRef = db.collection("events").doc(`${savedEvents[i]}`);
       await docRef.get().then((eventDoc) => {
@@ -83,6 +87,28 @@ async function fillSavedEvents(doc) {
   }
 
   activateCarousel();
+  removeBookmarkSetup();
+}
+
+function removeBookmarkSetup() {
+  let removeButton = document.querySelector('.remove-btn');
+  removeButton.addEventListener('click', (e) => {
+    let link = document.querySelector('.carousel-inner .active a').href;
+    let url = new URL(link);
+    let queryString = url.searchParams;
+    let eventId = queryString.get("id");
+    firebase.auth().onAuthStateChanged(user => {
+      // Check if a user is signed in:
+      if (user) {
+        docRef = db.collection("users").doc(`${user.uid}`);
+        docRef.update({
+            savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
+        }).then(() => location.reload());
+      } else {
+        // No user is signed in.
+      }
+    });
+  });
 }
 
 function addSettingListeners() {
@@ -96,9 +122,7 @@ function addSettingListeners() {
           docRef = db.collection("users").doc(`${user.uid}`);
           docRef.update({
             background: e.target.getAttribute('data-url')
-          })
-
-          setBackground(e.target.getAttribute('data-url'));
+          }).then(fillBackground);
         } else {
           // No user is signed in.
         }
@@ -107,20 +131,9 @@ function addSettingListeners() {
   );
 }
 
-/* Set background using the given background URL */
-function setBackground(currentBackground) {
-  bodyNode = document.querySelector('body');
-  if (currentBackground == "") {
-    bodyNode.setAttribute('style', "");
-    return;
-  }
-  bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
-}
-
 /* Get correct personalized settings for settings page of profile page */
 function fillSettings(doc) {
   let currentBackground = doc.data().background;
-  setBackground(currentBackground);
 
   //also set radio form
   let radioForm = document.querySelector('.radio-form');
@@ -131,7 +144,6 @@ function fillSettings(doc) {
     }
   }
   
-
   addSettingListeners();
 }
 
@@ -172,7 +184,6 @@ function profileInit() {
       // find users document for signed in user and pass to callback
       docRef = db.collection("users").doc(`${user.uid}`);
       docRef.get().then(fillProfile);
-
       docRef.get().then(fillSettings);
     } else {
       // No user is signed in.

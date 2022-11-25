@@ -160,10 +160,10 @@ async function getCSVdata() {
 }
 
 
-function populateCardsDynamically() {
+async function populateCardsDynamically(userDoc) {
   let eventCardTemplate = document.getElementById("eventCardTemplate");
   let eventCardGroup = document.getElementById("eventCardGroup");
-  db.collection("events").orderBy("numericaldate", "asc").get()
+  await db.collection("events").orderBy("numericaldate", "asc").get()
     .then(allEvents => {
       allEvents.forEach(doc => {
         var eventName = doc.data().event; //gets the name field
@@ -188,25 +188,27 @@ function populateCardsDynamically() {
         testEventCard.querySelector(".event-link").href = `/html/event.html?id=${doc.id}`;
 
         testEventCard.querySelector(".save-button").setAttribute('data-id', `${doc.id}`);
+        if (userDoc == null) {
+          testEventCard.querySelector(".save-button").style.display = "none";
+        }
 
         eventCardGroup.appendChild(testEventCard);
       })
 
-    })
+  })
+
+  return userDoc;
 }
-populateCardsDynamically();
 
 function indexInit() {
     /* If user is signed in then customize the page */
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
           docRef = db.collection("users").doc(`${user.uid}`);
-          docRef.get().then(displayWidgetState);
+          docRef.get().then(populateCardsDynamically).then(displayWidgetState);
       } else {
-          //TODO: disable components that non-users can't use
-          //document.querySelector("#comment-input").style.display = 'none';
-          //document.querySelector(".bookmark-btn").style.display = 'none';
-        }
+          populateCardsDynamically(null);
+      }
     });
 }
 indexInit();
