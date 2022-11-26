@@ -8,7 +8,7 @@ function showEventsOnMap() {
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [-123.11535188078236, 49.28274402264293], // starting position
-        zoom: 14 // starting zoom
+        zoom: 11 // starting zoom
     });
 
 
