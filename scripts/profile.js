@@ -59,7 +59,7 @@ async function fillSavedEvents(doc) {
     document.querySelector(".remove-btn").style.display = "none";
     return;
   }
-  for (i = 0; i < savedEvents.length; i++) {
+  for (let i = 0; i < savedEvents.length; i++) {
     docRef = db.collection("events").doc(`${savedEvents[i]}`);
     await docRef.get().then((eventDoc) => {
       let carouselItemNode = carouselItemTemplate.content.cloneNode(true);
@@ -172,6 +172,12 @@ function fillEvent(doc, features) {
   });
 }
 
+function displayNotification() {
+  let messageNode = document.querySelector(".notify-message");
+  messageNode.textContent = "Hmm… it seems you haven’t saved any events. When you explore the catalogue and save an event, it will appear here on the map";
+  messageNode.style.color = "grey";
+}
+
 
 // MAPBOX DISPLAY
 function showEventsOnMap(docRef) {
@@ -195,10 +201,13 @@ function showEventsOnMap(docRef) {
     //console.log(docRef);
     let allEvents = docRef.data().savedEvents;
     console.log(allEvents)
-    for (i = 0; i < allEvents.length; i + 1) {
-      console.log(allEvents)
-      console.log(allEvents.length)
-      console.log(i)
+    if (allEvents.length <= 0) {
+      displayNotification();
+    }
+    for (let i = 0; i < allEvents.length; i++) {
+      //console.log(allEvents)
+      //console.log(allEvents.length)
+      //console.log(i)
       let doc = await db.collection("events").doc(`${allEvents[i]}`).get();
       coordinates = doc.data().coordinates;
       event_name = doc.data().event;
