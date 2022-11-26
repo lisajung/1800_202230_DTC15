@@ -204,6 +204,16 @@ function showEventsOnMap(docRef) {
     if (allEvents.length <= 0) {
       displayNotification();
     }
+
+    map.loadImage(
+      'https://cdn.iconscout.com/icon/free/png-256/pin-locate-marker-location-navigation-16-28668.png',
+      (error, image) => {
+        if (error) throw error;
+
+        // Add the image to the map style.
+        map.addImage('cat', image);
+      })
+
     for (let i = 0; i < allEvents.length; i++) {
       //console.log(allEvents)
       //console.log(allEvents.length)
@@ -221,8 +231,7 @@ function showEventsOnMap(docRef) {
       features.push({
         'type': 'Feature',
         'properties': {
-          'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`,
-          'icon': 'mountain-15'
+          'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`
         },
         'geometry': {
           'type': 'Point',
@@ -249,7 +258,8 @@ function showEventsOnMap(docRef) {
       'type': 'symbol',
       'source': 'places',
       'layout': {
-        'icon-image': '{icon}',
+        'icon-image': 'cat',
+        'icon-size': 0.1,
         'icon-allow-overlap': true
       }
     });
