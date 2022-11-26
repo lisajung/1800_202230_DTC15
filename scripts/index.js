@@ -4,11 +4,11 @@ let currentUser;
 var todaysDate = new Date()
 var currentTime = todaysDate.getHours()
 if (currentTime < 12) {
-  document.getElementById("greeting-text").innerHTML = "Good Morning";
+  document.getElementById("greeting-text").innerHTML = "Good Morning,";
 } else if (currentTime <= 16 && currentTime >= 13) {
-  document.getElementById("greeting-text").innerHTML = "Good Afternoon";
+  document.getElementById("greeting-text").innerHTML = "Good Afternoon,";
 } else {
-  document.getElementById("greeting-text").innerHTML = "Good Evening"
+  document.getElementById("greeting-text").innerHTML = "Good Evening,"
 }
 
 /* DISPLAY BANNER IF USER IS NOT SIGNED IN */
@@ -30,6 +30,8 @@ function insertName() {
       //console.log(user.uid);
       //console.log(user.displayName);
       //user_Name = user.displayName;
+      let explore = document.querySelector('.explore-container');
+      explore.style.display = 'block';
       docRef = db.collection("users").doc(`${user.uid}`);
       docRef.get().then((doc) => {
         user_Name = doc.data().name;

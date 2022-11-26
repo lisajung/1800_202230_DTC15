@@ -49,3 +49,50 @@ footer p {
 .clear {
   background-color: transparent;
 }
+
+.red-button {
+  background-color: #B5446E;
+  text-decoration-color: white;
+  color: white;
+}
+
+.red-button:hover {
+  color: white;
+  text-decoration-line: underline;
+  background-color: #ce7595;
+}
+
+.red-button:link,
+.red-button:focus,
+.red-button:active {
+  text-decoration: none;
+}
+
+.gold-button {
+  background-color: #C89933;
+  text-decoration-color: white;
+  color: white;
+}
+
+.gold-button:hover {
+  color: white;
+  text-decoration-line: underline;
+  background-color: #e7c16f;
+}
+
+.gold-button:link,
+.gold-button:focus,
+.gold-button:active {
+  text-decoration: none;
+}
+
+.nav-gold-text {
+  color: #C89933;
+  text-decoration: none;
+}
+
+.nav-gold-text:hover {
+  text-decoration-line: underline;
+  color: #e7c16f;
+  text-decoration-color: #e7c16f;
+}

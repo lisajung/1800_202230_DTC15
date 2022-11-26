@@ -54,14 +54,22 @@
 
         <section class="jumbotron text-center clear">
             <div class="container p-4 clear">
-                <h1 class="jumbotron-heading"> <span id="greeting-text">></span> <span id="name-goes-here"></span></h1>
-                <h3> Ready for an adventure?</h3>
-                <p class="lead text-muted">Ditch The Cubicle is designed to get you away from your work. Taking breaks
-                    is fundemental in creating a work life balance, so we are here to help you explore the outdoors.
-                    Scroll down to find currrent events that interest you.</p>
+                <h1 class="jumbotron-heading mb-2"> <span id="greeting-text">></span> <span id="name-goes-here"></span>
+                </h1>
+                <h3 class="mb-4"> Ready for an adventure?</h3>
+                <p class="lead text-muted mb-1">Nowadays, everyone is glued to their desk, with no way to escape. That's
+                    where Ditch The Cubicle comes in. DTC is designed to get you away from your work.
+                </p>
+                <p class="lead text-muted">
+                    Scroll down to find a wide catalogue of events and attractions that are sure to pique your interest
+                    you, and get you to ditch <em>your</em> cubicle.</p>
+                </p>
                 <p class="buttons-container hide">
-                    <a href="../html/login.html" class="btn btn-primary my-2">Log In</a>
-                    <a href="../html/login.html" class="btn btn-secondary my-2">Sign Up</a>
+                    <a href="../html/login.html" class="btn red-button my-2">Log In</a>
+                    <a href="../html/login.html" class="btn gold-button my-2">Sign Up</a>
+                </p>
+                <p class="explore-container hide mt-5">
+                    <a href="#album" class="btn-lg red-button my-2">Explore</a>
                 </p>
             </div>
         </section>
@@ -69,7 +77,7 @@
         <!-- <div class="container"> -->
         <!-- Here is container for cards  -->
         <!-- <div class="container"> -->
-        <div class="album py-5 mt-3 clear">
+        <div class="album py-5 mt-1 clear" id="album">
             <div class="container clear">
                 <div class="row clear" id="eventCardGroup">
                 </div>
@@ -99,7 +107,7 @@
                             </div>
                         </div>
                     </a>
-                    <button class="btn btn-sm btn-primary bookmark-btn save-button" type="button">
+                    <button class="btn btn-sm gold-button bookmark-btn save-button" type="button">
                         <i class="bi bi-bookmark"></i>
                         Bookmark
                     </button>
