@@ -193,7 +193,7 @@ async function showEventsOnMap() {
 
     let eventDoc = await db.collection("events").doc(`${eventId}`).get();
     let location = eventDoc.data().coordinates;
-    let zoomLevel = 14;
+    let zoomLevel = 12;
 
     if (isNaN(location[0])) {
         location = [-123.11535188078236, 49.28274402264293];
@@ -229,7 +229,7 @@ async function showEventsOnMap() {
 
                 // Add the image to the map style.
                 map.addImage('cat', image);
-        });
+            });
 
         features.push({
             'type': 'Feature',
@@ -295,7 +295,7 @@ async function showEventsOnMap() {
         map.on('mouseleave', 'places', () => {
             map.getCanvas().style.cursor = '';
         });
-            
+
     });
 }
 
