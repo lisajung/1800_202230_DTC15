@@ -1,7 +1,7 @@
 //------------------------------------------------------
-// Creates a map in the web page that users can interact with
-// Displays the events stored in the "events" collection in Firestore as pins on the map
-// Clicking on the pins displays a preview card of their basic information
+// Creates a map in the web page that users can interact with.
+// Displays the events stored in the "events" collection in Firestore as pins on the map.
+// Clicking on the pins displays a preview card of their basic information.
 //
 // PARAM > NONE
 // RETURN > NONE
@@ -32,7 +32,7 @@ function showEventsOnMap() {
                 // Add the image to the map style.
                 map.addImage('eventpin', image); // Pin Icon
 
-                // Access "events" collection and READS necessary information
+                // READING information from "events" collection in Firestore
                 db.collection("events").get().then(allEvents => {
                     allEvents.forEach(doc => {
                         coordinates = doc.data().coordinates; // Coordinates
