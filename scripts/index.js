@@ -65,7 +65,7 @@ insertName();
 //------------------------------------------------------
 // Handle a remove bookmark event by removing the event from current users document and changing bookmark icon.
 //
-// PARAM e >
+// PARAM e > The event object that is returned to a handler after a click
 // RETURN > NONE
 //------------------------------------------------------
 function handleRemoveSaveEvent(e) {
@@ -85,7 +85,7 @@ function handleRemoveSaveEvent(e) {
 //------------------------------------------------------
 // Handle a save event by storing the event into current users document and changing bookmark icon.
 //
-// PARAM e >
+// PARAM e > The event object that is returned to a handler after a click
 // RETURN > NONE
 //------------------------------------------------------
 function handleSaveEvent(e) {
@@ -105,7 +105,7 @@ function handleSaveEvent(e) {
 //------------------------------------------------------
 // Add interactive functionality to save buttons.
 //
-// PARAM buttonNode >
+// PARAM buttonNode > The DOM element returned when queryselector or getelementbyid is called
 // RETURN > NONE
 //------------------------------------------------------
 function addWidgetListeners(buttonNode) {
@@ -124,7 +124,7 @@ function addWidgetListeners(buttonNode) {
 //------------------------------------------------------
 // style all save buttons according to current user document.
 //
-// PARAM doc > the userDoc from Firestore
+// PARAM doc > The user document from Firestore
 // RETURN > NONE
 //------------------------------------------------------
 function displayWidgetState(doc) {
@@ -192,7 +192,7 @@ async function getCSVdata() {
 // Dynamically populates event cards on index.html.
 // Uses data stored in "events" collection, using data gathered with Python and stored in Firestore.
 //
-// PARAM userDoc > the userDoc from Firestore
+// PARAM userDoc > The user document from Firestore
 // RETURN > NONE
 //------------------------------------------------------
 async function populateCardsDynamically(userDoc) {

@@ -5,8 +5,7 @@ var uiConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function (authResult, redirectUrl) {
             // User successfully signed in.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
+            // Return type determines whether we continue the redirect automatically or whether we leave that to developer to handle.
             //------------------------------------------------------------------------------------------
             // The code below is modified from default snippet provided by the FB documentation.
             //
