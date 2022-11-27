@@ -47,7 +47,8 @@ function handleAddComment(e) {
         text: commentTextBox.value,
         rating: (ratingsSelect.value != "" ? parseInt(ratingsSelect.value) : 0),
         userId: userDocId,
-        eventId: eventId
+        eventId: eventId,
+        reviewCreated: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
         commentTextBox.value = "";
         location.reload();
@@ -168,6 +169,7 @@ function fillCommentSection(docQuery) {
             displayRating(doc.data().rating, commentNode);
             commentNode.querySelector('.username').textContent = userDoc.data().name;
             commentNode.querySelector('.text').textContent = doc.data().text;
+            commentNode.querySelector('.rating-timestamp').textContent = doc.data().reviewCreated.toDate().toDateString();
             let pfpUrl = userDoc.data().profilePictureUrl
             if (pfpUrl == "") {
                 pfpUrl = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png";
@@ -309,7 +311,7 @@ function eventInit() {
     docRef.get().then(fillEventPage);
 
     let collectionRef = db.collection("reviews");
-    collectionRef.where("eventId", "==", `${eventId}`).get().then(fillCommentSection);
+    collectionRef.where("eventId", "==", `${eventId}`).orderBy("reviewCreated", "desc").get().then(fillCommentSection);
 
     let collectionRefNew = db.collection("reviews");
     collectionRefNew.where("eventId", "==", `${eventId}`).get().then(displayEventRating);

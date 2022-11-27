@@ -67,6 +67,11 @@
   margin-top: 10px;
 }
 
+.rating-timestamp {
+  font-size: 12px;
+  color: grey;
+}
+
 .userimg {
   box-sizing: border-box;
   padding-bottom: 10px;
