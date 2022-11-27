@@ -54,3 +54,7 @@
   margin: 0 auto;
   max-width: 100%;
 }
+
+.d-block {
+  width: 100%;
+}
