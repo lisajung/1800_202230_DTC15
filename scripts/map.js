@@ -32,8 +32,6 @@ function showEventsOnMap() {
                         event_name = doc.data().event;
                         preview = doc.data().preview;
                         img = doc.data().posterurl;
-                        console.log([-123.11535188078236, 49.28274402264293])
-                        // coordiantes = doc.data().coordiantes;
                         console.log(coordinates);
                         url = doc.data().link;
 

@@ -3,8 +3,8 @@ function setBackground(doc) {
     currentBackground = doc.data().background;
     bodyNode = document.querySelector('body');
     if (currentBackground == "") {
-      bodyNode.setAttribute('style', "");
-      return;
+        bodyNode.setAttribute('style', "");
+        return;
     }
     bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
 }
@@ -30,7 +30,7 @@ function setUpNavbar() {
 }
 
 /* load navbar and footer into all pages of web app */
-function loadSkeleton(){
+function loadSkeleton() {
     $('#navbarPlaceholder').load('../text/navbar.html', setUpNavbar);
     $('#footerPlaceholder').load('../text/footer.html');
     fillBackground();
@@ -72,7 +72,6 @@ function insertNavProfilePic() {
         let profileImageContainer = document.querySelector(".navprofilepic");
         // Check if a user is signed in:
         if (user) {
-            // Do something for the currently logged-in user here:
             docRef = db.collection("users").doc(`${user.uid}`);
             docRef.get().then((doc) => {
                 profileImage.style.visibility = 'visible';

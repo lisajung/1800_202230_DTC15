@@ -27,9 +27,6 @@ function insertName() {
     // Check if a user is signed in:
     if (user) {
       // Do something for the currently logged-in user here:
-      //console.log(user.uid);
-      //console.log(user.displayName);
-      //user_Name = user.displayName;
       let explore = document.querySelector('.explore-container');
       explore.style.display = 'block';
       docRef = db.collection("users").doc(`${user.uid}`);
@@ -37,10 +34,6 @@ function insertName() {
         user_Name = doc.data().name;
         $("#name-goes-here").text(user_Name);
       });
-      //method #1:  insert with html only
-      //document.getElementById("name-goes-here").innerText = user_Name;    //using javascript
-      //method #2:  insert using jquery //using jquery
-
     } else {
       // No user is signed in.
     }
@@ -162,16 +155,12 @@ async function populateCardsDynamically(userDoc) {
         var eventCost = doc.data().cost;
         var eventPreview = doc.data().preview;
         var eventLocation = doc.data().location;
-        // var hikeID = doc.data().code; //gets the unique ID field
-        // var hikeLength = doc.data().length; //gets the length field
         let testEventCard = eventCardTemplate.content.cloneNode(true);
         testEventCard.querySelector('.card-title').innerHTML = eventName;     //equiv getElementByClassName
         testEventCard.querySelector('#location').innerHTML = "Location: " + eventLocation;
         testEventCard.querySelector('#date').innerHTML = "Date: " + eventStart + " to " + eventEnd;
         testEventCard.querySelector('.card-text').innerHTML = eventPreview;
         testEventCard.querySelector('.text-muted').innerHTML = eventCost;
-        // testEventCard.querySelector('.card-length').innerHTML = hikeLength;  //equiv getElementByClassName
-        // testEventCard.querySelector('a').onclick = () => setHikeData(hikeID);//equiv getElementByTagName
         testEventCard.querySelector('img').src = eventImg;   //equiv getElementByTagName
         // create individual links for each event
         testEventCard.querySelector(".event-link").href = `/html/event.html?id=${doc.id}`;
