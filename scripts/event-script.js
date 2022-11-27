@@ -4,10 +4,10 @@ let currentUser;
 function handleRemoveSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
-    let docId = queryParams.get("id");
+    let eventId = queryParams.get("id");
 
     currentUser.update({
-        savedEvents: firebase.firestore.FieldValue.arrayRemove(`${docId}`)
+        savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     });
 
     let bookmarkIcon = e.currentTarget.children[0];
@@ -16,14 +16,14 @@ function handleRemoveSaveEvent(e) {
     e.currentTarget.addEventListener('click', handleSaveEvent);
 }
 
-/* Handle a save event by storing the event into current users document and changing bookmark icon */
+/* Handle a bookmark event by storing the event into current users document and changing bookmark icon */
 function handleSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
-    let docId = queryParams.get("id");
+    let eventId = queryParams.get("id");
 
     currentUser.update({
-        savedEvents: firebase.firestore.FieldValue.arrayUnion(`${docId}`)
+        savedEvents: firebase.firestore.FieldValue.arrayUnion(`${eventId}`)
     });
 
     let bookmarkIcon = e.currentTarget.children[0];
@@ -32,7 +32,7 @@ function handleSaveEvent(e) {
     e.currentTarget.addEventListener('click', handleRemoveSaveEvent);
 }
 
-/* Handles the comment submit by storing a review in the reviews collection */
+/* Handle a comment submit by storing a review in the reviews collection for this event */
 function handleAddComment(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
@@ -54,7 +54,7 @@ function handleAddComment(e) {
     });
 }
 
-/* Add interactive functionality to icons, buttons */
+/* Add interactive functionality(i.e, listeners) to widgets (bookmark button, comment button, etc.) */
 function addWidgetListeners() {
     let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
     if (bookmarkIcon !== null) {
@@ -72,21 +72,21 @@ function addWidgetListeners() {
     submitButton.addEventListener('click', handleAddComment);
 }
 
-/* style widgets according to current user document */
+/* style widgets(bookmark button, etc.) according to current user document state */
 function displayWidgetState(doc) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
-    let docId = queryParams.get("id");
+    let eventId = queryParams.get("id");
 
     let savedEventIds = doc.data().savedEvents;
-    if (savedEventIds.includes(docId)) {
+    if (savedEventIds.includes(eventId)) {
         let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
         bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
     }
     addWidgetListeners();
 }
 
-/* display a rating using filled-stars */
+/* display a rating for comments using filled-stars and empty stars icons */
 function displayRating(ratingNum, commentNode) {
     if (ratingNum == 0) {
         return;
@@ -103,7 +103,8 @@ function displayRating(ratingNum, commentNode) {
     }
 }
 
-function displayRatingEvent(ratingNum) {
+/* display a rating for the event using filled-stars and empty stars icons */
+function displayRatingIconsEvent(ratingNum) {
     let starContainer = document.querySelector('.star-container');
     for (let i = 0; i < ratingNum; i++) {
         let starIcon = document.createElement("i");
@@ -117,13 +118,11 @@ function displayRatingEvent(ratingNum) {
     }
 }
 
-/* display the rating for the event page */
-async function displayEventRating(docQuery) {
+/* display the rating for the event page by aggregating and averaging all user ratings */
+function displayEventRating(docQuery) {
     let ratingNum = 0;
     let reviewerCount = 0;
     docQuery.forEach((doc) => {
-        //let userId = doc.data().userId;
-        //docRef = db.collection("users").doc(`${userId}`);
         ratingNum += doc.data().rating;
         if (doc.data().rating != 0) {
             reviewerCount += 1;
@@ -134,15 +133,14 @@ async function displayEventRating(docQuery) {
         reviewerCount = 1;
     }
     let averageRating = Math.ceil(ratingNum / reviewerCount);
-    displayRatingEvent(averageRating);
+    displayRatingIconsEvent(averageRating);
 }
 
-/* Fill event page with appropriate firestore data */
+/* Fill event page with event information grabbed from firestore */
 function fillEventPage(doc) {
     let imgEvent = document.querySelector('.event-img');
     let eventDescription = document.querySelector('.event-description');
     let eventName = document.querySelector('.title');
-    //let eventLikes = document.querySelector('.likes-text');
     let eventLocation = document.querySelector('.event-location');
     let eventDate = document.querySelector('.event-date');
     let eventCost = document.querySelector('.event-cost');
@@ -157,7 +155,7 @@ function fillEventPage(doc) {
     eventLink.href = doc.data().link;
 }
 
-/* Fill comment section of page with appropriate firestore data */
+/* Fill comment section of page with all user comments that match this event */
 function fillCommentSection(docQuery) {
     let commentTemplate = document.querySelector(".comment-template");
     let commentContainer = document.querySelector(".comment-container");
@@ -180,50 +178,21 @@ function fillCommentSection(docQuery) {
     });
 }
 
-/* Initialize the event page */
-function eventInit() {
-    let queryStr = window.location.search;
-    let queryParams = new URLSearchParams(queryStr);
-    let docId = queryParams.get("id");
-
-    docRef = db.collection("events").doc(`${docId}`);
-    docRef.get().then(fillEventPage);
-
-    let collectionRef = db.collection("reviews");
-    collectionRef.where("eventId", "==", `${docId}`).get().then(fillCommentSection);
-
-    let collectRef = db.collection("reviews");
-    collectRef.where("eventId", "==", `${docId}`).get().then(displayEventRating);
-
-    showEventsOnMap();
-
-    /* If user is signed in then customize the page */
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            currentUser = db.collection("users").doc(`${user.uid}`);
-            currentUser.get().then(displayWidgetState);
-        } else {
-            document.querySelector("#comment-input").style.display = 'none';
-            document.querySelector(".bookmark-btn").style.display = 'none';
-        }
-    });
-}
-eventInit();
-
+/* Display a notification if event has no coordinates */
 function displayNotification() {
     let messageNode = document.querySelector(".notify-message");
     messageNode.textContent = "Oops, we couldn’t find this event on the map. It may occur online, or it could possibly have multiple locations";
     messageNode.style.color = "red";
 }
 
-// MAPBOX DISPLAY
+/* MAPBOX DISPLAY FUNCTION */
 async function showEventsOnMap() {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
 
-    let doc = await db.collection("events").doc(`${eventId}`).get();
-    let location = doc.data().coordinates;
+    let eventDoc = await db.collection("events").doc(`${eventId}`).get();
+    let location = eventDoc.data().coordinates;
     let zoomLevel = 14;
 
     if (isNaN(location[0])) {
@@ -247,14 +216,11 @@ async function showEventsOnMap() {
 
     map.on('load', () => {
         const features = [];
-        coordinates = doc.data().coordinates;
-        event_name = doc.data().event;
-        preview = doc.data().preview;
-        img = doc.data().posterurl;
-        //console.log([-123.11535188078236, 49.28274402264293])
-        // coordiantes = doc.data().coordiantes;
-        //console.log(coordinates);
-        url = doc.data().link;
+        coordinates = eventDoc.data().coordinates;
+        event_name = eventDoc.data().event;
+        preview = eventDoc.data().preview;
+        img = eventDoc.data().posterurl;
+        url = eventDoc.data().link;
 
         map.loadImage(
             'https://cdn.iconscout.com/icon/free/png-256/pin-locate-marker-location-navigation-16-28668.png',
@@ -330,3 +296,33 @@ async function showEventsOnMap() {
             })
     });
 }
+
+/* Initialize the event page */
+function eventInit() {
+    let queryStr = window.location.search;
+    let queryParams = new URLSearchParams(queryStr);
+    let eventId = queryParams.get("id");
+
+    docRef = db.collection("events").doc(`${eventId}`);
+    docRef.get().then(fillEventPage);
+
+    let collectionRef = db.collection("reviews");
+    collectionRef.where("eventId", "==", `${eventId}`).get().then(fillCommentSection);
+
+    let collectionRefNew = db.collection("reviews");
+    collectionRefNew.where("eventId", "==", `${eventId}`).get().then(displayEventRating);
+
+    showEventsOnMap();
+
+    /* If user is signed in then customize the page, otherwise remove some user-specific elements */
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            currentUser = db.collection("users").doc(`${user.uid}`);
+            currentUser.get().then(displayWidgetState);
+        } else {
+            document.querySelector("#comment-input").style.display = 'none';
+            document.querySelector(".bookmark-btn").style.display = 'none';
+        }
+    });
+}
+eventInit();

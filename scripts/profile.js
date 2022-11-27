@@ -172,14 +172,15 @@ function fillEvent(doc, features) {
   });
 }
 
+/* Display a notification if user has no saved events */
 function displayNotification() {
   let messageNode = document.querySelector(".notify-message");
   messageNode.textContent = "Hmm… it seems you haven’t saved any events. When you explore the catalogue and save an event, it will appear here on the map";
-  messageNode.style.color = "grey";
+  messageNode.style.color = "red";
 }
 
 
-// MAPBOX DISPLAY
+/* MAPBOX DISPLAY FUNCTION */
 function showEventsOnMap(docRef) {
 
 

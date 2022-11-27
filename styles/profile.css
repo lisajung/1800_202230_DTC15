@@ -31,6 +31,7 @@
 
 .modal-button:hover {
   cursor: pointer;
+  color: #C89933;
 }
 
 .modal-fullscreen {
