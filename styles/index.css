@@ -48,6 +48,7 @@
 
 .loadButton {
   padding: 15px;
+  display: none;
 }
 
 .box-shadow {

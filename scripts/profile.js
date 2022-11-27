@@ -4,7 +4,7 @@ let currentUser;
 function checkUserLoggedIn() {
   firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
-      window.location.assign("index.html");
+      window.location.assign("/index.html");
     }
   })
 }

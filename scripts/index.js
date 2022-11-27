@@ -290,6 +290,7 @@ async function populateCardsDynamicallyNextBatch() {
 //------------------------------------------------------
 function attachLoadMoreButton() {
   buttonNode = document.querySelector('.loadButton');
+  buttonNode.style.display = 'block';
   buttonNode.addEventListener('click', (e) => {
     populateCardsDynamicallyNextBatch();
   });
