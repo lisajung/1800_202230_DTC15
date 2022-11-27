@@ -1,40 +1,47 @@
-// MAPBOX DISPLAY
+//------------------------------------------------------
+// Creates a map in the web page that users can interact with
+// Displays the events stored in the "events" collection in Firestore as pins on the map
+// Clicking on the pins displays a preview card of their basic information
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function showEventsOnMap() {
-
-
-    // MAPBOX DISPLAY
+    // Defines basic mapbox data
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhbWNoZW4zIiwiYSI6ImNsMGZyNWRtZzB2angzanBjcHVkNTQ2YncifQ.fTdfEXaQ70WoIFLZ2QaRmQ';
     const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [-123.11535188078236, 49.28274402264293], // starting position
-        zoom: 11 // starting zoom
+        container: 'map', // Container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // Styling URL
+        center: [-123.11535188078236, 49.28274402264293], // Starting position
+        zoom: 11 // Starting zoom
     });
 
-
-    // Add zoom and rotation controls to the map.
+    // Add user controls to map
     map.addControl(new mapboxgl.NavigationControl());
 
+    // Adds map features
     map.on('load', () => {
-        const features = [];
+        const features = []; // Defines an empty array for information to be added to
+
+        // Defines map pin icon
         map.loadImage(
             'https://cdn.iconscout.com/icon/free/png-256/pin-locate-marker-location-navigation-16-28668.png',
             (error, image) => {
                 if (error) throw error;
 
                 // Add the image to the map style.
-                map.addImage('cat', image);
+                map.addImage('eventpin', image); // Pin Icon
 
-
+                // Access "events" collection and READS necessary information
                 db.collection("events").get().then(allEvents => {
                     allEvents.forEach(doc => {
-                        coordinates = doc.data().coordinates;
-                        event_name = doc.data().event;
-                        preview = doc.data().preview;
-                        img = doc.data().posterurl;
-                        console.log(coordinates);
-                        url = doc.data().link;
+                        coordinates = doc.data().coordinates; // Coordinates
+                        event_name = doc.data().event; // Event Name
+                        preview = doc.data().preview; // Text Preview
+                        img = doc.data().posterurl; // Image
+                        url = doc.data().link; // URL
 
+                        // Pushes information into the features array
                         features.push({
                             'type': 'Feature',
                             'properties': {
@@ -47,38 +54,34 @@ function showEventsOnMap() {
                         });
                     })
 
+                    // Adds features as a source to the map
                     map.addSource('places', {
-                        // This GeoJSON contains features that include an "icon"
-                        // property. The value of the "icon" property corresponds
-                        // to an image in the Mapbox Streets style's sprite.
                         'type': 'geojson',
                         'data': {
                             'type': 'FeatureCollection',
                             'features': features
                         }
                     });
-                    // Add a layer showing the places.
+
+                    // Creates a layer above the map displaying the pins
                     map.addLayer({
                         'id': 'places',
                         'type': 'symbol',
                         'source': 'places',
                         'layout': {
-                            'icon-image': 'cat',
-                            'icon-size': 0.1,
-                            'icon-allow-overlap': true
+                            'icon-image': 'eventpin', // Pin Icon
+                            'icon-size': 0.1, // Pin Size
+                            'icon-allow-overlap': true // Allows icons to overlap
                         }
                     });
 
-                    // When a click event occurs on a feature in the places layer, open a popup at the
-                    // location of the feature, with description HTML from its properties.
+                    // Map On Click function that creates a popup, displaying previously defined information from "events" collection in Firestore
                     map.on('click', 'places', (e) => {
                         // Copy coordinates array.
                         const coordinates = e.features[0].geometry.coordinates.slice();
                         const description = e.features[0].properties.description;
 
-                        // Ensure that if the map is zoomed out such that multiple
-                        // copies of the feature are visible, the popup appears
-                        // over the copy being pointed to.
+                        // Ensure that if the map is zoomed out such that multiple copies of the feature are visible, the popup appears over the copy being pointed to.
                         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                         }
@@ -94,7 +97,7 @@ function showEventsOnMap() {
                         map.getCanvas().style.cursor = 'pointer';
                     });
 
-                    // Change it back to a pointer when it leaves.
+                    // Defaults cursor when not hovering over the places layer
                     map.on('mouseleave', 'places', () => {
                         map.getCanvas().style.cursor = '';
                     });
