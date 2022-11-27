@@ -3,6 +3,9 @@ let currentUser;
 
 //------------------------------------------------------
 // CHANGE GREETING DEPENDING ON THE TIME OF DAY
+//
+// PARAM > NONE
+// RETURN > NONE
 //------------------------------------------------------
 var todaysDate = new Date()
 var currentTime = todaysDate.getHours()
@@ -18,6 +21,9 @@ if (currentTime < 12) { // CHECKS IF TIME IS MORNING
 
 //------------------------------------------------------
 // DISPLAY BANNER IF USER IS NOT SIGNED IN //
+//
+// PARAM > NONE
+// RETURN > NONE
 //------------------------------------------------------
 function displayLoginBanner() {
   firebase.auth().onAuthStateChanged((user) => {
@@ -31,7 +37,10 @@ displayLoginBanner();
 
 
 //------------------------------------------------------
-// DISPLAYS THE USERS NAME IN BANNER IF SIGNED IN 
+// DISPLAYS THE USERS NAME IN BANNER IF SIGNED IN
+//
+// PARAM > NONE
+// RETURN > NONE
 //------------------------------------------------------
 function insertName() {
   firebase.auth().onAuthStateChanged(user => {
@@ -55,6 +64,9 @@ insertName();
 
 //------------------------------------------------------
 // Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
+//
+// PARAM e >
+// RETURN > NONE
 //------------------------------------------------------
 function handleRemoveSaveEvent(e) {
   let docId = e.currentTarget.getAttribute('data-id');
@@ -72,6 +84,9 @@ function handleRemoveSaveEvent(e) {
 
 //------------------------------------------------------
 // Handle a save event by storing the event into current users document and changing bookmark icon
+//
+// PARAM e >
+// RETURN > NONE
 //------------------------------------------------------
 function handleSaveEvent(e) {
   let docId = e.currentTarget.getAttribute('data-id');
@@ -89,6 +104,9 @@ function handleSaveEvent(e) {
 
 //------------------------------------------------------
 // Add interactive functionality to save buttons
+//
+// PARAM buttonNode >
+// RETURN > NONE
 //------------------------------------------------------
 function addWidgetListeners(buttonNode) {
   let bookmarkIcon = buttonNode.querySelector('.bi-bookmark');
@@ -105,6 +123,9 @@ function addWidgetListeners(buttonNode) {
 
 //------------------------------------------------------
 // style all save buttons according to current user document
+//
+// PARAM doc > the userDoc from Firestore
+// RETURN > NONE
 //------------------------------------------------------
 function displayWidgetState(doc) {
   let saveButtons = document.querySelectorAll(".save-button");
@@ -123,6 +144,9 @@ function displayWidgetState(doc) {
 // Get data from a CSV file with ".fetch()"
 // Uses an async function which must be called in the console to activate
 // File is CREATED using PYTHON
+//
+// PARAM > NONE
+// RETURN > NONE
 //------------------------------------------------------
 async function getCSVdata() {
   console.log("success")
@@ -167,6 +191,9 @@ async function getCSVdata() {
 //------------------------------------------------------
 // Dynamically populates event cards on index.html
 // Uses data stored in "events" collection, using data GATHERED with PYTHON and stored in FIrestore
+//
+// PARAM userDoc > the userDoc from Firestore
+// RETURN > NONE
 //------------------------------------------------------
 async function populateCardsDynamically(userDoc) {
   let eventCardTemplate = document.getElementById("eventCardTemplate"); // Grabbing template from HTML
@@ -212,6 +239,9 @@ async function populateCardsDynamically(userDoc) {
 
 //------------------------------------------------------
 // Calls Card Populater 
+// 
+// PARAM > NONE
+// RETURN > NONE
 //------------------------------------------------------
 function indexInit() {
   // If user is signed in then customize the page 
