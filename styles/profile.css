@@ -16,7 +16,24 @@
 
 .user-settings {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+}
+
+.collapse-edit {
+  align-self: center;
+  text-decoration: none;
+  color: unset;
+  margin-top: 2px;
+}
+
+.collapse-edit i {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.collapse-edit:hover {
+  cursor: pointer;
+  color: #C89933;
 }
 
 .modal-button {

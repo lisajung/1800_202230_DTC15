@@ -41,6 +41,15 @@
   max-width: 40rem;
 }
 
+.button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.loadButton {
+  padding: 15px;
+}
+
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }

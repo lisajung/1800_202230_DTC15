@@ -69,11 +69,15 @@
 
                                 <div class="user-settings">
                                     <!-- Edit profile button-->
-                                    <button class="btn gold-button my-2" type="button" data-bs-toggle="collapse"
+                                    <!--<button class="btn gold-button my-2" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseExample" aria-expanded="false"
                                         aria-controls="collapseExample">
                                         Edit Profile
-                                    </button>
+                                    </button>-->
+                                    <a class="collapse-edit" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    
 
                                     <!-- Settings button trigger for modal -->
                                     <a class="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -90,7 +94,7 @@
                                         <input class="form-control mb-2" type="text" id="display-name" name="username">
                                         <span style="font-size: 16px;">Profile Description:</span>
                                         <textarea class="form-control mb-3" id="edit-area" rows="5"></textarea>
-                                        <button type="button" class="profile-button btn gold-button">Save
+                                        <button type="button" class="profile-button btn red-button">Save
                                             changes</button>
                                     </div>
                                 </div>
