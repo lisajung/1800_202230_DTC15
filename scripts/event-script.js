@@ -56,15 +56,15 @@ function handleAddComment(e) {
 
 /* Add interactive functionality to icons, buttons */
 function addWidgetListeners() {
-    let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
+    let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
     if (bookmarkIcon !== null) {
-        let bookmarkButton = document.querySelector('.widget-bar .bookmark-btn');
+        let bookmarkButton = document.querySelector('.bookmark-container .bookmark-btn');
         bookmarkButton.addEventListener('click', handleSaveEvent);
     }
 
-    let checkedBookmarkIcon = document.querySelector('.widget-bar .bi-bookmark-check');
+    let checkedBookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark-check');
     if (checkedBookmarkIcon !== null) {
-        let bookmarkButton = document.querySelector('.widget-bar .bookmark-btn');
+        let bookmarkButton = document.querySelector('.bookmark-container .bookmark-btn');
         bookmarkButton.addEventListener('click', handleRemoveSaveEvent);
     }
 
@@ -80,7 +80,7 @@ function displayWidgetState(doc) {
 
     let savedEventIds = doc.data().savedEvents;
     if (savedEventIds.includes(docId)) {
-        let bookmarkIcon = document.querySelector('.widget-bar .bi-bookmark');
+        let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
         bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
     }
     addWidgetListeners();
@@ -151,10 +151,9 @@ function fillEventPage(doc) {
     imgEvent.src = doc.data().posterurl;
     eventDescription.innerHTML = doc.data().description;
     eventName.textContent = doc.data().event;
-    //eventLikes.textContent = `${doc.data().likecounter} likes`;
-    eventLocation.textContent = doc.data().location;
-    eventDate.textContent = doc.data().startdate + " - " + doc.data().enddate;
-    eventCost.textContent = doc.data().cost;
+    eventLocation.textContent = `${doc.data().location}`;
+    eventDate.textContent = `${doc.data().startdate} - ${doc.data().enddate}`;
+    eventCost.textContent = `${doc.data().cost}`;
     eventLink.href = doc.data().link;
 }
 

@@ -52,52 +52,55 @@
         <!----------------->
         <!-- User Card -->
         <!----------------->
-        <div class="profile-settings-row">
+        <div class="profile-row row">
+            <div class="col-12">
+                <div class="user-profile card mb-3 mt-5 border-0 clear">
+                    <div class="row justify-content-start">
+                        <div class="col-12 col-md-3 align-self-start">
+                            <img src="" class="card-img profile-pic p-1 round" alt="...">
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <div class="card-body profile">
 
-            <div class="user-profile card mb-3 mt-5 border-0 clear" id="john">
-                <div class="row no-gutters">
-                    <div class="col-md-4 mt-2 pb-1" style="max-width: 200px">
-                        <img src="" class="card-img profile-pic p-1 round" alt="...">
-                    </div>
-                    <div class="col-md-8 p-0" style="max-width:500px">
-                        <div class="card-body profile ps-0">
-                            <h5 class="card-title"></h5>
-                            <h6 class="mb-4"></h6>
-                            <p class="card-text my-1"></p>
-                            <!-- <button type="button" class="btn btn-outline-dark my-2">Edit Profile</button> -->
-                            <p>
-                                <button class="btn btn-outline-dark my-2" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample" aria-expanded="false"
-                                    aria-controls="collapseExample">
-                                    Edit Profile
-                                </button>
-                            </p>
-                            <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
-                                    Profile Image URL:
-                                    <input class="form-control" type="text" id="imageurl">
-                                    <br>
-                                    Edit Name:
-                                    <input class="form-control" type="text" id="username" name="username">
-                                    <br>
-                                    Edit Profile Text:
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    <br>
-                                    <button type="button" class="profile-button btn btn-primary">Save changes</button>
+                                <!-- Card text for profile-->
+                                <h2 class="card-title profile-username"></h2>
+                                <h6 class="card-text profile-name mb-4"></h6>
+                                <p class="card-text profile-text my-1"></p>
+
+                                <div class="user-settings">
+                                    <!-- Edit profile button-->
+                                    <button class="btn red-button my-2" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample" aria-expanded="false"
+                                        aria-controls="collapseExample">
+                                        Edit Profile
+                                    </button>
+
+                                    <!-- Settings button trigger for modal -->
+                                    <a class="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="bi bi-gear-fill"></i>
+                                    </a>
                                 </div>
+
+                                <!-- Collapse menu for "edit profile" button above-->
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <span style="font-size: 16px;">Profile Image URL:</span>
+                                        <input class="form-control mb-2" type="text" id="imageurl">
+                                        <span style="font-size: 16px;">Display Name:</span>
+                                        <input class="form-control mb-2" type="text" id="username" name="username">
+                                        <span style="font-size: 16px;">Profile Description:</span>
+                                        <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                        <button type="button" class="profile-button btn red-button">Save changes</button>
+                                    </div>
+                                </div>
+
                             </div>
-                            <p class="card-text m-0"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Button trigger modal -->
-            <a class="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bi bi-gear-fill"></i>
-            </a>
-
-            <!-- Modal -->
+            <!-- Modal triggered by settings button from above -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
@@ -173,54 +176,43 @@
                 aria-current="true" aria-label="Slide 1"></button>
         </template>
 
-        <button type="button" class="btn btn-warning remove-btn">Remove Bookmark</button>
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
-            <div class="carousel-indicators">
+        <div class="row text-center">
+            <div class="col-12">
+                <h3 class="sub-title">Your Saved Events</h3>
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                    <div class="carousel-indicators">
+                    </div>
+                    <div class="carousel-inner">
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <button type="button" class="btn red-button remove-btn mt-2">
+                    Remove This Bookmark
+                </button>
             </div>
-            <div class="carousel-inner">
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
 
-        <div class="row text-center my-5 mx-1">
-            <h3>Oh, the Places You'll Go!</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur deleniti
-                adipisci quibusdam repellat porro officia recusandae facere, consectetur quasi aliquam sunt illum
-                incidunt
-                aperiam laboriosam id soluta alias? Architecto, iusto?</p>
-        </div>
         <!-- MAPBOX -->
-        <div class="row text-center">
-            <h2>Your Saved Events</h2>
-            <span class="notify-message"></span>
-            <div id='map' style='width: 100%; height: 800px;'></div>
-        </div>
-        <!-- MAPBOX -->
-        <div>
-            <div class="card">
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Need Suggestion?</h5>
-                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione eos, molestias
-                    dolore deleniti repellendus quam eligendi consequatur asperiores in nostrum ex error. Voluptatibus,
-                    odio reiciendis, aliquam accusantium distinctio perferendis dolorum voluptatum odit delectus iste
-                    quisquam impedit inventore eos unde perspiciatis nam earum ad rem, nesciunt quam? Laudantium
-                    voluptates repellat unde.</p>
-                <!-- <a href="./restaurant-list.html" class="btn btn-info">See other restaurants</a> -->
+        <div class="row text-center mt-4 justify-content-center">
+            <div class="col-10 col-md-12">
+                <h3 class="sub-title">Saved Events Map</h3>
+                <span class="notify-message"></span>
+                <div id='map' style='width: 100%; height: 600px;'></div>
             </div>
         </div>
 
     </div>
 
+    <!-- Footer -->
     <div id="footerPlaceholder"></div>
 
     <script src="../scripts/firebaseAPI_TEAMDTC15.js"></script>

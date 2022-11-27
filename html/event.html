@@ -75,12 +75,15 @@
     <!-- Event Description Text -->
     <div class="row mt-2 mb-2">
       <div class="col-12">
-        <h3 class="sub-title text-center">Event Description</h3>
+        <h3 class="sub-title text-center">Event Details</h3>
         <div class="card">
           <div class="card-body">
             <h6 class="card-subtitle mb-4 text-muted event-date"></h6>
+            <h4>Description</h4>
             <p class="card-text event-description"></p>
+            <h4>Address</h4>
             <p class="card-text event-location"></p>
+            <h4>Cost</h4>
             <p class="card-text event-cost"></p>
             <a href="#" class="card-link event-link">Click here for more information.</a>
           </div>
@@ -98,7 +101,7 @@
     </div>
 
     <!--Comment box-->
-    <div id="comment-input" class="row">
+    <div id="comment-input" class="row mb-2">
       <div class="col-12">
         <h3 class="sub-title">Reviews</h3>
         <div class="comment_box">
@@ -111,12 +114,11 @@
             <option value="4">Four stars</option>
             <option value="5">Five stars</option>
           </select>
-          <textarea class="form-control comment-text" rows="5" id="comment" name="text"
-            placeholder="Leave a review!">
+          <textarea class="form-control comment-text" rows="5" id="comment" name="text" placeholder="Leave a review!">
           </textarea>
         </div>
         <div class="submit_button">
-          <button type="submit" class="btn btn-primary submit-button">Submit</button>
+          <button type="submit" class="btn gold-button submit-button">Submit</button>
         </div>
       </div>
     </div>
@@ -145,6 +147,7 @@
 
   </div>
 
+  <!-- Footer -->
   <div id="footerPlaceholder"></div>
 
   <!---------------------------------------------->

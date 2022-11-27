@@ -1,20 +1,26 @@
 @import url("../styles/global.css");
 
-.setting_icon {
-  float: right;
-  font-size: xx-large;
-  margin-right: 20px;
+.sub-title {
+  font-weight: bold;
+  font-size: 27px;
+  text-align: center;
 }
 
-.profile-settings-row {
-  margin-top: 10px;
+.profile-row {
+  margin-top: 15px;
+}
+
+.profile-pic {
+  max-width: 100%;
+}
+
+.user-settings {
   display: flex;
   justify-content: space-between;
 }
 
 .modal-button {
-  margin-top: 50px;
-  align-self: flex-start;
+  align-self: center;
   text-decoration: none;
   color: unset;
 }
@@ -27,15 +33,13 @@
   cursor: pointer;
 }
 
-.user-profile {
-  width: 100%;
-  padding-left: 20px;
+.modal-fullscreen {
+  width: auto !important;
 }
 
-/* #carouselExampleCaptions {
-  background-color: #ffffff;
-  opacity: 0;
-} */
+.profile-button {
+  align-self: end;
+}
 
 .carousel-control-next,
 .carousel-control-prev
@@ -48,21 +52,4 @@
 .carousel-item img {
   margin: 0 auto;
   max-width: 100%;
-  height: 400px;
-}
-
-@media screen and (max-width: 350px) {
-  .profile-settings-row {
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .modal-button {
-    order: 1;
-    margin-left: 10px;
-  }
-
-  .user-profile {
-    order: 2;
-  }
 }

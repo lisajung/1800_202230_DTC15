@@ -121,9 +121,9 @@ function fillSettings(doc) {
 
 /* Callback that uses returned document to fill out profile page */
 function fillProfile(doc) {
-  let profileUsername = document.querySelector('.profile .card-title');
-  let profileName = document.querySelector('.profile h6');
-  let profileDescription = document.querySelector('.profile .card-text');
+  let profileUsername = document.querySelector('.profile .profile-username');
+  let profileName = document.querySelector('.profile .profile-name');
+  let profileDescription = document.querySelector('.profile .profile-text');
   profileUsername.textContent = doc.data().name;
   profileName.textContent = doc.data().email;
   profileDescription.textContent = doc.data().description;
