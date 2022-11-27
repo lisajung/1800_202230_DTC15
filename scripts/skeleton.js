@@ -9,13 +9,12 @@ function setBackground(doc) {
     bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
 }
 
+/* Change background to current user setting */
 function fillBackground() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
         if (user) {
-            // find users document for signed in user and pass to callback
             docRef = db.collection("users").doc(`${user.uid}`);
-
             docRef.get().then(setBackground);
         } else {
             // No user is signed in.

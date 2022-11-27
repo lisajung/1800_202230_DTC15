@@ -10,11 +10,11 @@ function checkUserLoggedIn() {
 }
 checkUserLoggedIn();
 
-/* Use users document reference to set users document fields */
+/* Use users document reference to set users document fields of edit profile area */
 function handleProfileChange(e) {
-  let imageURL = document.querySelector('#imageurl');
-  let userName = document.querySelector('#username');
-  let text = document.querySelector('#exampleFormControlTextarea1');
+  let imageURL = document.querySelector('#image-url');
+  let userName = document.querySelector('#display-name');
+  let text = document.querySelector('#edit-area');
 
   currentUser.set({
     name: userName.value,
@@ -32,10 +32,9 @@ function handleProfileChange(e) {
 function addProfileButtonHandler() {
   let profileButton = document.querySelector('.profile-button');
   profileButton.addEventListener('click', handleProfileChange);
-};
-addProfileButtonHandler();
+}
 
-// Set the appropriate classes for carousel items
+// Set the appropriate 'active' classes for carousel items so that carousel slides
 function activateCarousel() {
   let activeItemNode = document.querySelector(".carousel-item");
   let activeButtonNode = document.querySelector(".carousel-button");
@@ -46,6 +45,7 @@ function activateCarousel() {
   }
 }
 
+/* Fill carousel with saved events from users doc */
 async function fillSavedEvents(doc) {
   let carouselItemTemplate = document.querySelector("#carousel-template");
   let carouselContainer = document.querySelector(".carousel-inner");
@@ -57,8 +57,10 @@ async function fillSavedEvents(doc) {
   if (savedEvents.length <= 0) {
     document.querySelector("#carouselExampleCaptions").style.display = "none";
     document.querySelector(".remove-btn").style.display = "none";
+    document.querySelector(".saved-title").style.display = "none";
     return;
   }
+
   for (let i = 0; i < savedEvents.length; i++) {
     docRef = db.collection("events").doc(`${savedEvents[i]}`);
     await docRef.get().then((eventDoc) => {
@@ -79,6 +81,7 @@ async function fillSavedEvents(doc) {
   removeBookmarkSetup();
 }
 
+/* Setup a button for removing bookmarked events from profile page */
 function removeBookmarkSetup() {
   let removeButton = document.querySelector('.remove-btn');
   removeButton.addEventListener('click', (e) => {
@@ -86,12 +89,14 @@ function removeBookmarkSetup() {
     let url = new URL(link);
     let queryString = url.searchParams;
     let eventId = queryString.get("id");
+
     currentUser.update({
       savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     }).then(() => location.reload());
   });
 }
 
+/* Add event listeners to the settings modal */
 function addSettingListeners() {
   let radioForm = document.querySelector('.radio-form');
 
@@ -99,15 +104,14 @@ function addSettingListeners() {
     currentUser.update({
       background: e.target.getAttribute('data-url')
     }).then(fillBackground);
-  }
-  );
+  });
 }
 
-/* Get correct personalized settings for settings page of profile page */
+/* Get correct personalized settings for settings modal of profile page and update setting state accordingly */
 function fillSettings(doc) {
   let currentBackground = doc.data().background;
 
-  //also set radio form
+  // set radio forms with settings state
   let radioForm = document.querySelector('.radio-form');
   let radioNodes = radioForm.querySelectorAll('input[type="radio"]');
   for (const node of radioNodes) {
@@ -119,7 +123,7 @@ function fillSettings(doc) {
   addSettingListeners();
 }
 
-/* Callback that uses returned document to fill out profile page */
+/* Callback that uses returned user document to fill out profile section with information */
 function fillProfile(doc) {
   let profileUsername = document.querySelector('.profile .profile-username');
   let profileName = document.querySelector('.profile .profile-name');
@@ -129,14 +133,12 @@ function fillProfile(doc) {
   profileDescription.textContent = doc.data().description;
 
   //fill out "edit profile" section here
-  let imageURL = document.querySelector('#imageurl');
-  let userName = document.querySelector('#username');
-  let text = document.querySelector('#exampleFormControlTextarea1');
+  let imageURL = document.querySelector('#image-url');
+  let userName = document.querySelector('#display-name');
+  let text = document.querySelector('#edit-area');
   imageURL.value = doc.data().profilePictureUrl;
   userName.value = doc.data().name;
   text.value = doc.data().description;
-
-  fillSavedEvents(doc);
 
   // fill out profile pic here
   let profileImage = document.querySelector('.profile-pic');
@@ -148,37 +150,12 @@ function fillProfile(doc) {
   }
 }
 
-
-function fillEvent(doc, features) {
-  coordinates = doc.data().coordinates;
-  event_name = doc.data().event;
-  preview = doc.data().preview;
-  img = doc.data().posterurl;
-  //console.log([-123.11535188078236, 49.28274402264293])
-  // coordiantes = doc.data().coordiantes;
-  //console.log(coordinates);
-  url = doc.data().link;
-
-  features.push({
-    'type': 'Feature',
-    'properties': {
-      'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`,
-      'icon': 'mountain-15'
-    },
-    'geometry': {
-      'type': 'Point',
-      'coordinates': coordinates
-    }
-  });
-}
-
 /* Display a notification if user has no saved events */
 function displayNotification() {
   let messageNode = document.querySelector(".notify-message");
   messageNode.textContent = "Hmm… it seems you haven’t saved any events. When you explore the catalogue and save an event, it will appear here on the map";
   messageNode.style.color = "red";
 }
-
 
 /* MAPBOX DISPLAY FUNCTION */
 function showEventsOnMap(docRef) {
@@ -199,9 +176,7 @@ function showEventsOnMap(docRef) {
 
   map.on('load', async () => {
     const features = [];
-    //console.log(docRef);
     let allEvents = docRef.data().savedEvents;
-    console.log(allEvents)
     if (allEvents.length <= 0) {
       displayNotification();
     }
@@ -213,26 +188,21 @@ function showEventsOnMap(docRef) {
 
         // Add the image to the map style.
         map.addImage('cat', image);
-      })
+    });
 
     for (let i = 0; i < allEvents.length; i++) {
-      //console.log(allEvents)
-      //console.log(allEvents.length)
-      //console.log(i)
-      let doc = await db.collection("events").doc(`${allEvents[i]}`).get();
-      coordinates = doc.data().coordinates;
-      event_name = doc.data().event;
-      preview = doc.data().preview;
-      img = doc.data().posterurl;
-      //console.log([-123.11535188078236, 49.28274402264293])
-      // coordiantes = doc.data().coordiantes;
+      let eventDoc = await db.collection("events").doc(`${allEvents[i]}`).get();
+      coordinates = eventDoc.data().coordinates;
+      event_name = eventDoc.data().event;
+      preview = eventDoc.data().preview;
+      img = eventDoc.data().posterurl;
+      url = eventDoc.data().link;
       console.log(coordinates);
-      url = doc.data().link;
 
       features.push({
         'type': 'Feature',
         'properties': {
-          'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${doc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`
+          'description': `<strong>${event_name}</strong><p>${preview}</p> <img src="${img}" width="100%"> <br> <a href="/html/event.html?id=${eventDoc.id}" target="_blank" title="Opens in a new window">Visit Here</a>`
         },
         'geometry': {
           'type': 'Point',
@@ -240,8 +210,6 @@ function showEventsOnMap(docRef) {
         }
       });
     }
-
-    console.log(features);
 
     map.addSource('places', {
       // This GeoJSON contains features that include an "icon"
@@ -307,8 +275,10 @@ function profileInit() {
       // find users document for signed in user and pass to callback
       currentUser = db.collection("users").doc(`${user.uid}`);
       currentUser.get().then(fillProfile);
+      currentUser.get().then(fillSavedEvents);
       currentUser.get().then(fillSettings);
       currentUser.get().then(showEventsOnMap);
+      addProfileButtonHandler();
     } else {
       // No user is signed in.
     }
