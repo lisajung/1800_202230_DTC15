@@ -1,42 +1,36 @@
 @import url("../styles/global.css");
 
-.row h1 {
-  margin-top: 10px;
-  margin-bottom: 15px;
+.title {
+  font-weight: bold;
+  font-size: 32px;
 }
 
-.widget-bar {
-  align-self: start;
+.header-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+
+.sub-title {
+  font-weight: bold;
+  font-size: 27px;
+  text-align: center;
+}
+
+.title-header {
+  margin-top: 60px;
+  margin-bottom: 5px;
+}
+
+.bookmark-container {
   display: flex;
   justify-content: flex-end;
-  font-size: 34px;
   margin-top: 10px;
   margin-bottom: 15px;
 }
 
-.widget-bar .bi-bookmark,
-.widget-bar .bi-bookmark-check {
-  font-size: 24px;
-}
-
-.widget-bar .star-container {
-  font-size: 24px;
-}
-
-.star-container,.rating-container {
-  color: #FFAA1D;
-}
-
-.widget-bar .bi-star {
-  position: relative;
-}
-
-.likes-text {
-  position: absolute;
-  top: 40px;
-  left: -1px;
-  font-size: 12px;
-  white-space: nowrap;
+.bookmark-container button {
+  font-size: 18px;
 }
 
 .event-img {
@@ -45,8 +39,22 @@
   max-width: 100%;
 }
 
+.star-container {
+  font-size: 24px;
+}
+
+.star-container,.rating-container {
+  color: #C89933;
+}
+
 .submit_button {
   padding-top: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.comment_box select {
+  margin-bottom: 10px;
 }
 
 #commentround {
@@ -56,63 +64,38 @@
 }
 
 .commentcard {
-  padding-top: 20px;
-  display: inline-block;
-  width: 100%;
-
-  border: 1px solid grey;
-  padding: 5px;
   margin-top: 10px;
 }
 
 .userimg {
-  float: left;
   box-sizing: border-box;
+  padding-bottom: 10px;
 }
 
-.usercomment {
-  box-sizing: border-box;
-  clear: both;
+.user-info {
+  border-bottom: 1px solid grey;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
 }
 
-.header-font {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-  margin-top: 3%;
-}
-
-#title-font {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
+.username {
+  font-size: 20px;
 }
 
 #comment-input {
   margin-top: 3%;
 }
 
-
 @media screen and (max-width: 767px) {
-  .row h1 {
-    margin-bottom: 0;
-  }
-
-  .widget-bar {
+  .bookmark-container {
     justify-content: flex-start;
-    margin-top: 0;
-    font-size: 24px;
   }
 
-  .widget-bar .star-container {
-    align-self: center;
+  .bookmark-container button {
+    font-size: 14px;
   }
 
-  .widget-bar .bookmark-btn {
-    margin-left: 20px;
-    padding: 5px;
-    font-size: 12px;
-  }
-
-  .widget-bar .bookmark-btn i {
-    font-size: 18px;
+  .star-container {
+    font-size: 21px;
   }
 }

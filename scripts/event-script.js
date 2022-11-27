@@ -146,14 +146,14 @@ function fillEventPage(doc) {
     let eventLocation = document.querySelector('.event-location');
     let eventDate = document.querySelector('.event-date');
     let eventCost = document.querySelector('.event-cost');
-    let eventLink = document.querySelector('.event-link a');
+    let eventLink = document.querySelector('.event-link');
 
     imgEvent.src = doc.data().posterurl;
     eventDescription.innerHTML = doc.data().description;
     eventName.textContent = doc.data().event;
     //eventLikes.textContent = `${doc.data().likecounter} likes`;
     eventLocation.textContent = doc.data().location;
-    eventDate.textContent = doc.data().date;
+    eventDate.textContent = doc.data().startdate + " - " + doc.data().enddate;
     eventCost.textContent = doc.data().cost;
     eventLink.href = doc.data().link;
 }
@@ -171,7 +171,11 @@ function fillCommentSection(docQuery) {
             displayRating(doc.data().rating, commentNode);
             commentNode.querySelector('.username').textContent = userDoc.data().name;
             commentNode.querySelector('.text').textContent = doc.data().text;
-            commentNode.querySelector('img').src = userDoc.data().profilePictureUrl;
+            let pfpUrl = userDoc.data().profilePictureUrl
+            if (pfpUrl == "") {
+                pfpUrl = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png";
+            }
+            commentNode.querySelector('img').src = pfpUrl;
             commentContainer.appendChild(commentNode);
         });
     });

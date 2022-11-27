@@ -46,89 +46,98 @@
 
   <div class="container">
 
-    <div class="row mt-5 justify-content-between align-items-end">
+    <div class="row title-header">
       <!-- Event Title-->
-      <div class="col-12 col-md-7">
-        <h1 class="title" id="title-font"></h1>
-      </div>
-      <!-- Favourite, Bookmark, etc. Widgets -->
-      <div class="widget-bar col-12 col-md-5">
-        <div class="star-container">
+      <div class="col-12 col-md-8 align-self-center">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="header-font title"></h1>
+          </div>
+          <div class="col-12">
+            <div class="star-container"></div>
+          </div>
         </div>
-        <button class="btn btn-primary bookmark-btn" type="button">
-          <i class="bi bi-bookmark"></i>
-          Bookmark
-        </button>
+      </div>
+      <div class="col-12 col-md-4 align-self-center bookmark-container">
+          <button class="btn gold-button bookmark-btn" type="button">
+            <i class="bi bi-bookmark"></i> Bookmark
+          </button>
       </div>
     </div>
 
     <!-- Event Image Gallery -->
     <div class="row">
-      <div class="col-12 img-row">
+      <div class="col-12">
         <img class="event-img" src="">
       </div>
     </div>
 
     <!-- Event Description Text -->
-    <div class="row mt-2">
-      <h4 class="header-font"> Event Information:</h4>
+    <div class="row mt-2 mb-2">
       <div class="col-12">
-        <p class="event-location"></p>
-        <p class="event-date"></p>
-        <p class="event-cost"></p>
-        <p class="event-description"></p>
-        <p class="event-link"><a href="">Click here for more information.</a></p>
+        <h3 class="sub-title text-center">Event Description</h3>
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-4 text-muted event-date"></h6>
+            <p class="card-text event-description"></p>
+            <p class="card-text event-location"></p>
+            <p class="card-text event-cost"></p>
+            <a href="#" class="card-link event-link">Click here for more information.</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Google Maps API -->
-    <div class="row text-center">
-      <div class="col-12">
-        <!-- MAPBOX -->
-        <h2>Event Location</h2>
+    <!-- MAPBOX -->
+    <div class="row text-center justify-content-center">
+      <div class="col-10 col-md-12">
+        <h3 class="sub-title">Event Location</h3>
         <span class="notify-message"></span>
-        <div id='map' style='width: 100%; height: 600px;'></div>
-        <!-- MAPBOX -->
+        <div id='map' style='width: 100%; height: 450px;'></div>
       </div>
     </div>
 
     <!--Comment box-->
-    <div id="comment-input">
-      <div class="comment_box">
-        <label for="comment">
-          <h4 class="header-font">Comments:</h4>
-        </label>
-        <br>
-        <!-- Ratings input -->
-        <select class="form-select" aria-label="Default select example">
-          <option value="" selected>Select a rating (optional)</option>
-          <option value="1">One star</option>
-          <option value="2">Two stars</option>
-          <option value="3">Three stars</option>
-          <option value="4">Four stars</option>
-          <option value="5">Five stars</option>
-        </select>
-        <br>
-        <textarea class="form-control comment-text" rows="5" id="comment" name="text"
-          placeholder="Add a comment"></textarea>
+    <div id="comment-input" class="row">
+      <div class="col-12">
+        <h3 class="sub-title">Reviews</h3>
+        <div class="comment_box">
+          <!-- Ratings input -->
+          <select class="form-select" aria-label="Default select example">
+            <option value="" selected>Select a rating (optional)</option>
+            <option value="1">One star</option>
+            <option value="2">Two stars</option>
+            <option value="3">Three stars</option>
+            <option value="4">Four stars</option>
+            <option value="5">Five stars</option>
+          </select>
+          <textarea class="form-control comment-text" rows="5" id="comment" name="text"
+            placeholder="Leave a review!">
+          </textarea>
+        </div>
+        <div class="submit_button">
+          <button type="submit" class="btn btn-primary submit-button">Submit</button>
+        </div>
       </div>
-      <div class="submit_button"><button type="submit" class="btn btn-primary submit-button">Submit</button></div>
     </div>
 
     <!--Comment Section-->
-    <div class="comment-container">
+    <div class="row">
+      <div class="col-12 comment-container">
+      </div>
     </div>
 
     <!--Comment Template-->
     <template class="comment-template">
-      <div class="commentcard">
-        <div class="userimg">
-          <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
-            id="commentround" alt="user picture">
-        </div>
-        <div class="usercomment">
-          <p class="username"></p>
-          <div class="rating-container"></div>
+      <div class="card commentcard">
+        <div class="card-body">
+          <div class="userimg">
+            <img src="" id="commentround" alt="user picture">
+          </div>
+          <div class="user-info">
+            <span class="card-text username"></span>
+            <div class="rating-container"></div>
+          </div>
           <p class="text"></p>
         </div>
       </div>
