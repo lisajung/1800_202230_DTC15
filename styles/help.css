@@ -1,14 +1,12 @@
 @import url("../styles/global.css");
 
-.help_paragraph {
-    padding-top: 0px;
-}
-
-.helpsearchbar {
-    margin-top: 20px;
-}
-
 .logoutbtn {
     margin-top: 510px;
     height: 40px;
 }
+
+.helptitle {
+    padding-top: 30px;
+}
+
+main {}

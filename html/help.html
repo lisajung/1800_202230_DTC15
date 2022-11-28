@@ -45,166 +45,73 @@
 
     <div class="container">
 
+        <!-- Help and Documentation Title-->
         <div class="row mt-5 justify-content-between align-items-end">
-            <!-- Help and Documentation Title-->
-            <div class="col-12 col-md-9">
-                <h1 class="title">Help and Documentation</h1>
+            <div class="helptitle">
+                <h1>Help and Documentation</h1>
             </div>
 
         </div>
-
-        <!-- Help Search Bar-->
-        <div class="helpsearchbar">
-            <form class="d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-warning" type="submit">Search</button>
-            </form>
-        </div>
-
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-
-            <symbol id="cpu-fill" viewBox="0 0 16 16">
-                <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
-                <path
-                    d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z" />
-            </symbol>
-
-            <symbol id="toggles2" viewBox="0 0 16 16">
-                <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z" />
-                <path
-                    d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z" />
-                <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
-            </symbol>
-            <symbol id="tools" viewBox="0 0 16 16">
-                <path
-                    d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z" />
-            </symbol>
+        <p class="lead text-muted mb-1"> A little confused about what each of the pages does? Discover what the
+            homepage, the map page, and the
+            profile page offers. </p>
 
 
-        </svg>
+
+        <!-- Help information-->
         <main>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <div class="col d-flex align-items-start">
+                    <div>
+                        <h1><i class="bi bi-house"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="fs-2">Home</h3>
+                        <p>The home page displays a wide cataglouge of events and attractions. You can bookmark
+                            events you are interested in attending. You can also click onto the event card for
+                            additional information about the event. Once inside the event details page, the event
+                            information is displayed, a map of where the event is located, and a section to review
+                            and write comments about the event. </p>
+                        <a href="../index.html" class="btn gold-button">
+                            Go to Home
+                        </a>
+                    </div>
 
-            <div class="container px-4 py-5" id="hanging-icons">
-                <h2 class="pb-2 border-bottom">FAQ</h2>
-                <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                    <div class="col d-flex align-items-start">
-                        <div
-                            class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                            <svg class="bi" width="1em" height="1em">
-                                <use xlink:href="#toggles2" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="fs-2">Featured title</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo culpa soluta consectetur
-                                minus totam facere quo incidunt amet repellat sequi?</p>
-                            <a href="#" class="btn btn-warning">
-                                Read more
-                            </a>
-                        </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <div>
+                        <h1><i class="bi bi-geo-alt"></i></h1>
                     </div>
-                    <div class="col d-flex align-items-start">
-                        <div
-                            class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                            <svg class="bi" width="1em" height="1em">
-                                <use xlink:href="#cpu-fill" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="fs-2">Featured title</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet earum itaque
-                                unde atque quos voluptatem dignissimos assumenda accusamus dolorum!</p>
-                            <a href="#" class="btn btn-warning">
-                                Read more
-                            </a>
-                        </div>
+                    <div>
+                        <h3 class="fs-2">Map</h3>
+                        <p>The map page shows event locations in a map view. You can use this page to find events
+                            located within specific neighbourhoods, or events that are closest to you. Zoom in to
+                            see exactly where events are located and zoom out to see events located further away.
+                            Try clicking
+                            on the pin icon in the map to view event details. </p>
+                        <a href="./map.html" class="btn gold-button">
+                            Go to Map
+                        </a>
                     </div>
-                    <div class="col d-flex align-items-start">
-                        <div
-                            class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                            <svg class="bi" width="1em" height="1em">
-                                <use xlink:href="#tools" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="fs-2">Featured title</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus, iste expedita modi
-                                autem ea consectetur itaque libero veniam deleniti nesciunt?</p>
-                            <a href="#" class="btn btn-warning">
-                                Read more
-                            </a>
-                        </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <div>
+                        <h1><i class="bi bi-person"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="fs-2">Profile</h3>
+                        <p>The profile page displays information specific to your account. Here, you can view events
+                            you have saved, edit your name and profile picture, and customize the background of your
+                            webpage. The profile page can only be accessed once you have logged into your account.
+                            Make sure to sign up if you haven't already!</p>
+                        <a href="./profile.html" class="btn gold-button">
+                            Go to Profile
+                        </a>
                     </div>
                 </div>
             </div>
 
         </main>
-
-        <!-- Help Paragraph -->
-        <div class="help_paragraph">
-            <h3> Lorem ipsum </h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis numquam odit beatae mollitia,
-                necessitatibus
-                reprehenderit sed porro cum minus. Possimus maiores tempora deleniti nam nostrum reiciendis nisi nulla
-                illum
-                corrupti, incidunt dolore vero expedita, laboriosam qui velit! Reprehenderit rem rerum laudantium nulla
-                aperiam
-                fugit soluta minus excepturi est eius? Quod, impedit! Aspernatur, fuga corrupti libero odio dolorem
-                odit,
-                maxime
-                tenetur veritatis officiis quia minima veniam saepe reiciendis doloribus rem excepturi quasi unde neque
-                at.
-                Fuga, nemo delectus, aliquid vel consequatur a voluptates repudiandae blanditiis accusantium nisi
-                voluptate
-                voluptas laudantium minima, consequuntur aperiam? Ipsum fugiat vel doloremque repellat impedit, sunt
-                deleniti. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus ab aliquid, quas
-                temporibus aspernatur molestiae quis odit. Aut quasi dolorum eaque deleniti possimus aliquid! Ipsam
-                velit totam natus iure ut eveniet distinctio error voluptate, sint, eaque delectus minus earum
-                blanditiis enim ipsum exercitationem voluptatum similique laudantium soluta ratione voluptas quia
-                recusandae facere. Sed eaque, vel sit sint odio numquam molestiae facere et hic recusandae doloribus
-                minus quam, nisi quibusdam? Beatae magnam sapiente saepe recusandae fuga nihil impedit voluptas
-                doloribus cupiditate aperiam officiis et obcaecati commodi numquam quisquam sint mollitia iusto, at
-                aspernatur alias corporis a quaerat? Eaque ea praesentium quae!
-            </p>
-            <h3> Lorem ipsum </h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis numquam odit beatae mollitia,
-                necessitatibus
-                reprehenderit sed porro cum minus. Possimus maiores tempora deleniti nam nostrum reiciendis nisi nulla
-                illum
-                corrupti, incidunt dolore vero expedita, laboriosam qui velit! Reprehenderit rem rerum laudantium nulla
-                aperiam
-                fugit soluta minus excepturi est eius? Quod, impedit! Aspernatur, fuga corrupti libero odio dolorem
-                odit,
-                maxime
-                tenetur veritatis officiis quia minima veniam saepe reiciendis doloribus rem excepturi quasi unde neque
-                at.
-                Fuga, nemo delectus, aliquid vel consequatur a voluptates repudiandae blanditiis accusantium nisi
-                voluptate
-                voluptas laudantium minima, consequuntur aperiam? Ipsum fugiat vel doloremque repellat impedit, sunt
-                deleniti.
-            </p>
-            <h3> Lorem ipsum </h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis numquam odit beatae mollitia,
-                necessitatibus
-                reprehenderit sed porro cum minus. Possimus maiores tempora deleniti nam nostrum reiciendis nisi nulla
-                illum
-                corrupti, incidunt dolore vero expedita, laboriosam qui velit! Reprehenderit rem rerum laudantium nulla
-                aperiam
-                fugit soluta minus excepturi est eius? Quod, impedit! Aspernatur, fuga corrupti libero odio dolorem
-                odit,
-                maxime
-                tenetur veritatis officiis quia minima veniam saepe reiciendis doloribus rem excepturi quasi unde neque
-                at.
-                Fuga, nemo delectus, aliquid vel consequatur a voluptates repudiandae blanditiis accusantium nisi
-                voluptate
-                voluptas laudantium minima, consequuntur aperiam? Ipsum fugiat vel doloremque repellat impedit, sunt
-                deleniti. Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ut repellat ea est quia, nostrum
-                incidunt necessitatibus consequatur quam reiciendis unde debitis architecto earum deserunt soluta odio
-                aliquid magnam ullam quasi veritatis, ab fuga. Consequatur ea ducimus excepturi in laborum natus
-                exercitationem. Ipsam nulla quaerat, harum est blanditiis minima a.
-            </p>
-        </div>
-
     </div>
 
     <div id="footerPlaceholder"></div>
