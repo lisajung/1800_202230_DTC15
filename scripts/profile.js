@@ -1,6 +1,11 @@
 let currentUser;
 
-/* SEND USER TO HOME PAGE IF NOT SIGNED IN */
+//------------------------------------------------------
+// SEND USER TO HOME PAGE IF NOT SIGNED IN
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function checkUserLoggedIn() {
   firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
@@ -10,7 +15,12 @@ function checkUserLoggedIn() {
 }
 checkUserLoggedIn();
 
-/* Use users document reference to set users document fields of edit profile area */
+//------------------------------------------------------
+// Use global current user document reference to set users document fields based on information entered in edit profile area.
+//
+// PARAM e > the event object returned after a click event
+// RETURN > NONE
+//------------------------------------------------------
 function handleProfileChange(e) {
   let imageURL = document.querySelector('#image-url');
   let userName = document.querySelector('#display-name');
@@ -28,13 +38,23 @@ function handleProfileChange(e) {
   });
 }
 
-// Set up "edit profile" button handler here
+//------------------------------------------------------
+// Set up "edit profile" button event handler.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function addProfileButtonHandler() {
   let profileButton = document.querySelector('.profile-button');
   profileButton.addEventListener('click', handleProfileChange);
 }
 
-// Set the appropriate 'active' classes for carousel items so that carousel slides
+//------------------------------------------------------
+// Set the appropriate 'active' classes for carousel items so that carousel slides.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function activateCarousel() {
   let activeItemNode = document.querySelector(".carousel-item");
   let activeButtonNode = document.querySelector(".carousel-button");
@@ -45,22 +65,28 @@ function activateCarousel() {
   }
 }
 
-/* Fill carousel with saved events from users doc */
+//------------------------------------------------------
+// Fill carousel with all the saved events from users doc.
+//
+// PARAM doc > the current user document grabbed from users collection in firestore
+// RETURN > NONE
+//------------------------------------------------------
 async function fillSavedEvents(doc) {
   let carouselItemTemplate = document.querySelector("#carousel-template");
   let carouselContainer = document.querySelector(".carousel-inner");
 
   let carouselButtonTemplate = document.querySelector("#carousel-button-template");
   let carouselButtonContainer = document.querySelector(".carousel-indicators");
-
+  // get the saved events from the current user doc passed in to fill carousel
   let savedEvents = doc.data().savedEvents;
+  // remove carousel if there are no events
   if (savedEvents.length <= 0) {
     document.querySelector("#carouselExampleCaptions").style.display = "none";
     document.querySelector(".remove-btn").style.display = "none";
     document.querySelector(".saved-title").style.display = "none";
     return;
   }
-
+  // fill carousel with events
   for (let i = 0; i < savedEvents.length; i++) {
     docRef = db.collection("events").doc(`${savedEvents[i]}`);
     await docRef.get().then((eventDoc) => {
@@ -81,7 +107,12 @@ async function fillSavedEvents(doc) {
   removeBookmarkSetup();
 }
 
-/* Setup a button for removing bookmarked events from profile page */
+//------------------------------------------------------
+// Setup a button for removing bookmarked events from profile page.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function removeBookmarkSetup() {
   let removeButton = document.querySelector('.remove-btn');
   removeButton.addEventListener('click', (e) => {
@@ -89,14 +120,19 @@ function removeBookmarkSetup() {
     let url = new URL(link);
     let queryString = url.searchParams;
     let eventId = queryString.get("id");
-
+    // use current user doc saved in global variable to remove an item from the savedEvents array field
     currentUser.update({
       savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     }).then(() => location.reload());
   });
 }
 
-/* Add event listeners to the settings modal */
+//------------------------------------------------------
+// Add event listeners to the settings modal icon.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function addSettingListeners() {
   let radioForm = document.querySelector('.radio-form');
 
@@ -107,11 +143,16 @@ function addSettingListeners() {
   });
 }
 
-/* Get correct personalized settings for settings modal of profile page and update setting state accordingly */
+//------------------------------------------------------
+// Get correct personalized settings for settings modal of profile page and update setting state accordingly.
+//
+// PARAM doc > the current user document grabbed from users collection in firestore
+// RETURN > NONE
+//------------------------------------------------------
 function fillSettings(doc) {
   let currentBackground = doc.data().background;
 
-  // set radio forms with settings state
+  // set radio forms with settings state that is taken from user doc above
   let radioForm = document.querySelector('.radio-form');
   let radioNodes = radioForm.querySelectorAll('input[type="radio"]');
   for (const node of radioNodes) {
@@ -123,11 +164,17 @@ function fillSettings(doc) {
   addSettingListeners();
 }
 
-/* Callback that uses returned user document to fill out profile section with information */
+//------------------------------------------------------
+// Callback that uses returned user document to fill out profile section with information.
+//
+// PARAM doc > the current user document grabbed from users collection in firestore
+// RETURN > NONE
+//------------------------------------------------------
 function fillProfile(doc) {
   let profileUsername = document.querySelector('.profile .profile-username');
   let profileName = document.querySelector('.profile .profile-name');
   let profileDescription = document.querySelector('.profile .profile-text');
+  // use user document to get all relevant information for the profile page
   profileUsername.textContent = doc.data().name;
   profileName.textContent = doc.data().email;
   profileDescription.textContent = doc.data().description;
@@ -150,14 +197,24 @@ function fillProfile(doc) {
   }
 }
 
-/* Display a notification if user has no saved events */
+//------------------------------------------------------
+// Display a notification if user has no saved events.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function displayNotification() {
   let messageNode = document.querySelector(".notify-message");
   messageNode.textContent = "Hmm… it seems you haven’t saved any events. When you explore the catalogue and save an event, it will appear here on the map";
   messageNode.style.color = "red";
 }
 
-/* MAPBOX DISPLAY FUNCTION */
+//------------------------------------------------------
+// Shows all the user's saved events on a map.
+//
+// PARAM docRef > the current user doc grabbed from users collection in firestore
+// RETURN > NONE
+//------------------------------------------------------
 function showEventsOnMap(docRef) {
 
 
@@ -176,6 +233,7 @@ function showEventsOnMap(docRef) {
 
   map.on('load', async () => {
     const features = [];
+    // get saved events for user using the user document queried
     let allEvents = docRef.data().savedEvents;
     if (allEvents.length <= 0) {
       displayNotification();
@@ -191,6 +249,7 @@ function showEventsOnMap(docRef) {
     });
 
     for (let i = 0; i < allEvents.length; i++) {
+      // get the event document that we want the coordinates for using a events collection query on the id
       let eventDoc = await db.collection("events").doc(`${allEvents[i]}`).get();
       coordinates = eventDoc.data().coordinates;
       event_name = eventDoc.data().event;
@@ -267,12 +326,17 @@ function showEventsOnMap(docRef) {
 }
 
 
-/* Initialize the profile page */
+//------------------------------------------------------
+// Initialize the profile page.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function profileInit() {
   firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
     if (user) {
-      // find users document for signed in user and pass to callback
+      // find users document for signed in user and pass to callbacks to fill profile
       currentUser = db.collection("users").doc(`${user.uid}`);
       currentUser.get().then(fillProfile);
       currentUser.get().then(fillSavedEvents);

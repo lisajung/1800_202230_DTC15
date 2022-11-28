@@ -10,7 +10,7 @@ function handleRemoveSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-
+    // use the saved users document in the global variable to update the savedEvents array field using firestore with the removed bookmark
     currentUser.update({
         savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     });
@@ -22,7 +22,7 @@ function handleRemoveSaveEvent(e) {
 }
 
 //------------------------------------------------------
-// Handle a bookmark event by storing the event into current users document and changing bookmark icon
+// Handle a bookmark event by storing the event into current users document and changing bookmark icon.
 //
 // PARAM e > the event object returned after a click event
 // RETURN > NONE
@@ -31,7 +31,7 @@ function handleSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-
+    // use the saved users document in the global variable to update the savedEvents array field using firestore with new bookmark
     currentUser.update({
         savedEvents: firebase.firestore.FieldValue.arrayUnion(`${eventId}`)
     });
