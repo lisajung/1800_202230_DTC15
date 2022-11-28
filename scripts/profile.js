@@ -256,7 +256,6 @@ function showEventsOnMap(docRef) {
       preview = eventDoc.data().preview;
       img = eventDoc.data().posterurl;
       url = eventDoc.data().link;
-      console.log(coordinates);
 
       features.push({
         'type': 'Feature',
