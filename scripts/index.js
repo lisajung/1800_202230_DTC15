@@ -124,57 +124,22 @@ function addWidgetListeners(buttonNode) {
 
 
 //------------------------------------------------------
-// style all save buttons according to current user document.
-// also remove all previous event listeners before adding new listeners
+// style save button according to current user document and add listeners.
 //
 // PARAM doc > The user document from Firestore
+// PARAM eventCard > the event card DOM element that contains the save button to style
 // RETURN > NONE
 //------------------------------------------------------
-function displayWidgetStateNext(doc) {
-  let saveButtons = document.querySelectorAll(".save-button");
-  saveButtons.forEach((button) => {
-    let bookmarkIcon = button.querySelector('.bi');
-    //console.log(bookmarkIcon.getAttribute('class'));
-    if (bookmarkIcon.getAttribute('class') === 'bi bi-bookmark-check') {
-      button.removeEventListener('click', handleRemoveSaveEvent);
-      //console.log("removed checked");
-    }
-    if (bookmarkIcon.getAttribute('class') === 'bi bi-bookmark') {
-      button.removeEventListener('click', handleSaveEvent);
-      //console.log("removed unchecked");
-    }
-  });
+async function displayWidgetState(doc, eventCard) {
+  let saveButton = eventCard.querySelector(".save-button");
 
-  saveButtons.forEach((button) => {
-    let eventId = button.getAttribute('data-id');
-    let savedEventIds = doc.data().savedEvents; // READING from Firestore
-    if (savedEventIds.includes(eventId)) {
-      let bookmarkIcon = button.querySelector('.bi');
-      bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-    }
-    addWidgetListeners(button);
-  });
-}
-
-
-//------------------------------------------------------
-// style all save buttons according to current user document. THIS IS ONLY CALLED ONCE.
-//
-// PARAM doc > The user document from Firestore
-// RETURN > NONE
-//------------------------------------------------------
-function displayWidgetStateInit(doc) {
-  let saveButtons = document.querySelectorAll(".save-button");
-
-  saveButtons.forEach((button) => {
-    let eventId = button.getAttribute('data-id');
-    let savedEventIds = doc.data().savedEvents; // READING from Firestore
-    if (savedEventIds.includes(eventId)) {
-      let bookmarkIcon = button.querySelector('.bi');
-      bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-    }
-    addWidgetListeners(button);
-  });
+  let eventId = saveButton.getAttribute('data-id');
+  let savedEventIds = doc.data().savedEvents; // get savedEvents array from user doc
+  if (savedEventIds.includes(eventId)) {
+    let bookmarkIcon = saveButton.querySelector('.bi');
+    bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
+  }
+  addWidgetListeners(saveButton);
 }
 
 
@@ -225,28 +190,40 @@ async function getCSVdata() {
   })
 }
 
+//------------------------------------------------------
+// Checks if there are any more event docs to grab by searching ahead in the Firestore database
+// Removes load more button if there are none
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
+async function checkIfLastEvent() {
+  // get events from firestore after index 'lastVisible' to see if there are events left
+  let allEvents = await db.collection("events").orderBy("numericaldate", "asc").startAfter(lastVisible).get();
+  if (allEvents.docs[allEvents.docs.length-1] == null) {
+    buttonNode = document.querySelector('.loadButton');
+    buttonNode.style.display = 'none';
+  }
+}
+
 
 //------------------------------------------------------
 // Dynamically populates event cards on index.html for the next batches of data after intital batch
 // Uses data stored in "events" collection, using data gathered with Python and stored in Firestore.
 //
-// PARAM userDoc > The user document from Firestore
+// PARAM > NONE
 // RETURN > NONE
 //------------------------------------------------------
 async function populateCardsDynamicallyNextBatch() {
   let eventCardTemplate = document.getElementById("eventCardTemplate"); // Grabbing template from HTML
   let eventCardGroup = document.getElementById("eventCardGroup"); // Grabbing card group from HTML
 
-  if (lastVisible === undefined) {
-    return;
-  }
-
-  await db.collection("events").orderBy("numericaldate", "asc").startAfter(lastVisible).limit(18).get() // READING and SORTING events ORDERED BY DATE
+  await db.collection("events").orderBy("numericaldate", "asc").startAfter(lastVisible).limit(18).get() // READING and SORTING events ORDERED BY DATE and limited by 18
     .then(allEvents => {
       //update global pagination cursor by getting the document of the last fetched event
       lastVisible = allEvents.docs[allEvents.docs.length-1];
 
-      allEvents.forEach(doc => {
+      allEvents.forEach(async (doc) => {
         var eventName = doc.data().event; // Name
         var eventImg = doc.data().posterurl; // IMG
         var eventStart = doc.data().startdate; // Start Date
@@ -268,18 +245,18 @@ async function populateCardsDynamicallyNextBatch() {
         testEventCard.querySelector(".save-button").setAttribute('data-id', `${doc.id}`); // Creates a saved button for each card
         if (currentUser == null) { // Hides save button from users that are not signed in
           testEventCard.querySelector(".save-button").style.display = "none";
+        } else {
+          let userDoc = await currentUser.get();
+          displayWidgetState(userDoc, testEventCard);
         }
 
         eventCardGroup.appendChild(testEventCard); // Appends cards to group
       })
 
-    })
+    });
 
-  if (currentUser == null) {
-    return;
-  }
+  await checkIfLastEvent();
 
-  currentUser.get().then(displayWidgetStateNext);
 }
 
 //------------------------------------------------------
@@ -308,7 +285,7 @@ async function populateCardsDynamicallyInit(userDoc) {
   let eventCardTemplate = document.getElementById("eventCardTemplate"); // Grabbing template from HTML
   let eventCardGroup = document.getElementById("eventCardGroup"); // Grabbing card group from HTML
 
-  await db.collection("events").orderBy("numericaldate", "asc").limit(18).get() // READING and SORTING events ORDERED BY DATE
+  await db.collection("events").orderBy("numericaldate", "asc").limit(18).get() // READING and SORTING events ORDERED BY DATE and limited by 18
     .then(allEvents => {
       //set up global pagination cursor by getting the document of the last fetched event
       lastVisible = allEvents.docs[allEvents.docs.length-1];
@@ -335,6 +312,8 @@ async function populateCardsDynamicallyInit(userDoc) {
         testEventCard.querySelector(".save-button").setAttribute('data-id', `${doc.id}`); // Creates a saved button for each card
         if (userDoc == null) { // Hides save button from users that are not signed in
           testEventCard.querySelector(".save-button").style.display = "none";
+        } else {
+          displayWidgetState(userDoc, testEventCard);
         }
 
         eventCardGroup.appendChild(testEventCard); // Appends cards to group
@@ -342,13 +321,8 @@ async function populateCardsDynamicallyInit(userDoc) {
 
     });
 
-  if (userDoc == null) {
-    attachLoadMoreButton();
-    return;
-  }
-
-  attachLoadMoreButton();
-  displayWidgetStateInit(userDoc);  
+  await checkIfLastEvent();
+  attachLoadMoreButton(); 
 }
 
 

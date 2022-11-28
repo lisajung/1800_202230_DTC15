@@ -1,6 +1,11 @@
 let currentUser;
 
-/* Handle a remove bookmark event by removing the event from current users document and changing bookmark icon */
+//------------------------------------------------------
+// Handle a remove bookmark event by removing the event from current users document and changing bookmark icon.
+//
+// PARAM e > the event object returned after a click event
+// RETURN > NONE
+//------------------------------------------------------
 function handleRemoveSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
@@ -16,7 +21,12 @@ function handleRemoveSaveEvent(e) {
     e.currentTarget.addEventListener('click', handleSaveEvent);
 }
 
-/* Handle a bookmark event by storing the event into current users document and changing bookmark icon */
+//------------------------------------------------------
+// Handle a bookmark event by storing the event into current users document and changing bookmark icon
+//
+// PARAM e > the event object returned after a click event
+// RETURN > NONE
+//------------------------------------------------------
 function handleSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
@@ -32,7 +42,12 @@ function handleSaveEvent(e) {
     e.currentTarget.addEventListener('click', handleRemoveSaveEvent);
 }
 
-/* Handle a comment submit by storing a review in the reviews collection for this event */
+//------------------------------------------------------
+// Handle a comment submit by storing a review in the reviews collection for this event.
+//
+// PARAM e > the event object returned after a click event
+// RETURN > NONE
+//------------------------------------------------------
 function handleAddComment(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
@@ -42,7 +57,7 @@ function handleAddComment(e) {
     let commentTextBox = document.querySelector('.comment-text');
     let userDocId = currentUser.id;
     docRef = db.collection("reviews").doc();
-
+    // add a document to the reviews collection in firestore with user info, text entered, tc.
     docRef.set({
         text: commentTextBox.value,
         rating: (ratingsSelect.value != "" ? parseInt(ratingsSelect.value) : 0),
@@ -55,7 +70,12 @@ function handleAddComment(e) {
     });
 }
 
-/* Add interactive functionality(i.e, listeners) to widgets (bookmark button, comment button, etc.) */
+//------------------------------------------------------
+// Add interactive functionality(i.e, listeners) to widgets (bookmark button, comment button, etc.).
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function addWidgetListeners() {
     let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
     if (bookmarkIcon !== null) {
@@ -73,12 +93,17 @@ function addWidgetListeners() {
     submitButton.addEventListener('click', handleAddComment);
 }
 
-/* style widgets(bookmark button, etc.) according to current user document state */
+//------------------------------------------------------
+// Style widgets(bookmark button, etc.) according to current user document state.
+//
+// PARAM doc > the user doc grabbed from firestore for the current user 
+// RETURN > NONE
+//------------------------------------------------------
 function displayWidgetState(doc) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-
+    // get saved events array from the current user doc
     let savedEventIds = doc.data().savedEvents;
     if (savedEventIds.includes(eventId)) {
         let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
@@ -87,7 +112,13 @@ function displayWidgetState(doc) {
     addWidgetListeners();
 }
 
-/* display a rating for comments using filled-stars and empty stars icons */
+//------------------------------------------------------
+// Display an individual comment rating for the event using filled-stars and empty stars icons.
+//
+// PARAM ratingNum > the rating that a user gave the event
+// PARAM commentNode > the DOM element to which we will attach the star icons
+// RETURN > NONE
+//------------------------------------------------------
 function displayRating(ratingNum, commentNode) {
     if (ratingNum == 0) {
         return;
@@ -104,7 +135,12 @@ function displayRating(ratingNum, commentNode) {
     }
 }
 
-/* display a rating for the event using filled-stars and empty stars icons */
+//------------------------------------------------------
+// Display the singular event rating at the top of a page using star icons.
+//
+// PARAM ratingNum > the rating that we will display for this event
+// RETURN > NONE
+//------------------------------------------------------
 function displayRatingIconsEvent(ratingNum) {
     let starContainer = document.querySelector('.star-container');
     for (let i = 0; i < ratingNum; i++) {
@@ -119,10 +155,16 @@ function displayRatingIconsEvent(ratingNum) {
     }
 }
 
-/* display the rating for the event page by aggregating and averaging all user ratings */
+//------------------------------------------------------
+// Display the star icon rating for the event page by aggregating and averaging all user ratings for this event.
+//
+// PARAM docQuery > contains all the review docs from the review collection that match this event
+// RETURN > NONE
+//------------------------------------------------------
 function displayEventRating(docQuery) {
     let ratingNum = 0;
     let reviewerCount = 0;
+    // get all ratings fields from the docs in the query and add them
     docQuery.forEach((doc) => {
         ratingNum += doc.data().rating;
         if (doc.data().rating != 0) {
@@ -137,7 +179,12 @@ function displayEventRating(docQuery) {
     displayRatingIconsEvent(averageRating);
 }
 
-/* Fill event page with event information grabbed from firestore */
+//------------------------------------------------------
+// Fill event page with event information grabbed from firestore.
+//
+// PARAM doc > contains the event doc that we will use to populate the page
+// RETURN > NONE
+//------------------------------------------------------
 function fillEventPage(doc) {
     let imgEvent = document.querySelector('.event-img');
     let eventDescription = document.querySelector('.event-description');
@@ -147,6 +194,7 @@ function fillEventPage(doc) {
     let eventCost = document.querySelector('.event-cost');
     let eventLink = document.querySelector('.event-link');
 
+    // get the relevant information from the event doc and add to DOM elements
     imgEvent.src = doc.data().posterurl;
     eventDescription.innerHTML = doc.data().description;
     eventName.textContent = doc.data().event;
@@ -156,12 +204,18 @@ function fillEventPage(doc) {
     eventLink.href = doc.data().link;
 }
 
-/* Fill comment section of page with all user comments that match this event */
+//------------------------------------------------------
+// Fill comment section of page with all user comments that match this event.
+//
+// PARAM docQuery > contains all the reviews docs that have matching eventIDs with this event
+// RETURN > NONE
+//------------------------------------------------------
 function fillCommentSection(docQuery) {
     let commentTemplate = document.querySelector(".comment-template");
     let commentContainer = document.querySelector(".comment-container");
     docQuery.forEach((doc) => {
         let userId = doc.data().userId;
+        // use a firestore query to get the user information for the person who submitted this comment
         docRef = db.collection("users").doc(`${userId}`);
         docRef.get().then((userDoc) => {
             let commentNode = commentTemplate.content.cloneNode(true);
@@ -180,19 +234,30 @@ function fillCommentSection(docQuery) {
     });
 }
 
-/* Display a notification if event has no coordinates */
+//------------------------------------------------------
+// Display a helpful notification if event has no valid coordinates.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function displayNotification() {
     let messageNode = document.querySelector(".notify-message");
     messageNode.textContent = "Oops, we couldn’t find this event on the map. It may occur online, or it could possibly have multiple locations";
     messageNode.style.color = "red";
 }
 
-/* MAPBOX DISPLAY FUNCTION */
+//------------------------------------------------------
+// Shows the specific event on a map.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 async function showEventsOnMap() {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
 
+    // use the event doc for this event to get coordinates
     let eventDoc = await db.collection("events").doc(`${eventId}`).get();
     let location = eventDoc.data().coordinates;
     let zoomLevel = 12;
@@ -301,18 +366,23 @@ async function showEventsOnMap() {
     });
 }
 
-/* Initialize the event page */
+//------------------------------------------------------
+// Initialize the event page.
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function eventInit() {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-
+    // access events collection from firestore and use it to fill event page with stored event information
     docRef = db.collection("events").doc(`${eventId}`);
     docRef.get().then(fillEventPage);
-
+    // access reviews collection from firestore and get all reviews that match this event
     let collectionRef = db.collection("reviews");
     collectionRef.where("eventId", "==", `${eventId}`).orderBy("reviewCreated", "desc").get().then(fillCommentSection);
-
+    // access reviews collection from firestore and use it to calculate the rating for this specific event
     let collectionRefNew = db.collection("reviews");
     collectionRefNew.where("eventId", "==", `${eventId}`).get().then(displayEventRating);
 
@@ -321,6 +391,7 @@ function eventInit() {
     /* If user is signed in then customize the page, otherwise remove some user-specific elements */
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+            // use users doc stored in firestore to style the bookmark icon and add correct listener
             currentUser = db.collection("users").doc(`${user.uid}`);
             currentUser.get().then(displayWidgetState);
         } else {
