@@ -21,7 +21,7 @@ Technologies used for this project:
 * Python > BeautifulSoup, GeoPY
 * Bootstrap
 * MapBox
-* Google FireBase / FireStore
+* Google Firebase / Firestore
 * Google Fonts and Icons
 
 ## Content
@@ -76,4 +76,15 @@ It has the following subfolders and files:
 
 Firebase hosting files:
 ├── []
+
+Resources:
+├── Scraped Data Source         # https://www.todocanada.ca/things-vancouver-weekend/
+├── blue.png                    # https://www.freepik.com/free-vector/blue-powder-pastel-with-hand-drawn-flowers-background_8904342.htm?epik=dj0yJnU9RnBKdWZ0c09IZTJpdkFMcXVtRV9SaFZRR216MVRFTFQmcD0wJm49YURPcGF0VDZDZC10QnhIYkVzN3lMUSZ0PUFBQUFBR09CMmNj 
+├── green.png                   # https://www.vecteezy.com/vector-art/1268109-watercolor-green-pastel-hand-drawn-flower-decoration
+├── orange.png                  # https://www.freepik.com/premium-vector/watercolor-background-hand-drawn-with-flower-doodle-line_18355467.htm 
+├── purple.png                  # https://www.freepik.com/premium-vector/purple-powder-pastel-with-hand-drawn-flowers-background_8904507.htm 
+├── Mapbox API                  # https://www.mapbox.com/ 
+├── Bootstrap Library           # https://getbootstrap.com/ 
+├── Google Fonts and Icons      # https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp
+├── Firebase                    # https://firebase.google.com/
 ```
