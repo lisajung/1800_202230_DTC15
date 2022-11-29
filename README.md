@@ -75,7 +75,11 @@ It has the following subfolders and files:
     /navbar.html                #
 
 Firebase hosting files:
-├── []
+├── .firebase
+├── .firebaserc
+├── firebase.json
+├── firestore.indexes.json
+├── firestore.rules
 
 Resources:
 ├── Scraped Data Source         # https://www.todocanada.ca/things-vancouver-weekend/
