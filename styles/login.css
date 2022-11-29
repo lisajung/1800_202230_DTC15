@@ -1,1 +1,19 @@
 @import url("../styles/global.css");
+
+.mdl-button--raised.mdl-button--colored {
+    background-color: #C89933;
+    text-decoration-color: white;
+    color: white;
+}
+
+.mdl-button--raised.mdl-button--colored:hover {
+    color: white;
+    text-decoration-line: underline;
+    background-color: #e7c16f;
+}
+
+.mdl-button--raised.mdl-button--colored:link,
+.mdl-button--raised.mdl-button--colored:focus,
+.mdl-button--raised.mdl-button--colored:active {
+    text-decoration: none;
+}
