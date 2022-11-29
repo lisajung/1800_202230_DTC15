@@ -22,7 +22,7 @@ var uiConfig = {
                     profilePictureUrl: "",
                     description: "",
                     savedEvents: [],
-                    background: ""
+                    background: "/Resources/purple.png"
                 }).then(function () {
                     console.log("New user added to firestore");
                     window.location.assign("/index.html");       //re-direct to main.html after signup
