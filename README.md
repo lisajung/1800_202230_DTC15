@@ -1,4 +1,4 @@
-## My Web Application (Add your Title here)
+## Ditch The Cubicle
 
 * [General info](#general-info)
 * [Technologies](#technologies)
@@ -8,18 +8,21 @@
 
 This browser based web application to ...
 
-* hi im arman and I am excited to do this project because it might make something cool idk
-* Hello! My name is Lisa. I'm excited for COMP 1800 because I get to create a project.
-* Hello! I'm Collin. I'm excited for COMP 1800 because it will be very fun and productive.
+* Help users find events and attractions in Vancouver.
+* Finding excuses to get away from the desk and go outside can be challenging. Our web application (Ditch The Cubicle) is here to help.
+* The goal is for our users to feel motivated to explore and participate in events, meet new people, and bond with others in their community with similar interests.
 
 ## Technologies
 
 Technologies used for this project:
 
 * HTML, CSS
-* JavaScript
+* JavaScript > MapBox API
+* Python > BeautifulSoup, GeoPY
 * Bootstrap
-* ...
+* MapBox
+* Google FireBase / FireStore
+* Google Fonts and Icons
 
 ## Content
 
@@ -27,26 +30,50 @@ Content of the project folder:
 
 ```
  Top level of project folder:
-├── .gitignore               # Git ignore file
-├── index.html               # landing HTML file, this is what users see when you come to url
+├── .gitignore               # Git ignore file.
+├── index.html               # Landing HTML file, home page for our website.
+├── event_data.csv           # The event data we collected to fuel our website.
 └── README.md
 
 It has the following subfolders and files:
-├── .git                     # Folder for git repo
-├── images                   # Folder for images
-    /blah.jpg                #
-├── scripts                  # Folder for scripts
-    /blah.js                 #
-├── styles                   # Folder for styles
-    /blah.css                #
+├── .git                        # Folder for git repo
+├── html                        # Folder for html files
+    /aboutus.html               #
+    /event.html                 #
+    /help.html                  #
+    /login.html                 #
+    /map.html                   #
+    /profile.html               #
+├── python                      # Folder for python files
+    /scrape.py                  # 
+├── Resources                   # Folder for images
+    /blue.png                   #
+    /dtclogo.png                #
+    /green.png                  #
+    /map.jpg                    #
+    /orange.png                 #
+    /purple.png                 #
+├── scripts                     # Folder for scripts
+    /authentication.js          #
+    /event-script.js            #
+    /firebaseAPI_TEAMDTC15.js   # 
+    /index.js                   #
+    /map.js                     #
+    /profile.js                 #
+    /skeleton.js                #
+├── styles                      # Folder for styles
+    /aboutus.css                #
+    /event.css                  #
+    /global.css                 #
+    /help.css                   #
+    /index.css                  #
+    /login.css                  #
+    /map.css                    #
+    /profile.css                #
+├── text                        # Folder for skeletons
+    /footer.html                #
+    /navbar.html                #
 
 Firebase hosting files:
-├── .firebaserc...
-
-
+├── []
 ```
-
-Tips for file naming files and folders:
-
-* use lowercase with no spaces
-* use dashes (not underscore) for word separation
