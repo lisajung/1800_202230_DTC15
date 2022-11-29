@@ -1,3 +1,4 @@
+# Imports
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -5,7 +6,7 @@ from csv import writer
 from geopy.geocoders import Nominatim
 
 
-# Geolocator
+# Initialize geolocator
 geolocator = Nominatim(user_agent="my_request")
 
 # Website information
@@ -125,8 +126,7 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             else:
                 preview = text
 
+            # Write to CSV
             if date != 'Not Specified':
                 info = [title, link, location, cost, StartDate, EndDate, numericaldate, image, poster, text, preview, longitude, latitude]
-                # print(info)
-                # print(info)
                 writer.writerow(info)
