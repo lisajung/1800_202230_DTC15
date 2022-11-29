@@ -56,7 +56,10 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             paragraphs.replace(',', '')
             paragraph_list = paragraphs.split('<p>')
             description = paragraph_list[1]
-            poster = str(soup.find_all('img', attrs={'src': re.compile("https://")})[2])
+            try:
+                poster = str(soup.find_all('img', attrs={'src': re.compile("https://")})[2])
+            except IndexError:
+                poster = "Not Specified"
             StartDate = soup.find('span', class_="frontend_st_date frontend_datepicker").text
             EndDate = soup.find('span', class_="frontend_end_date frontend_datepicker").text
 
@@ -108,8 +111,11 @@ with open('event_data.csv', 'w', encoding='utf8', newline='') as file:
             # Event Image
             image = str(image).replace(',',"")
             # Poster Image
-            poster = poster.replace('<img src="', '')
-            poster = poster.replace('"/>', '')
+            if poster == "Not Specified":
+                poster = image
+            else:
+                poster = poster.replace('<img src="', '')
+                poster = poster.replace('"/>', '')
             # Description
             text = description.split('</p>')[0]
             text = text.replace('<span class=""TextRun SCXW197544240 BCX0"" data-contrast=""none"" lang=""EN-US"" xml:lang=""EN-US"">', '')
