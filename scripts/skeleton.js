@@ -1,4 +1,9 @@
-/* Set background using the given background URL */
+//------------------------------------------------------
+// Selects the background image on webpage
+//
+// PARAM doc > User document from firebase
+// RETURN > NONE
+//------------------------------------------------------
 function setBackground(doc) {
     currentBackground = doc.data().background;
     bodyNode = document.querySelector('body');
@@ -9,7 +14,12 @@ function setBackground(doc) {
     bodyNode.setAttribute('style', `background-image: url(${currentBackground}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;`);
 }
 
-/* Change background to current user setting */
+//------------------------------------------------------
+// Fills the background of the page with the selected image
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function fillBackground() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if a user is signed in:
@@ -22,14 +32,24 @@ function fillBackground() {
     });
 }
 
-/* Callback function to setup navbar once skeleton is loaded */
+//------------------------------------------------------
+// Sets up the nav bar
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function setUpNavbar() {
     insertNavProfilePic();
     displayLogoutButton();
     addLogoutHandler();
 }
 
-/* load navbar and footer into all pages of web app */
+//------------------------------------------------------
+// Loads the nav bar and footer into webpages
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function loadSkeleton() {
     $('#navbarPlaceholder').load('../text/navbar.html', setUpNavbar);
     $('#footerPlaceholder').load('../text/footer.html');
@@ -37,10 +57,14 @@ function loadSkeleton() {
 }
 loadSkeleton();
 
-/* Logout user when they click logout button */
+//------------------------------------------------------
+// Logs the user out of the website
+//
+// PARAM e > An unused object caught by the function
+// RETURN > NONE
+//------------------------------------------------------
 function handleLogout(e) {
-    /* Sign user out */
-    firebase.auth().signOut().then(() => {
+    firebase.auth().signOut().then(() => { // Signs user out of website
         // Sign-out successful.
         location.reload();
     }).catch((error) => {
@@ -49,13 +73,23 @@ function handleLogout(e) {
     });
 }
 
-/* Add handler function to logout button */
+//------------------------------------------------------
+// Adds listener to log out button
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function addLogoutHandler() {
     let logOutBtn = document.querySelector('.logoutbtn');
     logOutBtn.addEventListener('click', handleLogout);
 }
 
-/* Display logout button if user is signed in */
+//------------------------------------------------------
+// Loads the logout button onto the nav bar
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function displayLogoutButton() {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -65,7 +99,12 @@ function displayLogoutButton() {
     })
 }
 
-/* Insert the user's profile pic into navbar */
+//------------------------------------------------------
+// Inserts the profile picture into the nav bar
+//
+// PARAM > NONE
+// RETURN > NONE
+//------------------------------------------------------
 function insertNavProfilePic() {
     firebase.auth().onAuthStateChanged(user => {
         let profileImage = document.getElementById("navpic");
@@ -76,7 +115,7 @@ function insertNavProfilePic() {
             docRef.get().then((doc) => {
                 profileImage.style.visibility = 'visible';
                 // fill out profile pic here
-                let imageLink = doc.data().profilePictureUrl;
+                let imageLink = doc.data().profilePictureUrl; // READ image url from firebase
                 if (imageLink !== "") {
                     profileImage.src = imageLink;
                 } else {

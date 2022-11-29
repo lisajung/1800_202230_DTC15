@@ -10,8 +10,7 @@ function handleRemoveSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    // use the saved users document in the global variable to update the savedEvents array field using firestore with the removed bookmark
-    currentUser.update({
+    currentUser.update({ // UPDATING the user document by removing the saved event id from the savedEvents array
         savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     });
 
@@ -31,8 +30,7 @@ function handleSaveEvent(e) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    // use the saved users document in the global variable to update the savedEvents array field using firestore with new bookmark
-    currentUser.update({
+    currentUser.update({ // UPDATING the user document by adding the saved event id to the savedEvents array
         savedEvents: firebase.firestore.FieldValue.arrayUnion(`${eventId}`)
     });
 
@@ -57,8 +55,7 @@ function handleAddComment(e) {
     let commentTextBox = document.querySelector('.comment-text');
     let userDocId = currentUser.id;
     docRef = db.collection("reviews").doc();
-    // add a document to the reviews collection in firestore with user info, text entered, tc.
-    docRef.set({
+    docRef.set({ // WRITING a new review document to the reviews collection
         text: commentTextBox.value,
         rating: (ratingsSelect.value != "" ? parseInt(ratingsSelect.value) : 0),
         userId: userDocId,
@@ -103,8 +100,7 @@ function displayWidgetState(doc) {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    // get saved events array from the current user doc
-    let savedEventIds = doc.data().savedEvents;
+    let savedEventIds = doc.data().savedEvents; // READING the savedEvents array from the user document
     if (savedEventIds.includes(eventId)) {
         let bookmarkIcon = document.querySelector('.bookmark-container .bi-bookmark');
         bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
@@ -165,9 +161,9 @@ function displayEventRating(docQuery) {
     let ratingNum = 0;
     let reviewerCount = 0;
     // get all ratings fields from the docs in the query and add them
-    docQuery.forEach((doc) => {
-        ratingNum += doc.data().rating;
-        if (doc.data().rating != 0) {
+    docQuery.forEach((doc) => { // READING the rating field from each review document
+        ratingNum += doc.data().rating; // READING the rating field from the review document
+        if (doc.data().rating != 0) { // READING the rating field from the review document
             reviewerCount += 1;
         }
     });
@@ -195,13 +191,13 @@ function fillEventPage(doc) {
     let eventLink = document.querySelector('.event-link');
 
     // get the relevant information from the event doc and add to DOM elements
-    imgEvent.src = doc.data().posterurl;
-    eventDescription.innerHTML = doc.data().description;
-    eventName.textContent = doc.data().event;
-    eventLocation.textContent = `${doc.data().location}`;
-    eventDate.textContent = `${doc.data().startdate} - ${doc.data().enddate}`;
-    eventCost.textContent = `${doc.data().cost}`;
-    eventLink.href = doc.data().link;
+    imgEvent.src = doc.data().posterurl; // READING the posterurl field from the event document
+    eventDescription.innerHTML = doc.data().description; // READING the description field from the event document
+    eventName.textContent = doc.data().event; // READING the event field from the event document
+    eventLocation.textContent = `${doc.data().location}`; // READING the location field from the event document
+    eventDate.textContent = `${doc.data().startdate} - ${doc.data().enddate}`; // READING the startdate and enddate fields from the event document
+    eventCost.textContent = `${doc.data().cost}`; // READING the cost field from the event document
+    eventLink.href = doc.data().link; // READING the link field from the event document
 }
 
 //------------------------------------------------------
@@ -213,18 +209,17 @@ function fillEventPage(doc) {
 function fillCommentSection(docQuery) {
     let commentTemplate = document.querySelector(".comment-template");
     let commentContainer = document.querySelector(".comment-container");
-    docQuery.forEach((doc) => {
-        let userId = doc.data().userId;
-        // use a firestore query to get the user information for the person who submitted this comment
-        docRef = db.collection("users").doc(`${userId}`);
+    docQuery.forEach((doc) => { // READING the review documents from the review collection
+        let userId = doc.data().userId; // READING the userId field from the review document
+        docRef = db.collection("users").doc(`${userId}`); // READING the users collection
         docRef.get().then((userDoc) => {
             let commentNode = commentTemplate.content.cloneNode(true);
 
-            displayRating(doc.data().rating, commentNode);
-            commentNode.querySelector('.username').textContent = userDoc.data().name;
-            commentNode.querySelector('.text').textContent = doc.data().text;
-            commentNode.querySelector('.rating-timestamp').textContent = doc.data().reviewCreated.toDate().toDateString();
-            let pfpUrl = userDoc.data().profilePictureUrl
+            displayRating(doc.data().rating, commentNode); // READING the rating field from the review document
+            commentNode.querySelector('.username').textContent = userDoc.data().name; // READING the name field from the user document
+            commentNode.querySelector('.text').textContent = doc.data().text; // READING the text field from the review document
+            commentNode.querySelector('.rating-timestamp').textContent = doc.data().reviewCreated.toDate().toDateString(); // READING the reviewCreated field from the review document
+            let pfpUrl = userDoc.data().profilePictureUrl // READING the profilePictureUrl field from the user document
             if (pfpUrl == "") {
                 pfpUrl = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png";
             }
@@ -259,10 +254,10 @@ async function showEventsOnMap() {
 
     // use the event doc for this event to get coordinates
     let eventDoc = await db.collection("events").doc(`${eventId}`).get();
-    let location = eventDoc.data().coordinates;
+    let location = eventDoc.data().coordinates; // READING coordinates from firestore
     let zoomLevel = 12;
 
-    if (isNaN(location[0])) {
+    if (isNaN(location[0])) { // If the coordinates are not valid, display a notification
         location = [-123.11535188078236, 49.28274402264293];
         zoomLevel = 11;
         displayNotification();
@@ -283,11 +278,11 @@ async function showEventsOnMap() {
 
     map.on('load', () => {
         const features = [];
-        coordinates = eventDoc.data().coordinates;
-        event_name = eventDoc.data().event;
-        preview = eventDoc.data().preview;
-        img = eventDoc.data().posterurl;
-        url = eventDoc.data().link;
+        coordinates = eventDoc.data().coordinates; // READING coordinates from firestore
+        event_name = eventDoc.data().event; // READING event name from firestore
+        preview = eventDoc.data().preview; // READING preview from firestore
+        img = eventDoc.data().posterurl; // READING posterurl from firestore
+        url = eventDoc.data().link; // READING link from firestore
 
         map.loadImage(
             'https://cdn.iconscout.com/icon/free/png-256/pin-locate-marker-location-navigation-16-28668.png',
@@ -376,15 +371,12 @@ function eventInit() {
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    // access events collection from firestore and use it to fill event page with stored event information
-    docRef = db.collection("events").doc(`${eventId}`);
+    docRef = db.collection("events").doc(`${eventId}`); // READ the event doc for this event
     docRef.get().then(fillEventPage);
-    // access reviews collection from firestore and get all reviews that match this event
-    let collectionRef = db.collection("reviews");
-    collectionRef.where("eventId", "==", `${eventId}`).orderBy("reviewCreated", "desc").get().then(fillCommentSection);
-    // access reviews collection from firestore and use it to calculate the rating for this specific event
-    let collectionRefNew = db.collection("reviews");
-    collectionRefNew.where("eventId", "==", `${eventId}`).get().then(displayEventRating);
+    let collectionRef = db.collection("reviews"); // READ the reviews collection
+    collectionRef.where("eventId", "==", `${eventId}`).orderBy("reviewCreated", "desc").get().then(fillCommentSection); // READ the reviews for this event
+    let collectionRefNew = db.collection("reviews"); // READ the reviews collection
+    collectionRefNew.where("eventId", "==", `${eventId}`).get().then(displayEventRating); // READ the reviews for this event
 
     showEventsOnMap();
 
@@ -392,7 +384,7 @@ function eventInit() {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             // use users doc stored in firestore to style the bookmark icon and add correct listener
-            currentUser = db.collection("users").doc(`${user.uid}`);
+            currentUser = db.collection("users").doc(`${user.uid}`); // READ the user doc for this user
             currentUser.get().then(displayWidgetState);
         } else {
             document.querySelector("#comment-input").style.display = 'none';

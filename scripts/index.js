@@ -124,7 +124,7 @@ function addWidgetListeners(buttonNode) {
 
 
 //------------------------------------------------------
-// style save button according to current user document and add listeners.
+// Style save button according to current user document and add listeners.
 //
 // PARAM doc > The user document from Firestore
 // PARAM eventCard > the event card DOM element that contains the save button to style
@@ -200,7 +200,7 @@ async function getCSVdata() {
 async function checkIfLastEvent() {
   // get events from firestore after index 'lastVisible' to see if there are events left
   let allEvents = await db.collection("events").orderBy("numericaldate", "asc").startAfter(lastVisible).get();
-  if (allEvents.docs[allEvents.docs.length-1] == null) {
+  if (allEvents.docs[allEvents.docs.length - 1] == null) {
     buttonNode = document.querySelector('.loadButton');
     buttonNode.style.display = 'none';
   }
@@ -221,7 +221,7 @@ async function populateCardsDynamicallyNextBatch() {
   await db.collection("events").orderBy("numericaldate", "asc").startAfter(lastVisible).limit(18).get() // READING and SORTING events ORDERED BY DATE and limited by 18
     .then(allEvents => {
       //update global pagination cursor by getting the document of the last fetched event
-      lastVisible = allEvents.docs[allEvents.docs.length-1];
+      lastVisible = allEvents.docs[allEvents.docs.length - 1];
 
       allEvents.forEach(async (doc) => {
         var eventName = doc.data().event; // Name
@@ -288,7 +288,7 @@ async function populateCardsDynamicallyInit(userDoc) {
   await db.collection("events").orderBy("numericaldate", "asc").limit(18).get() // READING and SORTING events ORDERED BY DATE and limited by 18
     .then(allEvents => {
       //set up global pagination cursor by getting the document of the last fetched event
-      lastVisible = allEvents.docs[allEvents.docs.length-1];
+      lastVisible = allEvents.docs[allEvents.docs.length - 1];
 
       allEvents.forEach(doc => {
         var eventName = doc.data().event; // Name
@@ -322,7 +322,7 @@ async function populateCardsDynamicallyInit(userDoc) {
     });
 
   await checkIfLastEvent();
-  attachLoadMoreButton(); 
+  attachLoadMoreButton();
 }
 
 

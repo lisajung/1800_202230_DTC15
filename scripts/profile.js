@@ -1,7 +1,7 @@
 let currentUser;
 
 //------------------------------------------------------
-// SEND USER TO HOME PAGE IF NOT SIGNED IN
+// Sends users to home page if not signed in
 //
 // PARAM > NONE
 // RETURN > NONE
@@ -78,7 +78,7 @@ async function fillSavedEvents(doc) {
   let carouselButtonTemplate = document.querySelector("#carousel-button-template");
   let carouselButtonContainer = document.querySelector(".carousel-indicators");
   // get the saved events from the current user doc passed in to fill carousel
-  let savedEvents = doc.data().savedEvents;
+  let savedEvents = doc.data().savedEvents; // READING saved event array from user document
   // remove carousel if there are no events
   if (savedEvents.length <= 0) {
     document.querySelector("#carouselExampleCaptions").style.display = "none";
@@ -88,7 +88,7 @@ async function fillSavedEvents(doc) {
   }
   // fill carousel with events
   for (let i = 0; i < savedEvents.length; i++) {
-    docRef = db.collection("events").doc(`${savedEvents[i]}`);
+    docRef = db.collection("events").doc(`${savedEvents[i]}`); // READING saved event array from user document
     await docRef.get().then((eventDoc) => {
       let carouselItemNode = carouselItemTemplate.content.cloneNode(true);
 
@@ -120,8 +120,8 @@ function removeBookmarkSetup() {
     let url = new URL(link);
     let queryString = url.searchParams;
     let eventId = queryString.get("id");
-    // use current user doc saved in global variable to remove an item from the savedEvents array field
-    currentUser.update({
+    // Use current user doc saved in global variable to remove an item from the savedEvents array field
+    currentUser.update({ // UPDATING saved event array in user document
       savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     }).then(() => location.reload());
   });
@@ -150,7 +150,7 @@ function addSettingListeners() {
 // RETURN > NONE
 //------------------------------------------------------
 function fillSettings(doc) {
-  let currentBackground = doc.data().background;
+  let currentBackground = doc.data().background; // READING background from user document
 
   // set radio forms with settings state that is taken from user doc above
   let radioForm = document.querySelector('.radio-form');
@@ -175,25 +175,25 @@ function fillProfile(doc) {
   let profileName = document.querySelector('.profile .profile-name');
   let profileDescription = document.querySelector('.profile .profile-text');
   // use user document to get all relevant information for the profile page
-  profileUsername.textContent = doc.data().name;
-  profileName.textContent = doc.data().email;
-  profileDescription.textContent = doc.data().description;
+  profileUsername.textContent = doc.data().name; // READING name from user document
+  profileName.textContent = doc.data().email; // READING email from user document
+  profileDescription.textContent = doc.data().description; // READING description from user document
 
   //fill out "edit profile" section here
   let imageURL = document.querySelector('#image-url');
   let userName = document.querySelector('#display-name');
   let text = document.querySelector('#edit-area');
-  imageURL.value = doc.data().profilePictureUrl;
-  userName.value = doc.data().name;
-  text.value = doc.data().description;
+  imageURL.value = doc.data().profilePictureUrl; // READING profilePictureUrl from user document
+  userName.value = doc.data().name; // READING name from user document
+  text.value = doc.data().description; // READING description from user document
 
   // fill out profile pic here
   let profileImage = document.querySelector('.profile-pic');
-  let imageLink = doc.data().profilePictureUrl;
+  let imageLink = doc.data().profilePictureUrl; // READING profilePictureUrl from user document
   if (imageLink !== "") {
     profileImage.src = imageLink;
   } else {
-    profileImage.src = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
+    profileImage.src = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png" // Default profile pic
   }
 }
 
@@ -234,7 +234,7 @@ function showEventsOnMap(docRef) {
   map.on('load', async () => {
     const features = [];
     // get saved events for user using the user document queried
-    let allEvents = docRef.data().savedEvents;
+    let allEvents = docRef.data().savedEvents; // READING savedEvents from user document
     if (allEvents.length <= 0) {
       displayNotification();
     }
@@ -246,16 +246,16 @@ function showEventsOnMap(docRef) {
 
         // Add the image to the map style.
         map.addImage('cat', image);
-    });
+      });
 
     for (let i = 0; i < allEvents.length; i++) {
       // get the event document that we want the coordinates for using a events collection query on the id
-      let eventDoc = await db.collection("events").doc(`${allEvents[i]}`).get();
-      coordinates = eventDoc.data().coordinates;
-      event_name = eventDoc.data().event;
-      preview = eventDoc.data().preview;
-      img = eventDoc.data().posterurl;
-      url = eventDoc.data().link;
+      let eventDoc = await db.collection("events").doc(`${allEvents[i]}`).get(); // READING event document
+      coordinates = eventDoc.data().coordinates; // READING coordinates from event document
+      event_name = eventDoc.data().event; // READING event from event document
+      preview = eventDoc.data().preview; // READING preview from event document
+      img = eventDoc.data().posterurl; // READING posterurl from event document
+      url = eventDoc.data().link; // READING link from event document
 
       features.push({
         'type': 'Feature',
@@ -336,7 +336,7 @@ function profileInit() {
     // Check if a user is signed in:
     if (user) {
       // find users document for signed in user and pass to callbacks to fill profile
-      currentUser = db.collection("users").doc(`${user.uid}`);
+      currentUser = db.collection("users").doc(`${user.uid}`); // READING user document
       currentUser.get().then(fillProfile);
       currentUser.get().then(fillSavedEvents);
       currentUser.get().then(fillSettings);
