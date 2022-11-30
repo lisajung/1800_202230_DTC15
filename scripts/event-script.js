@@ -6,18 +6,21 @@ let currentUser;
 // PARAM e > the event object returned after a click event
 // RETURN > NONE
 //------------------------------------------------------
-function handleRemoveSaveEvent(e) {
+async function handleRemoveSaveEvent(e) {
+    let buttonNode = e.currentTarget;
+    e.currentTarget.disabled = true;
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    currentUser.update({ // UPDATING the user document by removing the saved event id from the savedEvents array
+    await currentUser.update({ // UPDATING the user document by removing the saved event id from the savedEvents array
         savedEvents: firebase.firestore.FieldValue.arrayRemove(`${eventId}`)
     });
 
-    let bookmarkIcon = e.currentTarget.children[0];
+    let bookmarkIcon = buttonNode.children[0];
     bookmarkIcon.setAttribute('class', 'bi bi-bookmark');
-    e.currentTarget.removeEventListener('click', handleRemoveSaveEvent);
-    e.currentTarget.addEventListener('click', handleSaveEvent);
+    buttonNode.removeEventListener('click', handleRemoveSaveEvent);
+    buttonNode.addEventListener('click', handleSaveEvent);
+    buttonNode.disabled = false;
 }
 
 //------------------------------------------------------
@@ -26,18 +29,21 @@ function handleRemoveSaveEvent(e) {
 // PARAM e > the event object returned after a click event
 // RETURN > NONE
 //------------------------------------------------------
-function handleSaveEvent(e) {
+async function handleSaveEvent(e) {
+    let buttonNode = e.currentTarget;
+    e.currentTarget.disabled = true;
     let queryStr = window.location.search;
     let queryParams = new URLSearchParams(queryStr);
     let eventId = queryParams.get("id");
-    currentUser.update({ // UPDATING the user document by adding the saved event id to the savedEvents array
+    await currentUser.update({ // UPDATING the user document by adding the saved event id to the savedEvents array
         savedEvents: firebase.firestore.FieldValue.arrayUnion(`${eventId}`)
     });
 
-    let bookmarkIcon = e.currentTarget.children[0];
+    let bookmarkIcon = buttonNode.children[0];
     bookmarkIcon.setAttribute('class', 'bi bi-bookmark-check');
-    e.currentTarget.removeEventListener('click', handleSaveEvent);
-    e.currentTarget.addEventListener('click', handleRemoveSaveEvent);
+    buttonNode.removeEventListener('click', handleSaveEvent);
+    buttonNode.addEventListener('click', handleRemoveSaveEvent);
+    buttonNode.disabled = false;
 }
 
 //------------------------------------------------------
