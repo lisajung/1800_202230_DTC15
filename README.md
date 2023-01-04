@@ -6,11 +6,19 @@
 
 ## General Info
 
-This browser based web application to ...
+This browser based web application...
 
-* Help users find events and attractions in Vancouver.
-* Finding excuses to get away from the desk and go outside can be challenging. Our web application (Ditch The Cubicle) is here to help.
-* The goal is for our users to feel motivated to explore and participate in events, meet new people, and bond with others in their community with similar interests.
+* Is centred around helping users find events and attractions that spark their interest to take a break from work and get away from the desk. 
+* Was created using the agile methodology in an agile development process.
+* With first time developers as part of BCIT's Computer Systems Technology Diploma Program
+
+A look at the team:
+
+* Arman Chinai: Project Manager
+* Collin Chan: Lead Developer
+* Lisa Jung: Lead Designer
+
+You can find the deployed version here: https://ditch-the-cubicle-aa07d.web.app/index.html
 
 ## Technologies
 
